@@ -5,8 +5,8 @@
     /// </summary>
     public class Equipment
     {
-        public int ID { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
+        public int ID { get; init; }
+        public string Title { get; init; }
+        public string Description { get; init; }
     }
 }
