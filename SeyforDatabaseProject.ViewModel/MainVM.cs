@@ -1,4 +1,5 @@
-﻿using SeyforDatabaseProject.ViewModel.Core;
+﻿using SeyforDatabaseProject.Model;
+using SeyforDatabaseProject.ViewModel.Core;
 
 namespace SeyforDatabaseProject.ViewModel
 {
@@ -6,9 +7,9 @@ namespace SeyforDatabaseProject.ViewModel
     {
         public ViewModelBase CurrentVM { get; }
 
-        public MainVM()
+        public MainVM(Hotel hotel)
         {
-            CurrentVM = new EquipmentVM();
+            CurrentVM = EquipmentVM.Create(hotel);
         }
     }
 }

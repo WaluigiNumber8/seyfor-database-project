@@ -1,21 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SeyforDatabaseProject.Model.Data;
 
 namespace SeyforDatabaseProject.Model
 {
     public class DatabaseContext : DbContext
     {
-        public DbSet<Equipment> Equipment { get; set; }
-        public string DbPath { get; }
-        public DatabaseContext()
+        public DbSet<EquipmentDTO> Equipment { get; set; }
+        
+        public DatabaseContext(DbContextOptions options) : base(options)
         {
-            DbPath = "SeyforDatabaseDB.db";
             Database.EnsureCreated();
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlite($"Data Source={DbPath}");
         }
     }
 }

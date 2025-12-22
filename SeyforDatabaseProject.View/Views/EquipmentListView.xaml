@@ -8,19 +8,31 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <StackPanel VerticalAlignment="Center">
-            
+
             <!-- Equipment List -->
             <ListView ItemsSource="{Binding Equipment}">
-                      Height="150"
-                      Width="100">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <ListView.View>
-                    <GridView AllowsColumnReorder="True" ColumnHeaderToolTip="Equipment Details">
-                        <GridViewColumn Header="Title" 
-                                        DisplayMemberBinding="{Binding Title}" 
-                                        Width="150"/>
-                        <GridViewColumn Header="Description" 
-                                        DisplayMemberBinding="{Binding Description}" 
-                                        Width="80"/>
+                    <GridView>
+                        <GridViewColumn Header="Title">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding Title}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Description">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Padding="0,0,20,0" Text="{Binding Description}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -29,7 +41,7 @@
                     Width="100"
                     Height="30"
                     Margin="0,16,0,0"
-                    HorizontalAlignment="Center"/>
+                    HorizontalAlignment="Center" />
         </StackPanel>
     </Grid>
 </UserControl>

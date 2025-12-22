@@ -1,0 +1,19 @@
+using SeyforDatabaseProject.Model.Data;
+
+namespace SeyforDatabaseProject.Model.Services
+{
+    /// <summary>
+    /// Creates new data entries in the database.
+    /// </summary>
+    public class DatabaseDataCreator : DatabaseServiceBase, IServiceDataCreator
+    {
+        public DatabaseDataCreator(DatabaseContextFactory contextFactory) : base(contextFactory) { }
+
+        public async Task CreateEquipmentAsync(Equipment newEquipment)
+        {
+            await using DatabaseContext db = _contextFactory.CreateDbContext();
+            db.Equipment.Add(newEquipment.Convert());
+            await db.SaveChangesAsync();
+        }
+    }
+}
