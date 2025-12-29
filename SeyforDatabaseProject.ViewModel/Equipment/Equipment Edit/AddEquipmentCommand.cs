@@ -12,13 +12,13 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
     public class AddEquipmentCommand : AsyncCommandBase
     {
         private readonly EquipmentEditVM _vm;
-        private readonly Hotel _hotel;
-        private readonly NavigationService<EquipmentTableVM> _equipmentListingNavigationService;
+        private readonly HotelStore _hotelStore;
+        private readonly NavigationService<EquipmentListingVM> _equipmentListingNavigationService;
 
-        public AddEquipmentCommand(EquipmentEditVM vm, Hotel hotel, NavigationService<EquipmentTableVM> equipmentListingNavigationService)
+        public AddEquipmentCommand(EquipmentEditVM vm, HotelStore hotel, NavigationService<EquipmentListingVM> equipmentListingNavigationService)
         {
             _vm = vm;
-            _hotel = hotel;
+            _hotelStore = hotel;
             _equipmentListingNavigationService = equipmentListingNavigationService;
         }
 
@@ -31,7 +31,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
                     Title = _vm.Title,
                     Description = _vm.Description
                 };
-                await _hotel.Equipment.AddNew(newEquipment);
+                await _hotelStore.AddNewEquipment(newEquipment);
                 
                 _equipmentListingNavigationService.Navigate();
             }

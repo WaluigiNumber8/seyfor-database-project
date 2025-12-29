@@ -7,7 +7,7 @@ using SeyforDatabaseProject.ViewModel.Navigation;
 
 namespace SeyforDatabaseProject.ViewModel.Equipment
 {
-    public class EquipmentTableVM : ViewModelBase
+    public class EquipmentListingVM : ViewModelBase
     {
         private ObservableCollection<EquipmentItemVM> _equipment;
         public ObservableCollection<EquipmentItemVM> Equipment
@@ -19,11 +19,11 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         public ICommand AddEntryCommand { get; }
         public ICommand RefreshEntriesCommand { get; }
 
-        public EquipmentTableVM(Hotel hotel, NavigationService<EquipmentEditVM> equipmentEditNavigationService)
+        public EquipmentListingVM(HotelStore hotelStore, NavigationService<EquipmentEditVM> equipmentEditNavigationService)
         {
             _equipment = new ObservableCollection<EquipmentItemVM>();
             AddEntryCommand = new NavigateCommand(equipmentEditNavigationService);
-            RefreshEntriesCommand = new RefreshEquipmentEntriesCommand(hotel, this);
+            RefreshEntriesCommand = new RefreshEquipmentEntriesCommand(hotelStore, this);
             
             RefreshEntriesCommand.Execute(null);
         }

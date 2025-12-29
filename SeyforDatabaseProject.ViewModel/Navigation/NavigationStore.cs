@@ -9,13 +9,14 @@ namespace SeyforDatabaseProject.ViewModel.Navigation
     {
         public event Action OnViewModelChanged;
 
-        private ViewModelBase _currentVM;
+        private ViewModelBase? _currentVM;
 
-        public ViewModelBase CurrentVM
+        public ViewModelBase? CurrentVM
         {
             get => _currentVM;
             set
             {
+                _currentVM?.Dispose();
                 _currentVM = value;
                 OnViewModelChanged?.Invoke();
             }

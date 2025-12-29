@@ -10,7 +10,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid.Resources>
-            <DataTemplate DataType="{x:Type equipment:EquipmentTableVM}">
+            <DataTemplate DataType="{x:Type equipment:EquipmentListingVM}">
                 <views:EquipmentListView/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type equipment:EquipmentEditVM}">

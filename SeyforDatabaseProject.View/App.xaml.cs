@@ -16,14 +16,15 @@ namespace SeyforDatabaseProject
         private const string ConnectionString = "Data Source=SeyforDatabaseDB.db";
 
         private readonly NavigationStore _navigationStore;
-        private readonly Hotel _hotel;
+        private readonly HotelStore _hotelStore;
 
         public App()
         {
             _navigationStore = new NavigationStore();
             DatabaseContextFactory contextFactory = new(ConnectionString);
             EquipmentDepartment equipmentDepartment = new(new DatabaseDataProvider(contextFactory), new DatabaseDataCreator(contextFactory), new DatabaseValidator(contextFactory));
-            _hotel = new(equipmentDepartment);
+            Hotel hotel = new(equipmentDepartment);
+            _hotelStore = new(hotel);
         }
         
         protected override void OnStartup(StartupEventArgs e)
@@ -38,14 +39,14 @@ namespace SeyforDatabaseProject
             base.OnStartup(e);
         }
         
-        private EquipmentTableVM CreateEquipmentTableVM()
+        private EquipmentListingVM CreateEquipmentTableVM()
         {
-            return new EquipmentTableVM(_hotel, new NavigationService<EquipmentEditVM>(_navigationStore, CreateEquipmentEditVM));
+            return new EquipmentListingVM(_hotelStore, new NavigationService<EquipmentEditVM>(_navigationStore, CreateEquipmentEditVM));
         }
         
         private EquipmentEditVM CreateEquipmentEditVM()
         {
-            return new EquipmentEditVM(_hotel, new NavigationService<EquipmentTableVM>(_navigationStore, CreateEquipmentTableVM));
+            return new EquipmentEditVM(_hotelStore, new NavigationService<EquipmentListingVM>(_navigationStore, CreateEquipmentTableVM));
         }
     }
 }

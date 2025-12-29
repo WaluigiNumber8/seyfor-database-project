@@ -36,9 +36,9 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public EquipmentEditVM(Hotel hotel, NavigationService<EquipmentTableVM> equipmentListingNavigationService)
+        public EquipmentEditVM(HotelStore hotelStore, NavigationService<EquipmentListingVM> equipmentListingNavigationService)
         {
-            SaveCommand = new AddEquipmentCommand(this, hotel, equipmentListingNavigationService);
+            SaveCommand = new AddEquipmentCommand(this, hotelStore, equipmentListingNavigationService);
             CancelCommand = new NavigateCommand(equipmentListingNavigationService);
         }
     }

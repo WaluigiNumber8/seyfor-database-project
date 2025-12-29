@@ -9,12 +9,12 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
     /// </summary>
     public class RefreshEquipmentEntriesCommand : AsyncCommandBase
     {
-        private readonly Hotel _hotel;
-        private readonly EquipmentTableVM _equipmentVM;
+        private readonly HotelStore _hotelStore;
+        private readonly EquipmentListingVM _equipmentVM;
 
-        public RefreshEquipmentEntriesCommand(Hotel hotel, EquipmentTableVM equipmentVM)
+        public RefreshEquipmentEntriesCommand(HotelStore hotelStore, EquipmentListingVM equipmentVM)
         {
-            _hotel = hotel;
+            _hotelStore = hotelStore;
             _equipmentVM = equipmentVM;
         }
 
@@ -22,8 +22,8 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         {
             try
             {
-                IEnumerable<EquipmentItem> allEquipment = await _hotel.Equipment.GetAll();
-                _equipmentVM.UpdateEntries(allEquipment);
+                await _hotelStore.LoadEquipment();
+                _equipmentVM.UpdateEntries(_hotelStore.Equipment);
             }
             catch (Exception)
             {
