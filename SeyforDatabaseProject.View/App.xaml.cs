@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SeyforDatabaseProject.Model;
@@ -15,15 +16,14 @@ namespace SeyforDatabaseProject
     /// </summary>
     public partial class App : Application
     {
-        private const string ConnectionString = "Data Source=SeyforDatabaseDB.db";
         private readonly IHost _host;
 
         public App()
         {
             _host = Host.CreateDefaultBuilder()
-                .ConfigureServices(services =>
+                .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddSingleton(new DatabaseContextFactory(ConnectionString));
+                    services.AddSingleton(new DatabaseContextFactory(hostContext.Configuration.GetConnectionString("Default")!));
                     services.AddSingleton<IServiceDataCreator, DatabaseDataCreator>();
                     services.AddSingleton<IServiceDataProvider, DatabaseDataProvider>();
                     services.AddSingleton<IServiceDataValidator, DatabaseValidator>();
