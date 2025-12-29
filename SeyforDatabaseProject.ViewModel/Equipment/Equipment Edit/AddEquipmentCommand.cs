@@ -1,32 +1,37 @@
-﻿using SeyforDatabaseProject.Model;
+using SeyforDatabaseProject.Model;
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.Model.Services;
 using SeyforDatabaseProject.ViewModel.Core;
 
 namespace SeyforDatabaseProject.ViewModel.Equipment
 {
-    public class AddEntryCommand : AsyncCommandBase
+    /// <summary>
+    /// Command for adding new equipment to database.
+    /// </summary>
+    public class AddEquipmentCommand : AsyncCommandBase
     {
+        private readonly EquipmentEditVM _vm;
         private readonly Hotel _hotel;
-        private readonly EquipmentTableVM _equipmentVM;
 
-        public AddEntryCommand(Hotel hotel, EquipmentTableVM equipmentVm)
+        public AddEquipmentCommand(EquipmentEditVM vm, Hotel hotel)
         {
+            _vm = vm;
             _hotel = hotel;
-            _equipmentVM = equipmentVm;
         }
 
         public override async Task ExecuteAsync(object? parameter)
         {
-            EquipmentItem testEquipment = new()
-            {
-                Title = "Test Equipment",
-                Description = "Test Test Test Test Test Test Test Test Test."
-            };
-
             try
             {
-                await _hotel.Equipment.AddNew(testEquipment);
+                EquipmentItem newEquipment = new()
+                {
+                    Title = _vm.Title,
+                    Description = _vm.Description
+                };
+                await _hotel.Equipment.AddNew(newEquipment);
+                
+                //TODO: Add navigation to listing.
+                
             }
             catch (DataConflictException)
             {
@@ -36,7 +41,6 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
             {
                 Console.WriteLine("An unknown error was thrown. Could not create equipment.");
             }
-            _equipmentVM.RefreshEntriesCommand.Execute(null);
         }
     }
 }

@@ -10,9 +10,9 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
     public class RefreshEquipmentEntriesCommand : AsyncCommandBase
     {
         private readonly Hotel _hotel;
-        private readonly EquipmentVM _equipmentVM;
+        private readonly EquipmentTableVM _equipmentVM;
 
-        public RefreshEquipmentEntriesCommand(Hotel hotel, EquipmentVM equipmentVM)
+        public RefreshEquipmentEntriesCommand(Hotel hotel, EquipmentTableVM equipmentVM)
         {
             _hotel = hotel;
             _equipmentVM = equipmentVM;

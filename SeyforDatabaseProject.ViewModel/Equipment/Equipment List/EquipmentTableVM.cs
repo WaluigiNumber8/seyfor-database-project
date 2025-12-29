@@ -6,10 +6,8 @@ using SeyforDatabaseProject.ViewModel.Core;
 
 namespace SeyforDatabaseProject.ViewModel.Equipment
 {
-    public class EquipmentVM : ViewModelBase
+    public class EquipmentTableVM : ViewModelBase
     {
-        private Hotel _hotel;
-
         private ObservableCollection<EquipmentItemVM> _equipment;
         public ObservableCollection<EquipmentItemVM> Equipment
         {
@@ -20,17 +18,16 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         public ICommand AddEntryCommand { get; }
         public ICommand RefreshEntriesCommand { get; }
 
-        private EquipmentVM(Hotel hotel)
+        private EquipmentTableVM(Hotel hotel)
         {
-            _hotel = hotel;
             _equipment = new ObservableCollection<EquipmentItemVM>();
             AddEntryCommand = new AddEntryCommand(hotel, this);
             RefreshEntriesCommand = new RefreshEquipmentEntriesCommand(hotel, this);
         }
 
-        public static EquipmentVM Create(Hotel hotel)
+        public static EquipmentTableVM Create(Hotel hotel)
         {
-            EquipmentVM vm = new(hotel);
+            EquipmentTableVM vm = new(hotel);
             vm.RefreshEntriesCommand.Execute(null);
             return vm;
         }

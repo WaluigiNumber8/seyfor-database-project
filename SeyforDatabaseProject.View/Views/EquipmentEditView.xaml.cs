@@ -2,9 +2,9 @@ using System.Windows.Controls;
 
 namespace SeyforDatabaseProject.Views
 {
-    public partial class EquipmentAddView : UserControl
+    public partial class EquipmentEditView : UserControl
     {
-        public EquipmentAddView()
+        public EquipmentEditView()
         {
             InitializeComponent();
         }

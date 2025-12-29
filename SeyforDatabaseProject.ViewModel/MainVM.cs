@@ -10,7 +10,7 @@ namespace SeyforDatabaseProject.ViewModel
 
         public MainVM(Hotel hotel)
         {
-            CurrentVM = EquipmentVM.Create(hotel);
+            CurrentVM = EquipmentTableVM.Create(hotel);
         }
     }
 }
