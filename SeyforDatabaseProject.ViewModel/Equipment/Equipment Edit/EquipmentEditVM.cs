@@ -1,5 +1,7 @@
 using System.Windows.Input;
+using SeyforDatabaseProject.Model;
 using SeyforDatabaseProject.ViewModel.Core;
+using SeyforDatabaseProject.ViewModel.Navigation;
 
 namespace SeyforDatabaseProject.ViewModel.Equipment
 {
@@ -34,9 +36,10 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public EquipmentEditVM()
+        public EquipmentEditVM(Hotel hotel, NavigationService<EquipmentTableVM> equipmentListingNavigationService)
         {
-            
+            SaveCommand = new AddEquipmentCommand(this, hotel, equipmentListingNavigationService);
+            CancelCommand = new NavigateCommand(equipmentListingNavigationService);
         }
     }
 }

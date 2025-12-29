@@ -2,6 +2,7 @@ using SeyforDatabaseProject.Model;
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.Model.Services;
 using SeyforDatabaseProject.ViewModel.Core;
+using SeyforDatabaseProject.ViewModel.Navigation;
 
 namespace SeyforDatabaseProject.ViewModel.Equipment
 {
@@ -12,11 +13,13 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
     {
         private readonly EquipmentEditVM _vm;
         private readonly Hotel _hotel;
+        private readonly NavigationService<EquipmentTableVM> _equipmentListingNavigationService;
 
-        public AddEquipmentCommand(EquipmentEditVM vm, Hotel hotel)
+        public AddEquipmentCommand(EquipmentEditVM vm, Hotel hotel, NavigationService<EquipmentTableVM> equipmentListingNavigationService)
         {
             _vm = vm;
             _hotel = hotel;
+            _equipmentListingNavigationService = equipmentListingNavigationService;
         }
 
         public override async Task ExecuteAsync(object? parameter)
@@ -30,8 +33,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
                 };
                 await _hotel.Equipment.AddNew(newEquipment);
                 
-                //TODO: Add navigation to listing.
-                
+                _equipmentListingNavigationService.Navigate();
             }
             catch (DataConflictException)
             {

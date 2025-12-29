@@ -3,6 +3,7 @@ using System.Windows.Input;
 using SeyforDatabaseProject.Model;
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.ViewModel.Core;
+using SeyforDatabaseProject.ViewModel.Navigation;
 
 namespace SeyforDatabaseProject.ViewModel.Equipment
 {
@@ -18,18 +19,13 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         public ICommand AddEntryCommand { get; }
         public ICommand RefreshEntriesCommand { get; }
 
-        private EquipmentTableVM(Hotel hotel)
+        public EquipmentTableVM(Hotel hotel, NavigationService<EquipmentEditVM> equipmentEditNavigationService)
         {
             _equipment = new ObservableCollection<EquipmentItemVM>();
-            AddEntryCommand = new AddEntryCommand(hotel, this);
+            AddEntryCommand = new NavigateCommand(equipmentEditNavigationService);
             RefreshEntriesCommand = new RefreshEquipmentEntriesCommand(hotel, this);
-        }
-
-        public static EquipmentTableVM Create(Hotel hotel)
-        {
-            EquipmentTableVM vm = new(hotel);
-            vm.RefreshEntriesCommand.Execute(null);
-            return vm;
+            
+            RefreshEntriesCommand.Execute(null);
         }
         
         public void UpdateEntries(IEnumerable<EquipmentItem> allEquipment)

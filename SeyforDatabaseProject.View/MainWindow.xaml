@@ -5,9 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SeyforDatabaseProject"
         xmlns:views="clr-namespace:SeyforDatabaseProject.Views"
+        xmlns:equipment="clr-namespace:SeyforDatabaseProject.ViewModel.Equipment;assembly=SeyforDatabaseProject.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <views:EquipmentListView DataContext="{Binding CurrentVM}"/>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type equipment:EquipmentTableVM}">
+                <views:EquipmentListView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type equipment:EquipmentEditVM}">
+                <views:EquipmentEditView/>
+            </DataTemplate>
+        </Grid.Resources>
+        <ContentControl Content="{Binding CurrentVM}"/>
     </Grid>
 </Window>
