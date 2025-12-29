@@ -2,7 +2,7 @@ using SeyforDatabaseProject.Model;
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.ViewModel.Core;
 
-namespace SeyforDatabaseProject.ViewModel
+namespace SeyforDatabaseProject.ViewModel.Equipment
 {
     /// <summary>
     /// Refreshes the equipment entries in the ViewModel.
@@ -22,7 +22,7 @@ namespace SeyforDatabaseProject.ViewModel
         {
             try
             {
-                IEnumerable<Equipment> allEquipment = await _hotel.Equipment.GetAll();
+                IEnumerable<EquipmentItem> allEquipment = await _hotel.Equipment.GetAll();
                 _equipmentVM.UpdateEntries(allEquipment);
             }
             catch (Exception)

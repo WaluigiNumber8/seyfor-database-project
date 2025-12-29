@@ -7,7 +7,7 @@ namespace SeyforDatabaseProject.Model.Services
     {
         public DatabaseValidator(DatabaseContextFactory contextFactory) : base(contextFactory) { }
         
-        public async Task<Equipment?> ValidateEquipmentAsync(Equipment equipment)
+        public async Task<EquipmentItem?> ValidateEquipmentAsync(EquipmentItem equipment)
         {
             await using DatabaseContext db = _contextFactory.CreateDbContext();
             EquipmentDTO? invalidEquipment = await db.Equipment

@@ -10,7 +10,7 @@ namespace SeyforDatabaseProject.Model.Services
     {
         public DatabaseDataProvider(DatabaseContextFactory contextFactory) : base(contextFactory) { }
 
-        public async Task<IEnumerable<Equipment>> GetAllEquipmentAsync()
+        public async Task<IEnumerable<EquipmentItem>> GetAllEquipmentAsync()
         {
             await using DatabaseContext db = _contextFactory.CreateDbContext();
             IEnumerable<EquipmentDTO> equipmentDTOs = await db.Equipment.ToListAsync();

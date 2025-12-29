@@ -7,6 +7,6 @@ namespace SeyforDatabaseProject.Model.Services
     /// </summary>
     public interface IServiceDataValidator
     {
-        public Task<Equipment?> ValidateEquipmentAsync(Equipment equipment);
+        public Task<EquipmentItem?> ValidateEquipmentAsync(EquipmentItem equipment);
     }
 }

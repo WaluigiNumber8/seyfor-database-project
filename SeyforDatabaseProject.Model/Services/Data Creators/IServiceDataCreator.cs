@@ -7,6 +7,6 @@ namespace SeyforDatabaseProject.Model.Services
     /// </summary>
     public interface IServiceDataCreator
     {
-        Task CreateEquipmentAsync(Equipment newEquipment);
+        Task CreateEquipmentAsync(EquipmentItem newEquipment);
     }
 }

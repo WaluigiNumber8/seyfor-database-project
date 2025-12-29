@@ -1,7 +1,7 @@
 ﻿using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.ViewModel.Core;
 
-namespace SeyforDatabaseProject.ViewModel
+namespace SeyforDatabaseProject.ViewModel.Equipment
 {
     public class EquipmentItemVM : ViewModelBase
     {
@@ -9,7 +9,7 @@ namespace SeyforDatabaseProject.ViewModel
         public string Title { get; init; }
         public string Description { get; init; }
         
-        public EquipmentItemVM(Equipment equipment)
+        public EquipmentItemVM(EquipmentItem equipment)
         {
             ID = equipment.ID;
             Title = equipment.Title;

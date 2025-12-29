@@ -3,7 +3,7 @@
     /// <summary>
     /// Represents an equipment item in the database.
     /// </summary>
-    public class Equipment
+    public class EquipmentItem
     {
         public int ID { get; init; }
         public string Title { get; init; }

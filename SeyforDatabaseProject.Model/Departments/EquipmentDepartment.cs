@@ -19,9 +19,9 @@ namespace SeyforDatabaseProject.Model.Departments
             _serviceDataValidator = serviceDataValidator;
         }
 
-        public async Task AddNew(Equipment newEquipment)
+        public async Task AddNew(EquipmentItem newEquipment)
         {
-            Equipment? existingEquipment = await _serviceDataValidator.ValidateEquipmentAsync(newEquipment);
+            EquipmentItem? existingEquipment = await _serviceDataValidator.ValidateEquipmentAsync(newEquipment);
             if (existingEquipment != null)
             {
                 throw new DataConflictException($"");
@@ -31,7 +31,7 @@ namespace SeyforDatabaseProject.Model.Departments
             Console.WriteLine("New equipment added with ID: " + newEquipment.ID);
         }
         
-        public async Task<IEnumerable<Equipment>> GetAll()
+        public async Task<IEnumerable<EquipmentItem>> GetAll()
         {
             return await _serviceDataProvider.GetAllEquipmentAsync();
         }

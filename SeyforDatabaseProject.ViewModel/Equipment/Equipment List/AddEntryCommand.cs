@@ -1,10 +1,9 @@
-﻿using System.Windows.Input;
-using SeyforDatabaseProject.Model;
+﻿using SeyforDatabaseProject.Model;
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.Model.Services;
 using SeyforDatabaseProject.ViewModel.Core;
 
-namespace SeyforDatabaseProject.ViewModel
+namespace SeyforDatabaseProject.ViewModel.Equipment
 {
     public class AddEntryCommand : AsyncCommandBase
     {
@@ -19,7 +18,7 @@ namespace SeyforDatabaseProject.ViewModel
 
         public override async Task ExecuteAsync(object? parameter)
         {
-            Equipment testEquipment = new()
+            EquipmentItem testEquipment = new()
             {
                 Title = "Test Equipment",
                 Description = "Test Test Test Test Test Test Test Test Test."

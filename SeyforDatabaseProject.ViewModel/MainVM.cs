@@ -1,5 +1,6 @@
 ﻿using SeyforDatabaseProject.Model;
 using SeyforDatabaseProject.ViewModel.Core;
+using SeyforDatabaseProject.ViewModel.Equipment;
 
 namespace SeyforDatabaseProject.ViewModel
 {

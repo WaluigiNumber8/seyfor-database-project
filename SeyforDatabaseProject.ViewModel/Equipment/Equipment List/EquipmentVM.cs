@@ -4,7 +4,7 @@ using SeyforDatabaseProject.Model;
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.ViewModel.Core;
 
-namespace SeyforDatabaseProject.ViewModel
+namespace SeyforDatabaseProject.ViewModel.Equipment
 {
     public class EquipmentVM : ViewModelBase
     {
@@ -35,10 +35,10 @@ namespace SeyforDatabaseProject.ViewModel
             return vm;
         }
         
-        public void UpdateEntries(IEnumerable<Equipment> allEquipment)
+        public void UpdateEntries(IEnumerable<EquipmentItem> allEquipment)
         {
             Equipment.Clear();
-            foreach (Equipment e in allEquipment)
+            foreach (EquipmentItem e in allEquipment)
             {
                 Equipment.Add(new EquipmentItemVM(e));
             }

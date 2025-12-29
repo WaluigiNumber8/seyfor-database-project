@@ -9,7 +9,7 @@ namespace SeyforDatabaseProject.Model.Services
     {
         public DatabaseDataCreator(DatabaseContextFactory contextFactory) : base(contextFactory) { }
 
-        public async Task CreateEquipmentAsync(Equipment newEquipment)
+        public async Task CreateEquipmentAsync(EquipmentItem newEquipment)
         {
             await using DatabaseContext db = _contextFactory.CreateDbContext();
             db.Equipment.Add(newEquipment.Convert());
