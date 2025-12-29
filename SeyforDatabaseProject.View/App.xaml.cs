@@ -8,6 +8,7 @@ using SeyforDatabaseProject.Model.Services;
 using SeyforDatabaseProject.ViewModel;
 using SeyforDatabaseProject.ViewModel.Equipment;
 using SeyforDatabaseProject.ViewModel.Navigation;
+using SeyforDatabaseProject.Views.HostBuilder;
 
 namespace SeyforDatabaseProject
 {
@@ -24,23 +25,12 @@ namespace SeyforDatabaseProject
                 .ConfigureServices((hostContext, services) =>
                 {
                     services.AddSingleton(new DatabaseContextFactory(hostContext.Configuration.GetConnectionString("Default")!));
-                    services.AddSingleton<IServiceDataCreator, DatabaseDataCreator>();
-                    services.AddSingleton<IServiceDataProvider, DatabaseDataProvider>();
-                    services.AddSingleton<IServiceDataValidator, DatabaseValidator>();
-                    services.AddTransient<EquipmentDepartment>();
 
                     services.AddSingleton<Hotel>();
                     services.AddSingleton<HotelStore>();
                     services.AddSingleton<NavigationStore>();
 
-                    services.AddTransient<EquipmentListingVM>();
-                    services.AddSingleton<Func<EquipmentEditVM>>(s => s.GetRequiredService<EquipmentEditVM>);
-                    services.AddSingleton<NavigationService<EquipmentListingVM>>();
-                    
-                    services.AddTransient<EquipmentEditVM>();
-                    services.AddSingleton<Func<EquipmentListingVM>>(s => s.GetRequiredService<EquipmentListingVM>);
-                    services.AddSingleton<NavigationService<EquipmentEditVM>>();
-                    
+
                     services.AddSingleton<MainVM>();
                     services.AddSingleton(s =>
                     {
@@ -51,6 +41,8 @@ namespace SeyforDatabaseProject
                         return mainWindow;
                     });
                 })
+                .BuildDepartments()
+                .BuildVMs()
                 .Build();
         }
 
