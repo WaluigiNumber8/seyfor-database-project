@@ -10,17 +10,24 @@ namespace SeyforDatabaseProject.Model.Services
         public static EquipmentItem ConvertToItem(this EquipmentDTO dto)
         {
             return new EquipmentItem
-            {
-                ID = dto.ID,
-                Title = dto.Title,
-                Description = dto.Description
-            };
+            (
+                dto.ID,
+                dto.Title,
+                dto.Description
+            );
         }
 
         public static EquipmentDTO ConvertToDTO(this EquipmentItem equipment)
         {
             EquipmentDTO dto = new();
             dto.ID = equipment.ID;
+            dto.Title = equipment.Title;
+            dto.Description = equipment.Description;
+            return dto;
+        }
+
+        public static EquipmentDTO UpdateFrom(this EquipmentDTO dto, EquipmentItem equipment)
+        {
             dto.Title = equipment.Title;
             dto.Description = equipment.Description;
             return dto;

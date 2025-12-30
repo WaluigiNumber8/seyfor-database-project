@@ -11,12 +11,12 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
     {
         #region Properties
 
-        private ObservableCollection<EquipmentItemVM> _equipment;
+        private ObservableCollection<EquipmentItemVM> _equipmentItems;
 
-        public ObservableCollection<EquipmentItemVM> Equipment
+        public ObservableCollection<EquipmentItemVM> EquipmentItems
         {
-            get { return _equipment; }
-            set { _equipment = value; }
+            get { return _equipmentItems; }
+            set { _equipmentItems = value; }
         }
 
         #endregion
@@ -27,7 +27,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
 
         public EquipmentListingVM(HotelStore hotelStore, EquipmentEditVM editVM, NavigationService<EquipmentEditVM> equipmentEditNavigationService)
         {
-            _equipment = new ObservableCollection<EquipmentItemVM>();
+            _equipmentItems = new ObservableCollection<EquipmentItemVM>();
             AddEntryCommand = new AddEquipmentCommand(equipmentEditNavigationService, editVM);
             EditEntryCommand = new EditEquipmentCommand(editVM, equipmentEditNavigationService);
             RefreshEntriesCommand = new RefreshEquipmentEntriesCommand(hotelStore, this);
@@ -37,10 +37,10 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
 
         public void UpdateEntries(IEnumerable<EquipmentItem> allEquipment)
         {
-            Equipment.Clear();
+            EquipmentItems.Clear();
             foreach (EquipmentItem e in allEquipment)
             {
-                Equipment.Add(new EquipmentItemVM(e));
+                EquipmentItems.Add(new EquipmentItemVM(e));
             }
         }
     }

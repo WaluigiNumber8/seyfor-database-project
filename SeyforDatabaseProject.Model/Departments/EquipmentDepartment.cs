@@ -10,25 +10,39 @@ namespace SeyforDatabaseProject.Model.Departments
     {
         private readonly IServiceDataProvider _serviceDataProvider;
         private readonly IServiceDataCreator _serviceDataCreator;
+        private readonly IServiceDataUpdater _serviceDataUpdater;
         private readonly IServiceDataValidator _serviceDataValidator;
 
-        public EquipmentDepartment(IServiceDataProvider serviceDataProvider, IServiceDataCreator serviceDataCreator, IServiceDataValidator serviceDataValidator)
+        public EquipmentDepartment(IServiceDataProvider serviceDataProvider, IServiceDataCreator serviceDataCreator, IServiceDataUpdater serviceDataUpdater, IServiceDataValidator serviceDataValidator)
         {
             _serviceDataProvider = serviceDataProvider;
             _serviceDataCreator = serviceDataCreator;
+            _serviceDataUpdater = serviceDataUpdater;
             _serviceDataValidator = serviceDataValidator;
         }
 
-        public async Task AddNew(EquipmentItem newEquipment)
+        public async Task AddNew(EquipmentItem item)
         {
-            EquipmentItem? existingEquipment = await _serviceDataValidator.ValidateEquipmentAsync(newEquipment);
+            EquipmentItem? existingEquipment = await _serviceDataValidator.ValidateEquipmentAsync(item);
             if (existingEquipment != null)
             {
-                throw new DataConflictException($"");
+                throw new DataConflictException($"{item} cannot be added because its fields ahd a conflict.");
             }
             
-            await _serviceDataCreator.CreateEquipmentAsync(newEquipment);
-            Console.WriteLine("New equipment added with ID: " + newEquipment.ID);
+            await _serviceDataCreator.CreateEquipmentAsync(item);
+            Console.WriteLine("New equipment added - " + item);
+        }
+
+        public async Task Update(EquipmentItem item)
+        {
+            EquipmentItem? existingEquipment = await _serviceDataValidator.ValidateEquipmentAsync(item);
+            if (existingEquipment != null)
+            {
+                throw new DataConflictException($"{item} cannot be added because its fields ahd a conflict.");
+            }
+            
+            await _serviceDataUpdater.UpdateEquipmentAsync(item);
+            Console.WriteLine($"Updated {item} successfully.");
         }
         
         public async Task<IEnumerable<EquipmentItem>> GetAll()

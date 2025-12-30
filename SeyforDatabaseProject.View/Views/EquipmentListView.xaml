@@ -11,8 +11,7 @@
 
             <!-- Equipment List -->
             <ListView x:Name="EquipmentItemsListView"
-                      ItemsSource="{Binding Equipment}"
-                      SelectedItem="{Binding SelectedEquipment}">
+                      ItemsSource="{Binding EquipmentItems}">
 
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">

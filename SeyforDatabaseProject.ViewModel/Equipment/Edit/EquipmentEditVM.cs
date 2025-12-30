@@ -1,4 +1,3 @@
-using System;
 using System.Windows.Input;
 using SeyforDatabaseProject.ViewModel.Core;
 using SeyforDatabaseProject.ViewModel.Navigation;
@@ -44,43 +43,50 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         }
         
         #endregion
-        
-        private EquipmentItemVM? _currentItem;
-        
-        public ICommand SaveCommand { get; }
+
+        private readonly ICommand _saveChangesCommand;
+        private readonly ICommand _saveNewCommand;
+        public EquipmentItemVM? CurrentItem { get; private set; }
+
+        public ICommand SaveCommand { get; private set; }
         public ICommand CancelCommand { get; }
 
         public EquipmentEditVM(HotelStore hotelStore, NavigationService<EquipmentListingVM> navigateToEquipmentList)
         {
-            SaveCommand = new SaveEquipmentCommand(this, hotelStore, navigateToEquipmentList);
+            _saveNewCommand = new SaveNewEquipmentCommand(this, hotelStore, navigateToEquipmentList);
+            _saveChangesCommand = new SaveEquipmentChangesCommand(this, hotelStore, navigateToEquipmentList);
+            SaveCommand = _saveNewCommand;
             CancelCommand = new NavigateCommand(navigateToEquipmentList);
         }
         
-        public void Load(EquipmentItemVM? item)
+        public void LoadForEdit(EquipmentItemVM? item)
         {
-            _currentItem = item;
-            if (_currentItem == null)
+            CurrentItem = item;
+            if (CurrentItem == null)
             {
                 ClearFields();
                 return;
             }
             
-            HeaderText = $"Editing Equipment: {_currentItem.Title}";
-            Title = _currentItem.Title;
-            Description = _currentItem.Description;
+            HeaderText = $"Editing Equipment: {CurrentItem.Title}";
+            Title = CurrentItem.Title;
+            Description = CurrentItem.Description;
+
+            SaveCommand = _saveChangesCommand;
         }
         
         public void LoadForAdd()
         {
-            _currentItem = null;
+            CurrentItem = null;
             HeaderText = "Adding New Equipment";
             ClearFields();
+            
+            SaveCommand = _saveNewCommand;
         }
         
         public void ClearFields()
         {
             Title = "";
-            Console.WriteLine("Clearing description field");
             Description = "";
         }
     }

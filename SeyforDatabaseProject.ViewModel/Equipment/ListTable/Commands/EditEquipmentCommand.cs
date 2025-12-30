@@ -18,7 +18,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         {
             _navigation.Navigate();
             EquipmentItemVM? selectedEquipment = parameter as EquipmentItemVM;
-            _editVM.Load(selectedEquipment);
+            _editVM.LoadForEdit(selectedEquipment);
         }
     }
 }

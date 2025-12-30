@@ -10,13 +10,13 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
     /// <summary>
     /// Command for adding new equipment to database.
     /// </summary>
-    public class SaveEquipmentCommand : AsyncCommandBase
+    public class SaveNewEquipmentCommand : AsyncCommandBase
     {
         private readonly EquipmentEditVM _vm;
         private readonly HotelStore _hotelStore;
         private readonly NavigationService<EquipmentListingVM> _equipmentListingNavigationService;
 
-        public SaveEquipmentCommand(EquipmentEditVM vm, HotelStore hotel, NavigationService<EquipmentListingVM> equipmentListingNavigationService)
+        public SaveNewEquipmentCommand(EquipmentEditVM vm, HotelStore hotel, NavigationService<EquipmentListingVM> equipmentListingNavigationService)
         {
             _vm = vm;
             _hotelStore = hotel;
@@ -27,13 +27,10 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         {
             try
             {
-                EquipmentItem newEquipment = new()
-                {
-                    Title = _vm.Title,
-                    Description = _vm.Description
-                };
-                await _hotelStore.AddNewEquipment(newEquipment);
-                
+                EquipmentItem item = new(0, _vm.Title, _vm.Description);
+                Console.WriteLine("Try add new equipment");
+                await _hotelStore.AddNewEquipment(item);
+
                 _equipmentListingNavigationService.Navigate();
             }
             catch (DataConflictException)
@@ -43,6 +40,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
             catch (Exception)
             {
                 Console.WriteLine("An unknown error was thrown. Could not create equipment.");
+                throw;
             }
         }
     }

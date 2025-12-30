@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using SeyforDatabaseProject.Model;
 using SeyforDatabaseProject.Model.Data;
 
@@ -9,15 +12,15 @@ namespace SeyforDatabaseProject.ViewModel
     public class HotelStore
     {
         private readonly Hotel _hotel;
-        private readonly List<EquipmentItem> _equipment;
+        private readonly List<EquipmentItem> _equipmentItems;
         private Lazy<Task> _initializeEquipmentTask;
         
-        public IEnumerable<EquipmentItem> Equipment { get => _equipment; }
+        public IEnumerable<EquipmentItem> EquipmentItems { get => _equipmentItems; }
         
         public HotelStore(Hotel hotel)
         {
             _hotel = hotel;
-            _equipment = new List<EquipmentItem>();
+            _equipmentItems = new List<EquipmentItem>();
             _initializeEquipmentTask = new Lazy<Task>(InitializeEquipmentAsync);
         }
 
@@ -34,17 +37,26 @@ namespace SeyforDatabaseProject.ViewModel
             }
         }
         
-        public async Task AddNewEquipment(EquipmentItem newEquipment)
+        public async Task AddNewEquipment(EquipmentItem item)
         {
-            await _hotel.Equipment.AddNew(newEquipment);
-            _equipment.Add(newEquipment);
+            await _hotel.Equipment.AddNew(item);
+            _equipmentItems.Add(item);
+        }
+
+        public async Task UpdateEquipment(EquipmentItem item)
+        {
+            await _hotel.Equipment.Update(item);
+            EquipmentItem? itemToUpdate = _equipmentItems.Find(e => e.ID == item.ID);
+            
+            if (itemToUpdate == null) throw new InvalidOperationException("Item to update not found in store.");
+            itemToUpdate.Update(item);
         }
         
         private async Task InitializeEquipmentAsync()
         {
            IEnumerable<EquipmentItem> equipmentItems = await _hotel.Equipment.GetAll();
-           _equipment.Clear();
-           _equipment.AddRange(equipmentItems);
+           _equipmentItems.Clear();
+           _equipmentItems.AddRange(equipmentItems);
         }
     }
 }
