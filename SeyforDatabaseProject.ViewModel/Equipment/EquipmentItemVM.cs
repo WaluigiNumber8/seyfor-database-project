@@ -5,15 +5,15 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
 {
     public class EquipmentItemVM : ViewModelBase
     {
-        public int ID { get; init; }
-        public string Title { get; init; }
-        public string Description { get; init; }
-        
+        public int ID { get => _item.ID; }
+        public string Title { get => _item.Title; }
+        public string Description { get => _item.Description; }
+
+        private readonly EquipmentItem _item;
+
         public EquipmentItemVM(EquipmentItem equipment)
         {
-            ID = equipment.ID;
-            Title = equipment.Title;
-            Description = equipment.Description;
+            _item = equipment;
         }
 
         public override string ToString() => $"{ID} - {Title}";
