@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using SeyforDatabaseProject.Model.Data;
@@ -31,12 +32,11 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
             AddEntryCommand = new AddEquipmentCommand(equipmentEditNavigationService, editVM);
             EditEntryCommand = new EditEquipmentCommand(editVM, equipmentEditNavigationService);
             RefreshEntriesCommand = new RefreshEquipmentEntriesCommand(hotelStore, this);
-
-            RefreshEntriesCommand.Execute(null);
         }
 
         public void UpdateEntries(IEnumerable<EquipmentItem> allEquipment)
         {
+            Console.WriteLine("Updating equipment entries...");
             EquipmentItems.Clear();
             foreach (EquipmentItem e in allEquipment)
             {

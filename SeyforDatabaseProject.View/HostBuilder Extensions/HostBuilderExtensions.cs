@@ -35,11 +35,24 @@ namespace SeyforDatabaseProject.Views.HostBuilder
                 services.AddSingleton<NavigationService<EquipmentListingVM>>();
                     
                 services.AddSingleton<EquipmentEditVM>();
-                services.AddSingleton<Func<EquipmentListingVM>>(s => s.GetRequiredService<EquipmentListingVM>);
+                services.AddSingleton(NavigateToEquipmentListingScreen);
                 services.AddSingleton<NavigationService<EquipmentEditVM>>();
             });
             
             return hostBuilder;
+        }
+
+        /// <summary>
+        /// Runs navigation to equipment listing screen.
+        /// </summary>
+        private static Func<EquipmentListingVM> NavigateToEquipmentListingScreen(IServiceProvider s)
+        {
+            return () =>
+            {
+                EquipmentListingVM vm = s.GetRequiredService<EquipmentListingVM>();
+                vm.RefreshEntriesCommand.Execute(null);
+                return vm;
+            };
         }
     }
 }
