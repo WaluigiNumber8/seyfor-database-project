@@ -19,6 +19,7 @@ namespace SeyforDatabaseProject.Views.HostBuilder
                 services.AddSingleton<IServiceDataProvider, DatabaseDataProvider>();
                 services.AddSingleton<IServiceDataCreator, DatabaseDataCreator>();
                 services.AddSingleton<IServiceDataUpdater, DatabaseDataUpdater>();
+                services.AddSingleton<IServiceDataRemover, DatabaseDataRemover>();
                 services.AddSingleton<IServiceDataValidator, DatabaseValidator>();
                 services.AddTransient<EquipmentDepartment>();
             });

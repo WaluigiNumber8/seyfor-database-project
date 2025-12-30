@@ -53,6 +53,15 @@ namespace SeyforDatabaseProject.ViewModel
             itemToUpdate.Update(item);
         }
         
+        public async Task RemoveEquipment(int id)
+        {
+            EquipmentItem? item = _equipmentItems.Find(e => e.ID == id);
+            
+            if (item == null) throw new InvalidOperationException("Item to remove not found in store.");
+            await _hotel.Equipment.Remove(item);
+            _equipmentItems.Remove(item);
+        }
+        
         private async Task InitializeEquipmentAsync()
         {
            IEnumerable<EquipmentItem> equipmentItems = await _hotel.Equipment.GetAll();

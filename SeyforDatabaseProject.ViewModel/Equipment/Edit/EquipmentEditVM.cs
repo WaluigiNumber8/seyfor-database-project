@@ -9,7 +9,6 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         #region Properties
 
         private string _headerText;
-
         public string HeaderText
         {
             get => _headerText;
@@ -62,6 +61,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
 
         public ICommand SaveCommand { get; private set; }
         public ICommand CancelCommand { get; }
+        public ICommand RemoveCommand { get; }
 
         public EquipmentEditVM(HotelStore hotelStore, NavigationService<EquipmentListingVM> navigateToEquipmentList)
         {
@@ -69,6 +69,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
             _saveChangesCommand = new SaveEquipmentChangesCommand(this, hotelStore, navigateToEquipmentList);
             SaveCommand = _saveNewCommand;
             CancelCommand = new NavigateCommand(navigateToEquipmentList);
+            RemoveCommand = new RemoveEquipmentCommand(this, hotelStore, navigateToEquipmentList);
         }
         
         public void LoadForEdit(EquipmentItemVM? item)

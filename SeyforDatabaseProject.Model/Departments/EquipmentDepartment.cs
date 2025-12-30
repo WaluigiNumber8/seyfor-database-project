@@ -11,14 +11,16 @@ namespace SeyforDatabaseProject.Model.Departments
         private readonly IServiceDataProvider _serviceDataProvider;
         private readonly IServiceDataCreator _serviceDataCreator;
         private readonly IServiceDataUpdater _serviceDataUpdater;
+        private readonly IServiceDataRemover _serviceDataRemover;
         private readonly IServiceDataValidator _serviceDataValidator;
 
-        public EquipmentDepartment(IServiceDataProvider serviceDataProvider, IServiceDataCreator serviceDataCreator, IServiceDataUpdater serviceDataUpdater, IServiceDataValidator serviceDataValidator)
+        public EquipmentDepartment(IServiceDataProvider serviceDataProvider, IServiceDataCreator serviceDataCreator, IServiceDataUpdater serviceDataUpdater, IServiceDataRemover serviceDataRemover, IServiceDataValidator serviceDataValidator)
         {
             _serviceDataProvider = serviceDataProvider;
             _serviceDataCreator = serviceDataCreator;
             _serviceDataUpdater = serviceDataUpdater;
             _serviceDataValidator = serviceDataValidator;
+            _serviceDataRemover = serviceDataRemover;
         }
 
         public async Task AddNew(EquipmentItem item)
@@ -44,10 +46,16 @@ namespace SeyforDatabaseProject.Model.Departments
             await _serviceDataUpdater.UpdateEquipmentAsync(item);
             Console.WriteLine($"Updated {item} successfully.");
         }
-        
+
         public async Task<IEnumerable<EquipmentItem>> GetAll()
         {
             return await _serviceDataProvider.GetAllEquipmentAsync();
+        }
+        
+        public async Task Remove(EquipmentItem equipmentToRemove)
+        {
+            await _serviceDataRemover.RemoveEquipmentAsync(equipmentToRemove);
+            Console.WriteLine("Equipment removed with ID: " + equipmentToRemove.ID);
         }
     }
 }
