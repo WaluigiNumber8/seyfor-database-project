@@ -14,7 +14,7 @@ namespace SeyforDatabaseProject.Model.Services
         {
             await using DatabaseContext db = _contextFactory.CreateDbContext();
             IEnumerable<EquipmentDTO> equipmentDTOs = await db.Equipment.ToListAsync();
-            return equipmentDTOs.Select(e => e.Convert());
+            return equipmentDTOs.Select(e => e.ConvertToItem());
         }
     }
 }

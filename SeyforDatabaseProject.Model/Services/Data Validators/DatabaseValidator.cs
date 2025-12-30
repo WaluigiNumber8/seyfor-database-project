@@ -15,7 +15,7 @@ namespace SeyforDatabaseProject.Model.Services
                 .Where(e => e.Description.Length <= 0)
                 .FirstOrDefaultAsync();
             
-            return invalidEquipment?.Convert();
+            return invalidEquipment?.ConvertToItem();
         }
     }
 }

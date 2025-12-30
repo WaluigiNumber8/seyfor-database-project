@@ -12,7 +12,7 @@ namespace SeyforDatabaseProject.Model.Services
         public async Task CreateEquipmentAsync(EquipmentItem newEquipment)
         {
             await using DatabaseContext db = _contextFactory.CreateDbContext();
-            db.Equipment.Add(newEquipment.Convert());
+            db.Equipment.Add(newEquipment.ConvertToDTO());
             await db.SaveChangesAsync();
         }
     }

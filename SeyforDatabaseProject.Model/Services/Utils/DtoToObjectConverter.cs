@@ -7,7 +7,7 @@ namespace SeyforDatabaseProject.Model.Services
     /// </summary>
     public static class DtoToObjectConverter
     {
-        public static EquipmentItem Convert(this EquipmentDTO dto)
+        public static EquipmentItem ConvertToItem(this EquipmentDTO dto)
         {
             return new EquipmentItem
             {
@@ -17,7 +17,7 @@ namespace SeyforDatabaseProject.Model.Services
             };
         }
 
-        public static EquipmentDTO Convert(this EquipmentItem equipment)
+        public static EquipmentDTO ConvertToDTO(this EquipmentItem equipment)
         {
             EquipmentDTO dto = new();
             dto.ID = equipment.ID;

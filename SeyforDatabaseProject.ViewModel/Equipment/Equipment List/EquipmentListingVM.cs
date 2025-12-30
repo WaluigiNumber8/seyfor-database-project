@@ -1,6 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
-using SeyforDatabaseProject.Model;
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.ViewModel.Core;
 using SeyforDatabaseProject.ViewModel.Navigation;

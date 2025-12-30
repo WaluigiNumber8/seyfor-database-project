@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace SeyforDatabaseProject.ViewModel.Core
 {
     public abstract class AsyncCommandBase : CommandBase

@@ -1,5 +1,5 @@
-using SeyforDatabaseProject.Model;
-using SeyforDatabaseProject.Model.Data;
+using System;
+using System.Threading.Tasks;
 using SeyforDatabaseProject.ViewModel.Core;
 
 namespace SeyforDatabaseProject.ViewModel.Equipment
