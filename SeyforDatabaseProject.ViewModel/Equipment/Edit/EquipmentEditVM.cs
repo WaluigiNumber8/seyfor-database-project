@@ -31,6 +31,19 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
             }
         }
 
+        private bool _showRemoveButton;
+
+        public bool ShowRemoveButton
+        {
+            get => _showRemoveButton;
+            set
+            {
+                _showRemoveButton = value;
+                OnPropertyChanged();
+            }
+        }
+        
+        
         private string _title;
         public string Title
         {
@@ -88,6 +101,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
             Description = CurrentItem.Description;
 
             SaveCommand = _saveChangesCommand;
+            ShowRemoveButton = true;
         }
         
         public void LoadForAdd()
@@ -98,6 +112,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
             ClearFields();
             
             SaveCommand = _saveNewCommand;
+            ShowRemoveButton = false;
         }
         
         public void ClearFields()
