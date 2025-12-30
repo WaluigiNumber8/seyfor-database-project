@@ -16,7 +16,7 @@ namespace SeyforDatabaseProject.Views.HostBuilder
     {
         public static IHostBuilder BuildDepartments(this IHostBuilder hostBuilder)
         {
-            hostBuilder.ConfigureServices((hostContext, services) =>
+            hostBuilder.ConfigureServices(services =>
             {
                 services.AddSingleton<IServiceDataCreator, DatabaseDataCreator>();
                 services.AddSingleton<IServiceDataProvider, DatabaseDataProvider>();
@@ -29,13 +29,13 @@ namespace SeyforDatabaseProject.Views.HostBuilder
         
         public static IHostBuilder BuildVMs(this IHostBuilder hostBuilder)
         {
-            hostBuilder.ConfigureServices((hostContext, services) =>
+            hostBuilder.ConfigureServices(services =>
             {
-                services.AddTransient<EquipmentListingVM>();
+                services.AddSingleton<EquipmentListingVM>();
                 services.AddSingleton<Func<EquipmentEditVM>>(s => s.GetRequiredService<EquipmentEditVM>);
                 services.AddSingleton<NavigationService<EquipmentListingVM>>();
                     
-                services.AddTransient<EquipmentEditVM>();
+                services.AddSingleton<EquipmentEditVM>();
                 services.AddSingleton<Func<EquipmentListingVM>>(s => s.GetRequiredService<EquipmentListingVM>);
                 services.AddSingleton<NavigationService<EquipmentEditVM>>();
             });

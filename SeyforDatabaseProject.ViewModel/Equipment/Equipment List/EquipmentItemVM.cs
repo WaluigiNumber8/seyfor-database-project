@@ -15,5 +15,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
             Title = equipment.Title;
             Description = equipment.Description;
         }
+
+        public override string ToString() => $"{ID} - {Title}";
     }
 }

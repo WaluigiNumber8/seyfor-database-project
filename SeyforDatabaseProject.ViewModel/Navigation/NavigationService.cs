@@ -1,3 +1,4 @@
+using System;
 using SeyforDatabaseProject.ViewModel.Core;
 
 namespace SeyforDatabaseProject.ViewModel.Navigation

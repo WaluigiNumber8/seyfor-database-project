@@ -10,7 +10,10 @@
         <StackPanel VerticalAlignment="Center">
 
             <!-- Equipment List -->
-            <ListView ItemsSource="{Binding Equipment}">
+            <ListView x:Name="EquipmentItemsListView"
+                      ItemsSource="{Binding Equipment}"
+                      SelectedItem="{Binding SelectedEquipment}">
+
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -42,6 +45,12 @@
                     Height="30"
                     Margin="0,16,0,0"
                     HorizontalAlignment="Center" />
+            <Button Content="Edit Equipment"
+                    Command="{Binding EditEntryCommand}"
+                    CommandParameter="{Binding SelectedItem, ElementName=EquipmentItemsListView}"
+                    Width="100"
+                    Height="30"
+                    Margin="0,8,0,0" />
         </StackPanel>
     </Grid>
 </UserControl>

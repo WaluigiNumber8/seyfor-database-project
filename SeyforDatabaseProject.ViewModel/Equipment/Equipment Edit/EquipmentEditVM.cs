@@ -1,5 +1,5 @@
+using System;
 using System.Windows.Input;
-using SeyforDatabaseProject.Model;
 using SeyforDatabaseProject.ViewModel.Core;
 using SeyforDatabaseProject.ViewModel.Navigation;
 
@@ -8,7 +8,6 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
     public class EquipmentEditVM : ViewModelBase
     {
         #region Properties
-
         private string _title;
         public string Title
         {
@@ -33,13 +32,25 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         
         #endregion
         
+        private EquipmentItemVM? _currentItem;
+        
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public EquipmentEditVM(HotelStore hotelStore, NavigationService<EquipmentListingVM> equipmentListingNavigationService)
+        public EquipmentEditVM(HotelStore hotelStore, NavigationService<EquipmentListingVM> navigateToEquipmentList)
         {
-            SaveCommand = new AddEquipmentCommand(this, hotelStore, equipmentListingNavigationService);
-            CancelCommand = new NavigateCommand(equipmentListingNavigationService);
+            SaveCommand = new AddEquipmentCommand(this, hotelStore, navigateToEquipmentList);
+            CancelCommand = new NavigateCommand(navigateToEquipmentList);
+        }
+        
+        public void Load(EquipmentItemVM? item)
+        {
+            _currentItem = item;
+            if (_currentItem == null) return;
+            
+            Title = _currentItem.Title;
+            Console.WriteLine($"{Title}");
+            Description = _currentItem.Description;
         }
     }
 }

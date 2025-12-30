@@ -9,25 +9,32 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
 {
     public class EquipmentListingVM : ViewModelBase
     {
+        #region Properties
+
         private ObservableCollection<EquipmentItemVM> _equipment;
+
         public ObservableCollection<EquipmentItemVM> Equipment
         {
             get { return _equipment; }
             set { _equipment = value; }
         }
-        
+
+        #endregion
+
         public ICommand AddEntryCommand { get; }
         public ICommand RefreshEntriesCommand { get; }
+        public ICommand EditEntryCommand { get; }
 
-        public EquipmentListingVM(HotelStore hotelStore, NavigationService<EquipmentEditVM> equipmentEditNavigationService)
+        public EquipmentListingVM(HotelStore hotelStore, EquipmentEditVM editVM, NavigationService<EquipmentEditVM> equipmentEditNavigationService)
         {
             _equipment = new ObservableCollection<EquipmentItemVM>();
             AddEntryCommand = new NavigateCommand(equipmentEditNavigationService);
+            EditEntryCommand = new EditEquipmentCommand(editVM, equipmentEditNavigationService);
             RefreshEntriesCommand = new RefreshEquipmentEntriesCommand(hotelStore, this);
-            
+
             RefreshEntriesCommand.Execute(null);
         }
-        
+
         public void UpdateEntries(IEnumerable<EquipmentItem> allEquipment)
         {
             Equipment.Clear();
