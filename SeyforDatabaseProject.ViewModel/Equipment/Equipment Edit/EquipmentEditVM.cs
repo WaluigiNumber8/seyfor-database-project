@@ -8,6 +8,19 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
     public class EquipmentEditVM : ViewModelBase
     {
         #region Properties
+
+        private string _headerText;
+
+        public string HeaderText
+        {
+            get => _headerText;
+            set
+            {
+                _headerText = value;
+                OnPropertyChanged();
+            }
+        }
+        
         private string _title;
         public string Title
         {
@@ -52,8 +65,16 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
                 return;
             }
             
+            HeaderText = $"Editing Equipment: {_currentItem.Title}";
             Title = _currentItem.Title;
             Description = _currentItem.Description;
+        }
+        
+        public void LoadForAdd()
+        {
+            _currentItem = null;
+            HeaderText = "Adding New Equipment";
+            ClearFields();
         }
         
         public void ClearFields()

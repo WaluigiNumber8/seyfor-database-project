@@ -17,7 +17,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         public override void Execute(object? parameter)
         {
             _navigateToEditEquipment.Navigate();
-            _equipmentVM.ClearFields();
+            _equipmentVM.LoadForAdd();
         }
     }
 }

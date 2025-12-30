@@ -22,8 +22,8 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         #endregion
 
         public ICommand AddEntryCommand { get; }
-        public ICommand RefreshEntriesCommand { get; }
         public ICommand EditEntryCommand { get; }
+        public ICommand RefreshEntriesCommand { get; }
 
         public EquipmentListingVM(HotelStore hotelStore, EquipmentEditVM editVM, NavigationService<EquipmentEditVM> equipmentEditNavigationService)
         {
