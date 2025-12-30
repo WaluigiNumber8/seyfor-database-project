@@ -16,6 +16,7 @@ namespace SeyforDatabaseProject.ViewModel
         private Lazy<Task> _initializeEquipmentTask;
         
         public IEnumerable<EquipmentItem> EquipmentItems { get => _equipmentItems; }
+        public int EquipmentCount { get => _equipmentItems.Count; }
         
         public HotelStore(Hotel hotel)
         {
