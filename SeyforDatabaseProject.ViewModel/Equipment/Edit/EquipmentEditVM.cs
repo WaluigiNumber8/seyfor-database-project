@@ -19,7 +19,19 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
                 OnPropertyChanged();
             }
         }
-        
+
+        private string _saveButtonText;
+
+        public string SaveButtonText
+        {
+            get => _saveButtonText;
+            set
+            {
+                _saveButtonText = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string _title;
         public string Title
         {
@@ -69,6 +81,8 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
             }
             
             HeaderText = $"Editing Equipment: {CurrentItem.Title}";
+            SaveButtonText = "Save";
+            
             Title = CurrentItem.Title;
             Description = CurrentItem.Description;
 
@@ -79,6 +93,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         {
             CurrentItem = null;
             HeaderText = "Adding New Equipment";
+            SaveButtonText = "Add";
             ClearFields();
             
             SaveCommand = _saveNewCommand;

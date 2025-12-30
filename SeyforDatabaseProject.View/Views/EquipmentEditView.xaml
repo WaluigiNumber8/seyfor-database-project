@@ -43,7 +43,7 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Center"
                     Margin="0,16,0,16">
-            <Button Content="Add"
+            <Button Content="{Binding SaveButtonText, FallbackValue=Save}"
                     Command="{Binding SaveCommand}"
                     Width="100"
                     Height="30"
