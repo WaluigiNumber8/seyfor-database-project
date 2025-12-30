@@ -1,7 +1,5 @@
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SeyforDatabaseProject.Model;
 using SeyforDatabaseProject.Model.Departments;
 using SeyforDatabaseProject.Model.Services;
 using SeyforDatabaseProject.ViewModel.Equipment;

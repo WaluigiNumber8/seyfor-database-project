@@ -39,18 +39,28 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
 
         public EquipmentEditVM(HotelStore hotelStore, NavigationService<EquipmentListingVM> navigateToEquipmentList)
         {
-            SaveCommand = new AddEquipmentCommand(this, hotelStore, navigateToEquipmentList);
+            SaveCommand = new SaveEquipmentCommand(this, hotelStore, navigateToEquipmentList);
             CancelCommand = new NavigateCommand(navigateToEquipmentList);
         }
         
         public void Load(EquipmentItemVM? item)
         {
             _currentItem = item;
-            if (_currentItem == null) return;
+            if (_currentItem == null)
+            {
+                ClearFields();
+                return;
+            }
             
             Title = _currentItem.Title;
-            Console.WriteLine($"{Title}");
             Description = _currentItem.Description;
+        }
+        
+        public void ClearFields()
+        {
+            Title = "";
+            Console.WriteLine("Clearing description field");
+            Description = "";
         }
     }
 }

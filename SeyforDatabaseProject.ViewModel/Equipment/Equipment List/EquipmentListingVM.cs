@@ -28,7 +28,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         public EquipmentListingVM(HotelStore hotelStore, EquipmentEditVM editVM, NavigationService<EquipmentEditVM> equipmentEditNavigationService)
         {
             _equipment = new ObservableCollection<EquipmentItemVM>();
-            AddEntryCommand = new NavigateCommand(equipmentEditNavigationService);
+            AddEntryCommand = new AddEquipmentCommand(equipmentEditNavigationService, editVM);
             EditEntryCommand = new EditEquipmentCommand(editVM, equipmentEditNavigationService);
             RefreshEntriesCommand = new RefreshEquipmentEntriesCommand(hotelStore, this);
 

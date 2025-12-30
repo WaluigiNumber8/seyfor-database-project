@@ -10,13 +10,13 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
     /// <summary>
     /// Command for adding new equipment to database.
     /// </summary>
-    public class AddEquipmentCommand : AsyncCommandBase
+    public class SaveEquipmentCommand : AsyncCommandBase
     {
         private readonly EquipmentEditVM _vm;
         private readonly HotelStore _hotelStore;
         private readonly NavigationService<EquipmentListingVM> _equipmentListingNavigationService;
 
-        public AddEquipmentCommand(EquipmentEditVM vm, HotelStore hotel, NavigationService<EquipmentListingVM> equipmentListingNavigationService)
+        public SaveEquipmentCommand(EquipmentEditVM vm, HotelStore hotel, NavigationService<EquipmentListingVM> equipmentListingNavigationService)
         {
             _vm = vm;
             _hotelStore = hotel;
