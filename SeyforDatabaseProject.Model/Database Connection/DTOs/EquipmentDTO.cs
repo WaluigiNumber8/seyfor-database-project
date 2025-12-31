@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SeyforDatabaseProject.Model
+namespace SeyforDatabaseProject.Model.DatabaseConnection
 {
     /// <summary>
     /// Data Transfer Object for Equipment.

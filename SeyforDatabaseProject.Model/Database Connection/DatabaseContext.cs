@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace SeyforDatabaseProject.Model
+namespace SeyforDatabaseProject.Model.DatabaseConnection
 {
     public class DatabaseContext : DbContext
     {

@@ -1,3 +1,5 @@
+using SeyforDatabaseProject.Model.DatabaseConnection;
+
 namespace SeyforDatabaseProject.Model.Services
 {
     public abstract class DatabaseServiceBase
