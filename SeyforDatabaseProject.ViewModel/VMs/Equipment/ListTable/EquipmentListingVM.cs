@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using SeyforDatabaseProject.Model.Data;
-using SeyforDatabaseProject.ViewModel.Core;
 using SeyforDatabaseProject.ViewModel.Navigation;
+using SeyforDatabaseProject.ViewModel.Rooms;
 
 namespace SeyforDatabaseProject.ViewModel.Equipment
 {
-    public class EquipmentListingVM : ViewModelBase
+    public class EquipmentListingVM : DatabaseListingScreenBase<EquipmentItem, EquipmentItemVM>
     {
         #region Properties
 
@@ -24,24 +22,15 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
 
         public ICommand AddEntryCommand { get; }
         public ICommand EditEntryCommand { get; }
-        public ICommand RefreshEntriesCommand { get; }
 
-        public EquipmentListingVM(HotelStore hotelStore, EquipmentEditVM editVM, NavigationService<EquipmentEditVM> equipmentEditNavigationService)
+        public EquipmentListingVM(HotelStore hotelStore, EquipmentEditVM editVM, NavigationService<EquipmentEditVM> equipmentEditNavigationService) : base(hotelStore, hotelStore.Equipment)
         {
             _equipmentItems = new ObservableCollection<EquipmentItemVM>();
             AddEntryCommand = new AddEquipmentCommand(equipmentEditNavigationService, editVM);
             EditEntryCommand = new EditEquipmentCommand(editVM, equipmentEditNavigationService);
-            RefreshEntriesCommand = new RefreshEquipmentEntriesCommand(hotelStore, this);
         }
 
-        public void UpdateEntries(IEnumerable<EquipmentItem> allEquipment)
-        {
-            Console.WriteLine("Updating equipment entries...");
-            EquipmentItems.Clear();
-            foreach (EquipmentItem e in allEquipment)
-            {
-                EquipmentItems.Add(new EquipmentItemVM(e));
-            }
-        }
+        protected override ObservableCollection<EquipmentItemVM> Items { get => EquipmentItems; }
+        protected override Func<EquipmentItem, EquipmentItemVM> CreateNewItemVM { get => item => new EquipmentItemVM(item); }
     }
 }

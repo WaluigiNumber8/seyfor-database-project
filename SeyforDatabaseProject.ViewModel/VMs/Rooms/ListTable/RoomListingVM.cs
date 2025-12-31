@@ -1,0 +1,30 @@
+using System.Collections.ObjectModel;
+using System.Windows.Input;
+using SeyforDatabaseProject.Model.Data;
+using SeyforDatabaseProject.ViewModel.Core;
+
+namespace SeyforDatabaseProject.ViewModel.Rooms
+{
+    public class RoomListingVM : DatabaseListingScreenBase<RoomItem, RoomItemVM>
+    {
+        #region Properties
+
+        private ObservableCollection<RoomItemVM> _roomItems;
+
+        public ObservableCollection<RoomItemVM> RoomItems
+        {
+            get { return _roomItems; }
+            set { _roomItems = value; }
+        }
+
+        #endregion
+        
+        public RoomListingVM(HotelStore hotelStore) : base(hotelStore, hotelStore.Rooms)
+        {
+            _roomItems = new ObservableCollection<RoomItemVM>();
+        }
+
+        protected override ObservableCollection<RoomItemVM> Items { get => RoomItems; }
+        protected override Func<RoomItem, RoomItemVM> CreateNewItemVM { get => item => new RoomItemVM(item); }
+    }
+}

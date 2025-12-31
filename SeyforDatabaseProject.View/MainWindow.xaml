@@ -6,13 +6,20 @@
         xmlns:local="clr-namespace:SeyforDatabaseProject"
         xmlns:views="clr-namespace:SeyforDatabaseProject.Views"
         xmlns:equipment="clr-namespace:SeyforDatabaseProject.ViewModel.Equipment;assembly=SeyforDatabaseProject.ViewModel"
+        xmlns:rooms="clr-namespace:SeyforDatabaseProject.ViewModel.Rooms;assembly=SeyforDatabaseProject.ViewModel"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid.Resources>
+            <!-- Listing views -->
             <DataTemplate DataType="{x:Type equipment:EquipmentListingVM}">
                 <views:EquipmentListView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type rooms:RoomListingVM}">
+                <views:RoomListView />
+            </DataTemplate>
+            
+            <!-- Editing views -->
             <DataTemplate DataType="{x:Type equipment:EquipmentEditVM}">
                 <views:EquipmentEditView />
             </DataTemplate>
