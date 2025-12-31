@@ -5,9 +5,8 @@ namespace SeyforDatabaseProject.Model.Data
     /// <summary>
     /// Represents an equipment item in the database.
     /// </summary>
-    public class EquipmentItem
+    public class EquipmentItem : DatabaseItemBase<EquipmentItem>
     {
-        public int ID { get; init; }
         public string Title { get; private set; }
         public string Description { get; private set; }
 
@@ -22,7 +21,7 @@ namespace SeyforDatabaseProject.Model.Data
         /// Updates the equipment item with new data. HAS to have the same ID.
         /// </summary>
         /// <param name="item"></param>
-        public void Update(EquipmentItem item)
+        public override void Update(EquipmentItem item)
         {
             if (item.ID != ID)
             {

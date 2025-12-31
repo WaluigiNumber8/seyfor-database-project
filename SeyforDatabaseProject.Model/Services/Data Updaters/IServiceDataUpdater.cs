@@ -7,6 +7,6 @@ namespace SeyforDatabaseProject.Model.Services
     /// </summary>
     public interface IServiceDataUpdater
     {
-        public Task UpdateEquipmentAsync(EquipmentItem item);
+        public Task UpdateAsync<T>(T item) where T : DatabaseItemBase<T>;
     }
 }

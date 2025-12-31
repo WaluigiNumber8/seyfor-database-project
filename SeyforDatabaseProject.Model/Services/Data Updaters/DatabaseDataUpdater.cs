@@ -7,17 +7,33 @@ namespace SeyforDatabaseProject.Model.Services
     {
         public DatabaseDataUpdater(DatabaseContextFactory contextFactory) : base(contextFactory) { }
 
-        public async Task UpdateEquipmentAsync(EquipmentItem item)
+        public async Task UpdateAsync<T>(T item) where T : DatabaseItemBase<T>
         {
             await using DatabaseContext db = _contextFactory.CreateDbContext();
-            
-            EquipmentDTO? existingDTO = await db.Equipment.FindAsync(item.ID);
-            if (existingDTO is null)
+
+            switch (item)
             {
-                throw new InvalidOperationException($"Equipment with ID {item.ID} not found.");
+                case EquipmentItem equipmentItem:
+                    EquipmentDTO? existingEquipmentDTO = await db.Equipment.FindAsync(item.ID);
+                    if (existingEquipmentDTO is null)
+                    {
+                        throw new InvalidOperationException($"Equipment with ID {item.ID} not found.");
+                    }
+
+                    db.Equipment.Update(existingEquipmentDTO.UpdateFrom(equipmentItem));
+                    break;
+                
+                case RoomItem roomItem:
+                    RoomDTO? existingRoomDTO = await db.Rooms.FindAsync(item.ID);
+                    if (existingRoomDTO is null)
+                    {
+                        throw new InvalidOperationException($"Room with ID {item.ID} not found.");
+                    }
+
+                    db.Rooms.Update(existingRoomDTO.UpdateFrom(roomItem));
+                    break;
             }
 
-            db.Equipment.Update(existingDTO.UpdateFrom(item));
             await db.SaveChangesAsync();
         }
     }

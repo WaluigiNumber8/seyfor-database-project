@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using SeyforDatabaseProject.Model;
 using SeyforDatabaseProject.Model.Data;
 
@@ -64,7 +61,7 @@ namespace SeyforDatabaseProject.ViewModel
         
         private async Task InitializeEquipmentAsync()
         {
-           IEnumerable<EquipmentItem> equipmentItems = await _hotel.Equipment.GetAll();
+           IEnumerable<EquipmentItem> equipmentItems = await _hotel.Equipment.GetAll<EquipmentItem>();
            _equipmentItems.Clear();
            _equipmentItems.AddRange(equipmentItems);
         }

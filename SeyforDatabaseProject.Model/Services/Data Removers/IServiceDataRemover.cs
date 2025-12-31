@@ -7,6 +7,6 @@ namespace SeyforDatabaseProject.Model.Services
     /// </summary>
     public interface IServiceDataRemover
     {
-        public Task RemoveEquipmentAsync(EquipmentItem item);
+        public Task RemoveAsync<T>(T item) where T : DatabaseItemBase<T>;
     }
 }

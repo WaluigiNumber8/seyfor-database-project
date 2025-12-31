@@ -11,11 +11,23 @@ namespace SeyforDatabaseProject.Model.Services
     {
         public DatabaseDataProvider(DatabaseContextFactory contextFactory) : base(contextFactory) { }
 
-        public async Task<IEnumerable<EquipmentItem>> GetAllEquipmentAsync()
+        public async Task<IEnumerable<T>> GetAllAsync<T>() where T : DatabaseItemBase<T>
         {
             await using DatabaseContext db = _contextFactory.CreateDbContext();
-            IEnumerable<EquipmentDTO> equipmentDTOs = await db.Equipment.ToListAsync();
-            return equipmentDTOs.Select(e => e.ConvertToItem());
+            
+            if (typeof(T) == typeof(EquipmentItem))
+            {
+                IEnumerable<EquipmentDTO> equipmentDTOs = await db.Equipment.ToListAsync();
+                return equipmentDTOs.Select(e => e.ConvertToItem() as T)!;
+            }
+            
+            if (typeof(T) == typeof(RoomItem))
+            {
+                IEnumerable<RoomDTO> roomDTOs = await db.Rooms.ToListAsync();
+                return roomDTOs.Select(r => r.ConvertToItem() as T)!;
+            }
+
+            throw new NotSupportedException($"Type {typeof(T).Name} is not supported by DatabaseDataProvider.");
         }
     }
 }

@@ -8,6 +8,8 @@ namespace SeyforDatabaseProject.Model.Services
     /// </summary>
     public static class DtoToObjectConverter
     {
+        #region Equipment
+
         public static EquipmentItem ConvertToItem(this EquipmentDTO dto)
         {
             return new EquipmentItem
@@ -33,5 +35,45 @@ namespace SeyforDatabaseProject.Model.Services
             dto.Description = equipment.Description;
             return dto;
         }
+
+        #endregion
+
+        #region Room
+
+        public static RoomItem ConvertToItem(this RoomDTO dto)
+        {
+            return new RoomItem(
+                dto.ID,
+                dto.RoomNumber,
+                (RoomType) dto.RoomType,
+                dto.Capacity,
+                Convert.ToDecimal(dto.PricePerNight),
+                (RoomAvailabilityStatus) dto.AvailabilityStatus
+            );
+        }
+        
+        public static RoomDTO ConvertToDTO(this RoomItem room)
+        {
+            RoomDTO dto = new();
+            dto.ID = room.ID;
+            dto.RoomNumber = room.RoomNumber;
+            dto.RoomType = (int) room.RoomType;
+            dto.Capacity = room.Capacity;
+            dto.PricePerNight = room.PricePerNight.ToString();
+            dto.AvailabilityStatus = (int) room.AvailabilityStatus;
+            return dto;
+        }
+        
+        public static RoomDTO UpdateFrom(this RoomDTO dto, RoomItem room)
+        {
+            dto.RoomNumber = room.RoomNumber;
+            dto.RoomType = (int) room.RoomType;
+            dto.Capacity = room.Capacity;
+            dto.PricePerNight = room.PricePerNight.ToString();
+            dto.AvailabilityStatus = (int) room.AvailabilityStatus;
+            return dto;
+        }
+
+        #endregion
     }
 }

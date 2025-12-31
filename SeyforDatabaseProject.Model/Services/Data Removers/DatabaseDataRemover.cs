@@ -8,12 +8,23 @@ namespace SeyforDatabaseProject.Model.Services
     /// </summary>
     public class DatabaseDataRemover : DatabaseServiceBase, IServiceDataRemover
     {
-        public DatabaseDataRemover(DatabaseContextFactory contextFactory) : base(contextFactory) { }
+        public DatabaseDataRemover(DatabaseContextFactory contextFactory) : base(contextFactory)
+        {
+        }
 
-        public async Task RemoveEquipmentAsync(EquipmentItem item)
+        public async Task RemoveAsync<T>(T item) where T : DatabaseItemBase<T>
         {
             await using DatabaseContext db = _contextFactory.CreateDbContext();
-            db.Equipment.Remove(item.ConvertToDTO());
+            switch (item)
+            {
+                case EquipmentItem equipment:
+                    db.Equipment.Remove(equipment.ConvertToDTO());
+                    break;
+                case RoomItem room:
+                    db.Rooms.Remove(room.ConvertToDTO());
+                    break;
+            }
+
             await db.SaveChangesAsync();
         }
     }

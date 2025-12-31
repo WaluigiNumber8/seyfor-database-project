@@ -10,10 +10,26 @@ namespace SeyforDatabaseProject.Model.Services
     {
         public DatabaseDataCreator(DatabaseContextFactory contextFactory) : base(contextFactory) { }
 
-        public async Task CreateEquipmentAsync(EquipmentItem newEquipment)
+        public async Task CreateAsync(EquipmentItem newEquipment)
         {
             await using DatabaseContext db = _contextFactory.CreateDbContext();
             db.Equipment.Add(newEquipment.ConvertToDTO());
+            await db.SaveChangesAsync();
+        }
+
+        public async Task CreateAsync<T>(T item) where T : DatabaseItemBase<T>
+        {
+            await using DatabaseContext db = _contextFactory.CreateDbContext();
+            switch (item)
+            {
+                case EquipmentItem equipment:
+                    db.Equipment.Add(equipment.ConvertToDTO());
+                    break;
+                case RoomItem room:
+                    db.Rooms.Add(room.ConvertToDTO());
+                    break;
+            }
+            
             await db.SaveChangesAsync();
         }
     }

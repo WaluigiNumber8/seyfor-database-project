@@ -7,6 +7,6 @@ namespace SeyforDatabaseProject.Model.Services
     /// </summary>
     public interface IServiceDataProvider
     {
-        Task<IEnumerable<EquipmentItem>> GetAllEquipmentAsync();
+        public Task<IEnumerable<T>> GetAllAsync<T>() where T : DatabaseItemBase<T>;
     }
 }

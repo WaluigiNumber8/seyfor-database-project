@@ -5,6 +5,7 @@ namespace SeyforDatabaseProject.Model.DatabaseConnection
     public class DatabaseContext : DbContext
     {
         public DbSet<EquipmentDTO> Equipment { get; set; }
+        public DbSet<RoomDTO> Rooms { get; set; }
         
         public DatabaseContext(DbContextOptions options) : base(options)
         {
