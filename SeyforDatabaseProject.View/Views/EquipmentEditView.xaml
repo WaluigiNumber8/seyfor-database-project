@@ -13,9 +13,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="8" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="8" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="8" />
         </Grid.RowDefinitions>
 
         <Label Grid.Row="1"
@@ -25,17 +26,16 @@
                FontWeight="Medium" />
         <Separator Grid.Row="2" />
         <StackPanel Grid.Row="3"
-                    HorizontalAlignment="Center">
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Stretch">
             <Label Content="Title" />
-            <TextBox x:Name="TitleTextBox"
-                     Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            <TextBox Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      Width="200"
                      Height="30"
                      Margin="0,0,0,8"
                      HorizontalAlignment="Center" />
             <Label Content="Description" />
-            <TextBox x:Name="DescriptionTextBox"
-                     Text="{Binding Description,Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}"
+            <TextBox Text="{Binding Description,Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}"
                      Width="200"
                      Height="60"
                      Margin="0,0,0,16"
