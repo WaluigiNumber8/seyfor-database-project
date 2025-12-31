@@ -24,7 +24,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
             try
             {
                 Console.WriteLine("Try update equipment");
-                await _hotelStore.RemoveEquipment(_vm.CurrentItem!.ID);
+                await _hotelStore.Equipment.Remove(_vm.CurrentItem!.ID);
 
                 _equipmentListingNavigationService.Navigate();
             }

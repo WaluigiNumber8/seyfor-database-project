@@ -22,8 +22,8 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         {
             try
             {
-                await _hotelStore.LoadEquipment();
-                _equipmentVM.UpdateEntries(_hotelStore.EquipmentItems);
+                await _hotelStore.Equipment.Load();
+                _equipmentVM.UpdateEntries(_hotelStore.Equipment.Items);
             }
             catch (Exception)
             {

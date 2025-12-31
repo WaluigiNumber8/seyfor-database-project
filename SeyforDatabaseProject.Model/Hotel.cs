@@ -7,13 +7,13 @@ namespace SeyforDatabaseProject.Model
     /// </summary>
     public class Hotel
     {
-        private readonly HotelBook _equipment;
+        private readonly HotelBook _book;
 
-        public Hotel(HotelBook equipment)
+        public Hotel(HotelBook book)
         {
-            _equipment = equipment;
+            _book = book;
         }
         
-        public HotelBook Equipment => _equipment;
+        public HotelBook Book => _book;
     }
 }

@@ -26,7 +26,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
             {
                 EquipmentItem item = new(_vm.CurrentItem!.ID, _vm.Title, _vm.Description);
                 Console.WriteLine("Try update equipment");
-                await _hotelStore.UpdateEquipment(item);
+                await _hotelStore.Equipment.Update(item);
 
                 _equipmentListingNavigationService.Navigate();
             }

@@ -27,9 +27,9 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         {
             try
             {
-                EquipmentItem item = new(_hotelStore.EquipmentCount + 1, _vm.Title, _vm.Description);
+                EquipmentItem item = new(_hotelStore.Equipment.Count + 1, _vm.Title, _vm.Description);
                 Console.WriteLine("Try add new equipment");
-                await _hotelStore.AddNewEquipment(item);
+                await _hotelStore.Equipment.AddNew(item);
 
                 _equipmentListingNavigationService.Navigate();
             }
