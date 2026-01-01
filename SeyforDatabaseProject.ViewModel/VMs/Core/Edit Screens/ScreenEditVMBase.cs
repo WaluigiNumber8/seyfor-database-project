@@ -57,13 +57,17 @@ namespace SeyforDatabaseProject.ViewModel.Core
         private readonly ICommand _saveNewItemCommand;
 
         public TItemVM? CurrentItem { get; private set; }
-        protected abstract Func<TItem> CreateItemFromFields { get; }
         protected abstract string ItemTypeName { get; }
+        
+        /// <summary>
+        /// Creates a TItem from the current fields in the ViewModel. Takes the ID as an argument.
+        /// </summary>
+        protected abstract Func<int, TItem> CreateItemFromFields { get; }
 
         public ScreenEditVMBase(DatabaseItemList<TItem> itemList, NavigationService<TListingVM> navigateToListing)
         {
             _saveNewItemCommand = new SaveNewItemCommand<TItem, TItemVM, TListingVM>(CreateItemFromFields, itemList, navigateToListing);
-            _saveUpdateItemCommand = new SaveUpdateItemCommand<TItem, TItemVM, TListingVM>(CreateItemFromFields, itemList, navigateToListing);
+            _saveUpdateItemCommand = new SaveUpdateItemCommand<TItem, TItemVM, TListingVM, TEditVM>(CreateItemFromFields, this, itemList, navigateToListing);
             SaveCommand = _saveNewItemCommand;
             CancelCommand = new NavigateCommand(navigateToListing);
             RemoveCommand = new RemoveItemCommand<TItem, TItemVM, TListingVM, TEditVM>(this, itemList, navigateToListing);

@@ -34,13 +34,11 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
 
         #endregion
 
-        public EquipmentEditVM(HotelStore hotelStore, NavigationService<EquipmentListingVM> navigateToListing) : base(hotelStore.Equipment, navigateToListing)
-        {
-        }
+        public EquipmentEditVM(HotelStore hotelStore, NavigationService<EquipmentListingVM> navigateToListing) : base(hotelStore.Equipment, navigateToListing) { }
 
-        protected override Func<EquipmentItem> CreateItemFromFields
+        protected override Func<int, EquipmentItem> CreateItemFromFields
         {
-            get => () => new EquipmentItem(0, Title, Description);
+            get => id => new EquipmentItem(id, Title, Description);
         }
 
         protected override string ItemTypeName

@@ -13,7 +13,7 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
         {
         }
 
-        protected override Func<RoomItem> CreateItemFromFields { get; }
+        protected override Func<int, RoomItem> CreateItemFromFields { get; }
         protected override string ItemTypeName { get => "Room"; }
         
         public override void ClearFields()

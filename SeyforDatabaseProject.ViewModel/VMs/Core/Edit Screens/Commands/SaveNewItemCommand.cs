@@ -12,11 +12,11 @@ namespace SeyforDatabaseProject.ViewModel.Core
         where TItemVM : DatabaseItemVMBase<TItem>
         where TListingVM : ViewModelBase
     {
-        private readonly Func<TItem> _createItemFromFields;
+        private readonly Func<int, TItem> _createItemFromFields;
         private readonly DatabaseItemList<TItem> _itemList;
         private readonly NavigationService<TListingVM> _navigateToListing;
 
-        public SaveNewItemCommand(Func<TItem> createItemFromFields, DatabaseItemList<TItem> itemList, NavigationService<TListingVM> navigateToListing)
+        public SaveNewItemCommand(Func<int, TItem> createItemFromFields, DatabaseItemList<TItem> itemList, NavigationService<TListingVM> navigateToListing)
         {
             _navigateToListing = navigateToListing;
             _createItemFromFields = createItemFromFields;
@@ -27,7 +27,7 @@ namespace SeyforDatabaseProject.ViewModel.Core
         {
             try
             {
-                TItem item = _createItemFromFields();
+                TItem item = _createItemFromFields(_itemList.Count + 1);
                 Console.WriteLine("Try add new equipment");
                 await _itemList.AddNew(item);
 
