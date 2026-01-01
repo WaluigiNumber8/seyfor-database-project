@@ -7,6 +7,7 @@
         xmlns:views="clr-namespace:SeyforDatabaseProject.Views"
         xmlns:equipment="clr-namespace:SeyforDatabaseProject.ViewModel.Equipment;assembly=SeyforDatabaseProject.ViewModel"
         xmlns:rooms="clr-namespace:SeyforDatabaseProject.ViewModel.Rooms;assembly=SeyforDatabaseProject.ViewModel"
+        xmlns:editScreens="clr-namespace:SeyforDatabaseProject.Views.Edit_Screens"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
@@ -22,6 +23,9 @@
             <!-- Editing views -->
             <DataTemplate DataType="{x:Type equipment:EquipmentEditVM}">
                 <views:EquipmentEditView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type rooms:RoomEditVM}">
+                <editScreens:RoomEditView />
             </DataTemplate>
         </Grid.Resources>
         <Grid.RowDefinitions>
