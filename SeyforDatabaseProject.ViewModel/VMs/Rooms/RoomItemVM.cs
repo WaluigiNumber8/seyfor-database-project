@@ -1,11 +1,11 @@
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.ViewModel.Core;
+using SeyforDatabaseProject.ViewModel.Equipment;
 
 namespace SeyforDatabaseProject.ViewModel.Rooms
 {
-    public class RoomItemVM : ViewModelBase
+    public class RoomItemVM : DatabaseItemVMBase<RoomItem>
     {
-        public int ID { get => _item.ID; }
         public int RoomNumber { get => _item.RoomNumber; }
         public string RoomType { get => _item.RoomType.ToString(); }
         public int Capacity { get => _item.Capacity; }
@@ -13,12 +13,8 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
         public string AvailabilityStatus { get => _item.AvailabilityStatus.ToString(); }
         public string Equipment {get => string.Join(", ", _item.Equipment); }
         
-        private readonly RoomItem _item;
+        public RoomItemVM(RoomItem item) : base(item) { }
 
-        public RoomItemVM(RoomItem item)
-        {
-            _item = item;
-        }
 
         public override string ToString() => _item.ToString();
     }

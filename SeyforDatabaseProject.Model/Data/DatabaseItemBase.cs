@@ -1,6 +1,6 @@
 namespace SeyforDatabaseProject.Model.Data
 {
-    public abstract class DatabaseItemBase<T> where T : DatabaseItemBase<T>
+    public abstract class DatabaseItemBase<T> : IIDHolder where T : DatabaseItemBase<T>
     {
         public int ID { get; init; }
 

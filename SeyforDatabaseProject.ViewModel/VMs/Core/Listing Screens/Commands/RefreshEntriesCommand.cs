@@ -7,15 +7,13 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
     /// <summary>
     /// Refreshes the equipment entries in the ViewModel.
     /// </summary>
-    public class RefreshEntriesCommand<TItem, TItemVM> : AsyncCommandBase where TItem : DatabaseItemBase<TItem> where TItemVM : ViewModelBase
+    public class RefreshEntriesCommand<TItem, TItemVM> : AsyncCommandBase where TItem : DatabaseItemBase<TItem> where TItemVM : DatabaseItemVMBase<TItem>
     {
-        private readonly HotelStore _hotelStore;
-        private readonly DatabaseListingScreenBase<TItem, TItemVM> _vm;
+        private readonly ScreenListingVMBase<TItem, TItemVM> _vm;
         private readonly DatabaseItemList<TItem> _list;
 
-        public RefreshEntriesCommand(HotelStore hotelStore, DatabaseListingScreenBase<TItem, TItemVM> vm, DatabaseItemList<TItem> list)
+        public RefreshEntriesCommand(ScreenListingVMBase<TItem, TItemVM> vm, DatabaseItemList<TItem> list)
         {
-            _hotelStore = hotelStore;
             _vm = vm;
             _list = list;
         }

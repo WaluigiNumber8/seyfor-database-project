@@ -1,12 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using SeyforDatabaseProject.Model.Data;
+using SeyforDatabaseProject.ViewModel.Core;
 using SeyforDatabaseProject.ViewModel.Navigation;
-using SeyforDatabaseProject.ViewModel.Rooms;
 
 namespace SeyforDatabaseProject.ViewModel.Equipment
 {
-    public class EquipmentListingVM : DatabaseListingScreenBase<EquipmentItem, EquipmentItemVM>
+    public class EquipmentListingVM : ScreenListingVMBase<EquipmentItem, EquipmentItemVM>
     {
         #region Properties
 
@@ -20,17 +20,13 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
 
         #endregion
 
-        public ICommand AddEntryCommand { get; }
-        public ICommand EditEntryCommand { get; }
-
-        public EquipmentListingVM(HotelStore hotelStore, EquipmentEditVM editVM, NavigationService<EquipmentEditVM> equipmentEditNavigationService) : base(hotelStore, hotelStore.Equipment)
+        public EquipmentListingVM(HotelStore hotelStore, EquipmentEditVM editVM, NavigationService<EquipmentEditVM> navigateToEdit) : base(hotelStore.Equipment, editVM, navigateToEdit)
         {
             _equipmentItems = new ObservableCollection<EquipmentItemVM>();
-            AddEntryCommand = new AddEquipmentCommand(equipmentEditNavigationService, editVM);
-            EditEntryCommand = new EditEquipmentCommand(editVM, equipmentEditNavigationService);
         }
 
         protected override ObservableCollection<EquipmentItemVM> Items { get => EquipmentItems; }
         protected override Func<EquipmentItem, EquipmentItemVM> CreateNewItemVM { get => item => new EquipmentItemVM(item); }
+        
     }
 }

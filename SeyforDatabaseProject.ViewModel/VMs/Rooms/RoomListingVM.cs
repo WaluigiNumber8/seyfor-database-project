@@ -1,11 +1,11 @@
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.ViewModel.Core;
+using SeyforDatabaseProject.ViewModel.Navigation;
 
 namespace SeyforDatabaseProject.ViewModel.Rooms
 {
-    public class RoomListingVM : DatabaseListingScreenBase<RoomItem, RoomItemVM>
+    public class RoomListingVM : ScreenListingVMBase<RoomItem, RoomItemVM>
     {
         #region Properties
 
@@ -19,7 +19,7 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
 
         #endregion
         
-        public RoomListingVM(HotelStore hotelStore) : base(hotelStore, hotelStore.Rooms)
+        public RoomListingVM(HotelStore hotelStore, RoomEditVM editVM, NavigationService<RoomEditVM> roomEditNavigationService) : base(hotelStore.Rooms, editVM, roomEditNavigationService)
         {
             _roomItems = new ObservableCollection<RoomItemVM>();
         }
