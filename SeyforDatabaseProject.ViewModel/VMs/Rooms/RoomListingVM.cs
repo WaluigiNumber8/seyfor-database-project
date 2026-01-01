@@ -5,7 +5,7 @@ using SeyforDatabaseProject.ViewModel.Navigation;
 
 namespace SeyforDatabaseProject.ViewModel.Rooms
 {
-    public class RoomListingVM : ScreenListingVMBase<RoomItem, RoomItemVM>
+    public class RoomListingVM : ScreenListingVMBase<RoomItem, RoomItemVM, RoomListingVM, RoomEditVM>
     {
         #region Properties
 

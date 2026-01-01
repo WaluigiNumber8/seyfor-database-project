@@ -7,9 +7,9 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
     /// <summary>
     /// A view model for editing room parameters.
     /// </summary>
-    public class RoomEditVM : ScreenEditVMBase<RoomItem, RoomItemVM>
+    public class RoomEditVM : ScreenEditVMBase<RoomItem, RoomItemVM, RoomListingVM, RoomEditVM>
     {
-        public RoomEditVM(HotelStore hotelStore, NavigationService<ScreenListingVMBase<RoomItem, RoomItemVM>> navigateToListing) : base(hotelStore.Rooms, navigateToListing)
+        public RoomEditVM(HotelStore hotelStore, NavigationService<RoomListingVM> navigateToListing) : base(hotelStore.Rooms, navigateToListing)
         {
         }
 

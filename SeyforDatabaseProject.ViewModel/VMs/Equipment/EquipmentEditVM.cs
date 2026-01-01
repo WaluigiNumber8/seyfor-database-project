@@ -4,7 +4,7 @@ using SeyforDatabaseProject.ViewModel.Navigation;
 
 namespace SeyforDatabaseProject.ViewModel.Equipment
 {
-    public class EquipmentEditVM : ScreenEditVMBase<EquipmentItem,EquipmentItemVM>
+    public class EquipmentEditVM : ScreenEditVMBase<EquipmentItem, EquipmentItemVM, EquipmentListingVM, EquipmentEditVM>
     {
         #region Properties
 
@@ -21,6 +21,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         }
 
         private string _description;
+
         public string Description
         {
             get => _description;
@@ -30,14 +31,23 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
                 OnPropertyChanged();
             }
         }
-        
+
         #endregion
 
-        public EquipmentEditVM(HotelStore hotelStore, NavigationService<ScreenListingVMBase<EquipmentItem, EquipmentItemVM>> navigateToListing) : base(hotelStore.Equipment, navigateToListing) { }
+        public EquipmentEditVM(HotelStore hotelStore, NavigationService<EquipmentListingVM> navigateToListing) : base(hotelStore.Equipment, navigateToListing)
+        {
+        }
 
-        protected override Func<EquipmentItem> CreateItemFromFields { get => () => new EquipmentItem(0, Title, Description); }
-        protected override string ItemTypeName { get => "Equipment"; }
-        
+        protected override Func<EquipmentItem> CreateItemFromFields
+        {
+            get => () => new EquipmentItem(0, Title, Description);
+        }
+
+        protected override string ItemTypeName
+        {
+            get => "Equipment";
+        }
+
         public override void ClearFields()
         {
             Title = string.Empty;

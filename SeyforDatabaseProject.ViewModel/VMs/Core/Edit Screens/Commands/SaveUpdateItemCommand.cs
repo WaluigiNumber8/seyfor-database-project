@@ -4,17 +4,20 @@ using SeyforDatabaseProject.ViewModel.Navigation;
 
 namespace SeyforDatabaseProject.ViewModel.Core
 {
-    public class SaveUpdateItemCommand<TItem, TItemVM> : AsyncCommandBase where TItem : DatabaseItemBase<TItem> where TItemVM : DatabaseItemVMBase<TItem>
+    public class SaveUpdateItemCommand<TItem, TItemVM, TListingVM> : AsyncCommandBase
+        where TItem : DatabaseItemBase<TItem>
+        where TItemVM : DatabaseItemVMBase<TItem>
+        where TListingVM : ViewModelBase
     {
         private readonly Func<TItem> _createItemFromFields;
         private readonly DatabaseItemList<TItem> _itemList;
-        private readonly NavigationService<ScreenListingVMBase<TItem, TItemVM>> _listingNavigationService;
+        private readonly NavigationService<TListingVM> _navigateToListing;
 
-        public SaveUpdateItemCommand(Func<TItem> createItemFromFields, DatabaseItemList<TItem> itemList, NavigationService<ScreenListingVMBase<TItem, TItemVM>> listingNavigationService)
+        public SaveUpdateItemCommand(Func<TItem> createItemFromFields, DatabaseItemList<TItem> itemList, NavigationService<TListingVM> navigateToListing)
         {
             _createItemFromFields = createItemFromFields;
             _itemList = itemList;
-            _listingNavigationService = listingNavigationService;
+            _navigateToListing = navigateToListing;
         }
 
         public override async Task ExecuteAsync(object? parameter)
@@ -25,7 +28,7 @@ namespace SeyforDatabaseProject.ViewModel.Core
                 Console.WriteLine($"Try update {typeof(TItem)}.");
                 await _itemList.Update(item);
 
-                _listingNavigationService.Navigate();
+                _navigateToListing.Navigate();
             }
             catch (DataConflictException)
             {

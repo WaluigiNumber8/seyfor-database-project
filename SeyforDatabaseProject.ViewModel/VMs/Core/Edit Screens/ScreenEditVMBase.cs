@@ -4,7 +4,11 @@ using SeyforDatabaseProject.ViewModel.Navigation;
 
 namespace SeyforDatabaseProject.ViewModel.Core
 {
-    public abstract class ScreenEditVMBase<TItem, TItemVM> : ViewModelBase where TItem : DatabaseItemBase<TItem> where TItemVM : DatabaseItemVMBase<TItem> 
+    public abstract class ScreenEditVMBase<TItem, TItemVM, TListingVM, TEditVM> : ViewModelBase
+        where TItem : DatabaseItemBase<TItem>
+        where TItemVM : DatabaseItemVMBase<TItem>
+        where TListingVM : ViewModelBase
+        where TEditVM : ViewModelBase
     {
         #region Properties
 
@@ -56,13 +60,13 @@ namespace SeyforDatabaseProject.ViewModel.Core
         protected abstract Func<TItem> CreateItemFromFields { get; }
         protected abstract string ItemTypeName { get; }
 
-        public ScreenEditVMBase(DatabaseItemList<TItem> itemList, NavigationService<ScreenListingVMBase<TItem, TItemVM>> navigateToListing)
+        public ScreenEditVMBase(DatabaseItemList<TItem> itemList, NavigationService<TListingVM> navigateToListing)
         {
-            _saveNewItemCommand = new SaveNewItemCommand<TItem, TItemVM>(CreateItemFromFields, itemList, navigateToListing);
-            _saveUpdateItemCommand = new SaveUpdateItemCommand<TItem, TItemVM>(CreateItemFromFields, itemList, navigateToListing);
+            _saveNewItemCommand = new SaveNewItemCommand<TItem, TItemVM, TListingVM>(CreateItemFromFields, itemList, navigateToListing);
+            _saveUpdateItemCommand = new SaveUpdateItemCommand<TItem, TItemVM, TListingVM>(CreateItemFromFields, itemList, navigateToListing);
             SaveCommand = _saveNewItemCommand;
             CancelCommand = new NavigateCommand(navigateToListing);
-            RemoveCommand = new RemoveItemCommand<TItem, TItemVM>(this, itemList, navigateToListing);
+            RemoveCommand = new RemoveItemCommand<TItem, TItemVM, TListingVM, TEditVM>(this, itemList, navigateToListing);
         }
 
         public void LoadForEdit(TItemVM? item)

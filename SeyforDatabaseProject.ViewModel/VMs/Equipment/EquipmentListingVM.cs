@@ -1,12 +1,11 @@
 ﻿using System.Collections.ObjectModel;
-using System.Windows.Input;
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.ViewModel.Core;
 using SeyforDatabaseProject.ViewModel.Navigation;
 
 namespace SeyforDatabaseProject.ViewModel.Equipment
 {
-    public class EquipmentListingVM : ScreenListingVMBase<EquipmentItem, EquipmentItemVM>
+    public class EquipmentListingVM : ScreenListingVMBase<EquipmentItem, EquipmentItemVM, EquipmentListingVM, EquipmentEditVM>
     {
         #region Properties
 

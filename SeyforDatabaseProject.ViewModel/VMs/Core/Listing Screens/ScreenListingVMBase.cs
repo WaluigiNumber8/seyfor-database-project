@@ -6,13 +6,17 @@ using SeyforDatabaseProject.ViewModel.Navigation;
 
 namespace SeyforDatabaseProject.ViewModel.Core
 {
-    public abstract class ScreenListingVMBase<TItem, TItemVM> : ViewModelBase where TItem : DatabaseItemBase<TItem> where TItemVM : DatabaseItemVMBase<TItem>
+    public abstract class ScreenListingVMBase<TItem, TItemVM, TListingVM, TEditVM> : ViewModelBase
+        where TItem : DatabaseItemBase<TItem>
+        where TItemVM : DatabaseItemVMBase<TItem>
+        where TListingVM : ViewModelBase
+        where TEditVM : ViewModelBase
     {
-        public ScreenListingVMBase(DatabaseItemList<TItem> list, ScreenEditVMBase<TItem, TItemVM> editVM, NavigationService<ScreenEditVMBase<TItem, TItemVM>> navigateToEdit)
+        public ScreenListingVMBase(DatabaseItemList<TItem> list, ScreenEditVMBase<TItem, TItemVM, TListingVM, TEditVM> editVM, NavigationService<TEditVM> navigateToEdit)
         {
-            AddEntryCommand = new GoToAddItemScreenCommand<TItem, TItemVM>(editVM, navigateToEdit);
-            EditEntryCommand = new GoToUpdateItemScreenCommand<TItem, TItemVM>(editVM, navigateToEdit);
-            RefreshEntriesCommand = new RefreshEntriesCommand<TItem, TItemVM>(this, list);
+            AddEntryCommand = new GoToAddItemScreenCommand<TItem, TItemVM, TListingVM, TEditVM>(editVM, navigateToEdit);
+            EditEntryCommand = new GoToUpdateItemScreenCommand<TItem, TItemVM, TListingVM, TEditVM>(editVM, navigateToEdit);
+            RefreshEntriesCommand = new RefreshEntriesCommand<TItem, TItemVM, TListingVM, TEditVM>(this, list);
         }
 
         public ICommand AddEntryCommand { get; }
