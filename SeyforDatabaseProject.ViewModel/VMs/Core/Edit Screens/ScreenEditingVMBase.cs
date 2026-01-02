@@ -1,14 +1,9 @@
 using System.Windows.Input;
 using SeyforDatabaseProject.Model.Data;
-using SeyforDatabaseProject.ViewModel.Navigation;
 
 namespace SeyforDatabaseProject.ViewModel.Core
 {
-    public abstract class ScreenEditVMBase<TItem, TItemVM, TListingVM, TEditVM> : ViewModelBase
-        where TItem : DatabaseItemBase<TItem>
-        where TItemVM : DatabaseItemVMBase<TItem>
-        where TListingVM : ViewModelBase
-        where TEditVM : ViewModelBase
+    public abstract class ScreenEditingVMBase<TItem, TItemVM> : ViewModelBase where TItem : DatabaseItemBase<TItem> where TItemVM : DatabaseItemVMBase<TItem>
     {
         #region Properties
 
@@ -64,13 +59,13 @@ namespace SeyforDatabaseProject.ViewModel.Core
         /// </summary>
         protected abstract Func<int, TItem> CreateItemFromFields { get; }
 
-        public ScreenEditVMBase(DatabaseItemList<TItem> itemList, NavigationService<TListingVM> navigateToListing)
+        public ScreenEditingVMBase(DatabaseItemList<TItem> itemList, Action navigateToListing)
         {
-            _saveNewItemCommand = new SaveNewItemCommand<TItem, TItemVM, TListingVM>(CreateItemFromFields, itemList, navigateToListing);
-            _saveUpdateItemCommand = new SaveUpdateItemCommand<TItem, TItemVM, TListingVM, TEditVM>(CreateItemFromFields, this, itemList, navigateToListing);
+            _saveNewItemCommand = new SaveNewItemCommand<TItem, TItemVM>(CreateItemFromFields, itemList, navigateToListing);
+            _saveUpdateItemCommand = new SaveUpdateItemCommand<TItem, TItemVM>(CreateItemFromFields, this, itemList, navigateToListing);
             SaveCommand = _saveNewItemCommand;
-            CancelCommand = new NavigateCommand(navigateToListing);
-            RemoveCommand = new RemoveItemCommand<TItem, TItemVM, TListingVM, TEditVM>(this, itemList, navigateToListing);
+            CancelCommand = new CancelChangesCommand(navigateToListing);
+            RemoveCommand = new RemoveItemCommand<TItem, TItemVM>(this, itemList, navigateToListing);
         }
 
         public void LoadForEdit(TItemVM? item)

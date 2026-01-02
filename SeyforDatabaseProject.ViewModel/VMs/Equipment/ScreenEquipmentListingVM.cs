@@ -1,11 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.ViewModel.Core;
-using SeyforDatabaseProject.ViewModel.Navigation;
 
 namespace SeyforDatabaseProject.ViewModel.Equipment
 {
-    public class EquipmentListingVM : ScreenListingVMBase<EquipmentItem, EquipmentItemVM, EquipmentListingVM, EquipmentEditVM>
+    public class ScreenEquipmentListingVM : ScreenListingVMBase<EquipmentItem, EquipmentItemVM>
     {
         #region Properties
 
@@ -19,7 +18,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
 
         #endregion
 
-        public EquipmentListingVM(HotelStore hotelStore, EquipmentEditVM editVM, NavigationService<EquipmentEditVM> navigateToEdit) : base(hotelStore.Equipment, editVM, navigateToEdit)
+        public ScreenEquipmentListingVM(HotelStore hotelStore, ScreenEquipmentEditingVM editVM, Action navigateToEdit) : base(hotelStore.Equipment, editVM, navigateToEdit)
         {
             _equipmentItems = new ObservableCollection<EquipmentItemVM>();
         }

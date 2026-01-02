@@ -4,6 +4,7 @@ using SeyforDatabaseProject.Model.Departments;
 using SeyforDatabaseProject.Model.Services;
 using SeyforDatabaseProject.ViewModel.Equipment;
 using SeyforDatabaseProject.ViewModel.Navigation;
+using SeyforDatabaseProject.ViewModel.Rooms;
 
 namespace SeyforDatabaseProject.Views.HostBuilder
 {
@@ -31,29 +32,17 @@ namespace SeyforDatabaseProject.Views.HostBuilder
         {
             hostBuilder.ConfigureServices(services =>
             {
-                services.AddSingleton<EquipmentListingVM>();
-                services.AddSingleton<Func<EquipmentEditVM>>(s => s.GetRequiredService<EquipmentEditVM>);
-                services.AddSingleton<NavigationService<EquipmentListingVM>>();
-                    
-                services.AddSingleton<EquipmentEditVM>();
-                services.AddSingleton(NavigateToEquipmentListingScreen);
-                services.AddSingleton<NavigationService<EquipmentEditVM>>();
+                services.AddSingleton<ScreenEquipmentOperationsVM>();
+                services.AddSingleton<Func<ScreenEquipmentOperationsVM>>(s => s.GetRequiredService<ScreenEquipmentOperationsVM>);
+                services.AddSingleton<NavigationService<ScreenEquipmentOperationsVM>>();
+                
+                services.AddSingleton<ScreenRoomOperationsVM>();
+                services.AddSingleton<Func<ScreenRoomOperationsVM>>(s => s.GetRequiredService<ScreenRoomOperationsVM>);
+                services.AddSingleton<NavigationService<ScreenRoomOperationsVM>>();
+
             });
             
             return hostBuilder;
-        }
-
-        /// <summary>
-        /// Runs navigation to equipment listing screen.
-        /// </summary>
-        private static Func<EquipmentListingVM> NavigateToEquipmentListingScreen(IServiceProvider s)
-        {
-            return () =>
-            {
-                EquipmentListingVM vm = s.GetRequiredService<EquipmentListingVM>();
-                vm.RefreshEntriesCommand.Execute(null);
-                return vm;
-            };
         }
     }
 }

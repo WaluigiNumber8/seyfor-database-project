@@ -3,16 +3,14 @@ using SeyforDatabaseProject.ViewModel.Navigation;
 
 namespace SeyforDatabaseProject.ViewModel.Core
 {
-    public class GoToAddItemScreenCommand<TItem, TItemVM, TListingVM, TEditVM> : CommandBase 
+    public class GoToAddItemScreenCommand<TItem, TItemVM> : CommandBase 
         where TItem : DatabaseItemBase<TItem> 
         where TItemVM : DatabaseItemVMBase<TItem> 
-        where TListingVM : ViewModelBase
-        where TEditVM : ViewModelBase
     {
-        private readonly NavigationService<TEditVM> _navigateToEdit;
-        private readonly ScreenEditVMBase<TItem, TItemVM, TListingVM, TEditVM> _targetVM;
+        private readonly Action _navigateToEdit;
+        private readonly ScreenEditingVMBase<TItem, TItemVM> _targetVM;
 
-        public GoToAddItemScreenCommand(ScreenEditVMBase<TItem, TItemVM, TListingVM, TEditVM> targetVM, NavigationService<TEditVM> navigateToEdit)
+        public GoToAddItemScreenCommand(ScreenEditingVMBase<TItem, TItemVM> targetVM, Action navigateToEdit)
         {
             _navigateToEdit = navigateToEdit;
             _targetVM = targetVM;
@@ -20,7 +18,7 @@ namespace SeyforDatabaseProject.ViewModel.Core
 
         public override void Execute(object? parameter)
         {
-            _navigateToEdit.Navigate();
+            _navigateToEdit.Invoke();
             _targetVM.LoadForAdd();
         }
     }

@@ -7,16 +7,15 @@ namespace SeyforDatabaseProject.ViewModel.Core
     /// <summary>
     /// Command for adding new equipment to database.
     /// </summary>
-    public class SaveNewItemCommand<TItem, TItemVM, TListingVM> : AsyncCommandBase 
+    public class SaveNewItemCommand<TItem, TItemVM> : AsyncCommandBase 
         where TItem : DatabaseItemBase<TItem> 
         where TItemVM : DatabaseItemVMBase<TItem>
-        where TListingVM : ViewModelBase
     {
         private readonly Func<int, TItem> _createItemFromFields;
         private readonly DatabaseItemList<TItem> _itemList;
-        private readonly NavigationService<TListingVM> _navigateToListing;
+        private readonly Action _navigateToListing;
 
-        public SaveNewItemCommand(Func<int, TItem> createItemFromFields, DatabaseItemList<TItem> itemList, NavigationService<TListingVM> navigateToListing)
+        public SaveNewItemCommand(Func<int, TItem> createItemFromFields, DatabaseItemList<TItem> itemList, Action navigateToListing)
         {
             _navigateToListing = navigateToListing;
             _createItemFromFields = createItemFromFields;
@@ -31,7 +30,7 @@ namespace SeyforDatabaseProject.ViewModel.Core
                 Console.WriteLine("Try add new equipment");
                 await _itemList.AddNew(item);
 
-                _navigateToListing.Navigate();
+                _navigateToListing.Invoke();
             }
             catch (DataConflictException)
             {

@@ -4,12 +4,11 @@ using SeyforDatabaseProject.ViewModel.Navigation;
 
 namespace SeyforDatabaseProject.ViewModel.Equipment
 {
-    public class EquipmentEditVM : ScreenEditVMBase<EquipmentItem, EquipmentItemVM, EquipmentListingVM, EquipmentEditVM>
+    public class ScreenEquipmentEditingVM : ScreenEditingVMBase<EquipmentItem, EquipmentItemVM>
     {
         #region Properties
 
         private string _title;
-
         public string Title
         {
             get => _title;
@@ -34,7 +33,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
 
         #endregion
 
-        public EquipmentEditVM(HotelStore hotelStore, NavigationService<EquipmentListingVM> navigateToListing) : base(hotelStore.Equipment, navigateToListing) { }
+        public ScreenEquipmentEditingVM(HotelStore hotelStore, Action navigateToListing) : base(hotelStore.Equipment, navigateToListing) { }
 
         protected override Func<int, EquipmentItem> CreateItemFromFields
         {

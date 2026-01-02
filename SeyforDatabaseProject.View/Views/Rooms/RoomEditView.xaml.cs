@@ -1,7 +1,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SeyforDatabaseProject.Views.Edit_Screens
+namespace SeyforDatabaseProject.Views.Rooms
 {
     public partial class RoomEditView : UserControl
     {

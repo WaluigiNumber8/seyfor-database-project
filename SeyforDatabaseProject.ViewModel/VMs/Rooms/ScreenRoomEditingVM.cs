@@ -7,7 +7,7 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
     /// <summary>
     /// A view model for editing room parameters.
     /// </summary>
-    public class RoomEditVM : ScreenEditVMBase<RoomItem, RoomItemVM, RoomListingVM, RoomEditVM>
+    public class ScreenRoomEditingVM : ScreenEditingVMBase<RoomItem, RoomItemVM>
     {
         #region Properties
 
@@ -67,7 +67,7 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
         }
         #endregion
         
-        public RoomEditVM(HotelStore hotelStore, NavigationService<RoomListingVM> navigateToListing) : base(hotelStore.Rooms, navigateToListing)
+        public ScreenRoomEditingVM(HotelStore hotelStore, Action navigateToListing) : base(hotelStore.Rooms, navigateToListing)
         {
         }
 

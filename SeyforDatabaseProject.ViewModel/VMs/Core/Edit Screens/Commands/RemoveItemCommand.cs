@@ -4,17 +4,15 @@ using SeyforDatabaseProject.ViewModel.Navigation;
 
 namespace SeyforDatabaseProject.ViewModel.Core
 {
-    public class RemoveItemCommand<TItem, TItemVM, TListingVM, TEditVM> : AsyncCommandBase
+    public class RemoveItemCommand<TItem, TItemVM> : AsyncCommandBase
         where TItem : DatabaseItemBase<TItem>
         where TItemVM : DatabaseItemVMBase<TItem>
-        where TListingVM : ViewModelBase
-        where TEditVM : ViewModelBase
     {
-        private readonly ScreenEditVMBase<TItem, TItemVM, TListingVM, TEditVM> _vm;
+        private readonly ScreenEditingVMBase<TItem, TItemVM> _vm;
         private readonly DatabaseItemList<TItem> _itemList;
-        private readonly NavigationService<TListingVM> _navigateToListing;
+        private readonly Action _navigateToListing;
 
-        public RemoveItemCommand(ScreenEditVMBase<TItem, TItemVM, TListingVM, TEditVM> vm, DatabaseItemList<TItem> itemList, NavigationService<TListingVM> navigateToListing)
+        public RemoveItemCommand(ScreenEditingVMBase<TItem, TItemVM> vm, DatabaseItemList<TItem> itemList, Action navigateToListing)
         {
             _vm = vm;
             _navigateToListing = navigateToListing;
@@ -28,7 +26,7 @@ namespace SeyforDatabaseProject.ViewModel.Core
                 Console.WriteLine($"Try remove {typeof(TItem)}.");
                 await _itemList.Remove(_vm.CurrentItem!.ID);
 
-                _navigateToListing.Navigate();
+                _navigateToListing.Invoke();
             }
             catch (DataConflictException)
             {

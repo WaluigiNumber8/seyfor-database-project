@@ -48,7 +48,7 @@ namespace SeyforDatabaseProject
         protected override void OnStartup(StartupEventArgs e)
         {
             _host.Start();
-            _host.Services.GetRequiredService<NavigationService<EquipmentListingVM>>().Navigate();
+            _host.Services.GetRequiredService<NavigationService<ScreenEquipmentOperationsVM>>().Navigate();
             _host.Services.GetRequiredService<MainWindow>().Show();
 
             base.OnStartup(e);

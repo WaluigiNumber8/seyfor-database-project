@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace SeyforDatabaseProject.Views
+namespace SeyforDatabaseProject.Views.Equipment
 {
     public partial class EquipmentListView : UserControl
     {

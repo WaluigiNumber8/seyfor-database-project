@@ -3,29 +3,32 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SeyforDatabaseProject"
-        xmlns:views="clr-namespace:SeyforDatabaseProject.Views"
-        xmlns:equipment="clr-namespace:SeyforDatabaseProject.ViewModel.Equipment;assembly=SeyforDatabaseProject.ViewModel"
-        xmlns:rooms="clr-namespace:SeyforDatabaseProject.ViewModel.Rooms;assembly=SeyforDatabaseProject.ViewModel"
-        xmlns:editScreens="clr-namespace:SeyforDatabaseProject.Views.Edit_Screens"
+        xmlns:equipmentVMs="clr-namespace:SeyforDatabaseProject.ViewModel.Equipment;assembly=SeyforDatabaseProject.ViewModel"
+        xmlns:equipment="clr-namespace:SeyforDatabaseProject.Views.Equipment"
+        xmlns:roomVMs="clr-namespace:SeyforDatabaseProject.ViewModel.Rooms;assembly=SeyforDatabaseProject.ViewModel"
+        xmlns:rooms="clr-namespace:SeyforDatabaseProject.Views.Rooms"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Grid.Resources>
-            <!-- Listing views -->
-            <DataTemplate DataType="{x:Type equipment:EquipmentListingVM}">
-                <views:EquipmentListView />
+            <DataTemplate DataType="{x:Type equipmentVMs:ScreenEquipmentOperationsVM}">
+                <equipment:EquipmentOperationsView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type rooms:RoomListingVM}">
-                <views:RoomListView />
+            <DataTemplate DataType="{x:Type equipmentVMs:ScreenEquipmentListingVM}">
+                <equipment:EquipmentListView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type equipmentVMs:ScreenEquipmentEditingVM}">
+                <equipment:EquipmentListView />
             </DataTemplate>
             
-            <!-- Editing views -->
-            <DataTemplate DataType="{x:Type equipment:EquipmentEditVM}">
-                <views:EquipmentEditView />
+            <DataTemplate DataType="{x:Type roomVMs:ScreenRoomOperationsVM}">
+                <rooms:RoomOperationsView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type rooms:RoomEditVM}">
-                <editScreens:RoomEditView />
+            <DataTemplate DataType="{x:Type roomVMs:ScreenRoomListingVM}">
+                <rooms:RoomListView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type roomVMs:ScreenRoomEditingVM}">
+                <rooms:RoomEditView />
             </DataTemplate>
         </Grid.Resources>
         <Grid.RowDefinitions>
