@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SeyforDatabaseProject.Model.Departments;
 using SeyforDatabaseProject.Model.Services;
+using SeyforDatabaseProject.ViewModel;
 using SeyforDatabaseProject.ViewModel.Equipment;
 using SeyforDatabaseProject.ViewModel.Navigation;
 using SeyforDatabaseProject.ViewModel.Rooms;
@@ -32,38 +33,51 @@ namespace SeyforDatabaseProject.Views.HostBuilder
         {
             hostBuilder.ConfigureServices(services =>
             {
-                services.AddSingleton<ScreenEquipmentOperationsVM>();
-                services.AddSingleton<Func<ScreenEquipmentOperationsVM>>(CreateEquipmentOperations);
-                services.AddSingleton<NavigationService<ScreenEquipmentOperationsVM>>();
-                
-                services.AddSingleton<ScreenRoomOperationsVM>();
-                services.AddSingleton<Func<ScreenRoomOperationsVM>>(CreateRoomOperations);
-                services.AddSingleton<NavigationService<ScreenRoomOperationsVM>>();
-
+                PrepareEquipment(services);
+                PrepareRooms(services);
             });
             
             return hostBuilder;
         }
 
-        private static Func<ScreenRoomOperationsVM> CreateRoomOperations(IServiceProvider s)
+        private static void PrepareEquipment(IServiceCollection services)
         {
-            return () =>
+            services.AddSingleton<ScreenEquipmentOperationsVM>(s =>
             {
-                
-                ScreenRoomOperationsVM operations = s.GetRequiredService<ScreenRoomOperationsVM>();
-                operations.NavigateToListing();
-                return operations;
-            };
+                ScreenEquipmentOperationsVM vm = new(s.GetRequiredService<HotelStore>());
+                vm.Construct();
+                return vm;
+            });
+            services.AddSingleton<Func<ScreenEquipmentOperationsVM>>(s =>
+            {
+                return () =>
+                {
+                    ScreenEquipmentOperationsVM operations = s.GetRequiredService<ScreenEquipmentOperationsVM>();
+                    operations.NavigateToListing();
+                    return operations;
+                };
+            });
+            services.AddSingleton<NavigationService<ScreenEquipmentOperationsVM>>();
         }
-
-        private static Func<ScreenEquipmentOperationsVM> CreateEquipmentOperations(IServiceProvider s)
+        
+        private static void PrepareRooms(IServiceCollection services)
         {
-            return () =>
+            services.AddSingleton<ScreenRoomOperationsVM>(s =>
             {
-                ScreenEquipmentOperationsVM operations = s.GetRequiredService<ScreenEquipmentOperationsVM>();
-                operations.NavigateToListing();
-                return operations;
-            };
+                ScreenRoomOperationsVM vm = new(s.GetRequiredService<HotelStore>());
+                vm.Construct();
+                return vm;
+            });
+            services.AddSingleton<Func<ScreenRoomOperationsVM>>(s =>
+            {
+                return () =>
+                {
+                    ScreenRoomOperationsVM operations = s.GetRequiredService<ScreenRoomOperationsVM>();
+                    operations.NavigateToListing();
+                    return operations;
+                };
+            });
+            services.AddSingleton<NavigationService<ScreenRoomOperationsVM>>();
         }
     }
 }

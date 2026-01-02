@@ -26,10 +26,14 @@ namespace SeyforDatabaseProject.ViewModel.Core
             }
         }
 
-        public void NavigateToListing()
+        public void Construct()
         {
             EditingVM = CreateEditingScreen.Invoke();
             ListingVM = CreateListingScreen.Invoke();
+        }
+        
+        public void NavigateToListing()
+        {
             ListingVM.RefreshEntriesCommand.Execute(null);
             CurrentOperationVM = ListingVM;
             OnPropertyChanged(nameof(CurrentOperationVM));
