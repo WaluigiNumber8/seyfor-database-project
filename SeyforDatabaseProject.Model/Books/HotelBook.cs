@@ -25,8 +25,8 @@ namespace SeyforDatabaseProject.Model.Departments
 
         public async Task AddNew<T>(T item) where T : DatabaseItemBase<T>
         {
-            T? existingEquipment = await _serviceDataValidator.ValidateAsync(item);
-            if (existingEquipment != null)
+            T? existingItem = await _serviceDataValidator.ValidateAsync(item);
+            if (existingItem != null)
             {
                 throw new DataConflictException($"{item} cannot be added because its fields ahd a conflict.");
             }

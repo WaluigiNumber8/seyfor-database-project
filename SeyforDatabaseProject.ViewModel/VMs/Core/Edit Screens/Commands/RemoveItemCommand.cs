@@ -31,6 +31,7 @@ namespace SeyforDatabaseProject.ViewModel.Core
             catch (DataConflictException)
             {
                 Console.WriteLine("Due to conflicts, could not remove equipment.");
+                throw;
             }
             catch (Exception)
             {
