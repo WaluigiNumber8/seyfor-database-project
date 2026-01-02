@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.Model.Data.Guests;
+using SeyforDatabaseProject.Model.Data.Reservations;
 using SeyforDatabaseProject.Model.DatabaseConnection;
 
 namespace SeyforDatabaseProject.Model.Services
@@ -31,6 +32,12 @@ namespace SeyforDatabaseProject.Model.Services
             if (typeof(T) == typeof(GuestItem))
             {
                 IEnumerable<GuestDTO> dtos = await db.Guests.ToListAsync();
+                return dtos.Select(r => r.ConvertToItem() as T)!;
+            }
+            
+            if (typeof(T) == typeof(ReservationItem))
+            {
+                IEnumerable<ReservationDTO> dtos = await db.Reservations.ToListAsync();
                 return dtos.Select(r => r.ConvertToItem() as T)!;
             }
 

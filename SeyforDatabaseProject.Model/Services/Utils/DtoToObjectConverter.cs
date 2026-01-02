@@ -1,5 +1,6 @@
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.Model.Data.Guests;
+using SeyforDatabaseProject.Model.Data.Reservations;
 using SeyforDatabaseProject.Model.DatabaseConnection;
 
 namespace SeyforDatabaseProject.Model.Services
@@ -52,7 +53,7 @@ namespace SeyforDatabaseProject.Model.Services
                 (RoomAvailabilityStatus) dto.AvailabilityStatus
             );
         }
-        
+
         public static RoomDTO ConvertToDTO(this RoomItem item)
         {
             RoomDTO dto = new();
@@ -64,7 +65,7 @@ namespace SeyforDatabaseProject.Model.Services
             dto.AvailabilityStatus = (int) item.AvailabilityStatus;
             return dto;
         }
-        
+
         public static RoomDTO UpdateFrom(this RoomDTO dto, RoomItem item)
         {
             dto.RoomNumber = item.RoomNumber;
@@ -108,6 +109,42 @@ namespace SeyforDatabaseProject.Model.Services
             dto.Surname = item.Surname;
             dto.Email = item.Email;
             dto.PhoneNumber = item.PhoneNumber;
+            return dto;
+        }
+
+        #endregion
+
+        #region Reservations
+
+        public static ReservationItem ConvertToItem(this ReservationDTO dto)
+        {
+            return new ReservationItem
+            (
+                dto.ID,
+                Convert.ToDateTime(dto.DateStart),
+                Convert.ToDateTime(dto.DateEnd),
+                (ReservationStatus) dto.State,
+                dto.PriceTotal
+            );
+        }
+
+        public static ReservationDTO ConvertToDTO(this ReservationItem item)
+        {
+            ReservationDTO dto = new();
+            dto.ID = item.ID;
+            dto.DateStart = item.DateStart.ToString();
+            dto.DateEnd = item.DateEnd.ToString();
+            dto.State = (int) item.State;
+            dto.PriceTotal = (int) item.PriceTotal;
+            return dto;
+        }
+
+        public static ReservationDTO UpdateFrom(this ReservationDTO dto, ReservationItem item)
+        {
+            dto.DateStart = item.DateStart.ToString();
+            dto.DateEnd = item.DateEnd.ToString();
+            dto.State = (int) item.State;
+            dto.PriceTotal = (int) item.PriceTotal;
             return dto;
         }
 

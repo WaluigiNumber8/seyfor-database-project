@@ -1,5 +1,6 @@
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.Model.Data.Guests;
+using SeyforDatabaseProject.Model.Data.Reservations;
 using SeyforDatabaseProject.Model.DatabaseConnection;
 
 namespace SeyforDatabaseProject.Model.Services
@@ -24,6 +25,9 @@ namespace SeyforDatabaseProject.Model.Services
                     break;
                 case GuestItem guest:
                     db.Guests.Remove(guest.ConvertToDTO());
+                    break;
+                case ReservationItem reservation:
+                    db.Reservations.Remove(reservation.ConvertToDTO());
                     break;
             }
 

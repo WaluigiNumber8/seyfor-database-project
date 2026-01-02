@@ -9,6 +9,8 @@
         xmlns:rooms="clr-namespace:SeyforDatabaseProject.Views.Rooms"
         xmlns:guestVMs="clr-namespace:SeyforDatabaseProject.ViewModel.Guests;assembly=SeyforDatabaseProject.ViewModel"
         xmlns:guests="clr-namespace:SeyforDatabaseProject.Views.Guests"
+        xmlns:reservationVMs="clr-namespace:SeyforDatabaseProject.ViewModel.Reservations;assembly=SeyforDatabaseProject.ViewModel"
+        xmlns:reservations="clr-namespace:SeyforDatabaseProject.Views.Reservations"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
@@ -42,9 +44,21 @@
             <DataTemplate DataType="{x:Type guestVMs:ScreenGuestListingVM}">
                 <guests:GuestsListView />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type guestVMs:ScreenGuestEditingVM}">
+            <DataTemplate DataType="{x:Type guestVMs:ScreenGuestEditVM}">
                 <guests:GuestsEditView />
             </DataTemplate>
+            
+            <!-- Reservations -->
+            <DataTemplate DataType="{x:Type reservationVMs:ScreenReservationOperationsVM}">
+                <reservations:ReservationsOperationsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type reservationVMs:ScreenReservationListingVM}">
+                <reservations:ReservationsListView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type reservationVMs:ScreenReservationEditingVM}">
+                <reservations:ReservationsEditView />
+            </DataTemplate>
+            
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="0" />
@@ -59,8 +73,8 @@
             <StackPanel
                 Orientation="Horizontal"
                 HorizontalAlignment="Stretch">
-                <Button Content="Equipment"
-                        Command="{Binding NavigateEquipmentCommand}"
+                <Button Content="Reservations"
+                        Command="{Binding NavigateReservationsCommand}"
                         Width="100"
                         Height="30"
                         Margin="0,0,4,0" />
@@ -71,6 +85,11 @@
                         Margin="0,0,4,0" />
                 <Button Content="Guests"
                         Command="{Binding NavigateGuestsCommand}"
+                        Width="100"
+                        Height="30"
+                        Margin="0,0,4,0" />
+                <Button Content="Equipment"
+                        Command="{Binding NavigateEquipmentCommand}"
                         Width="100"
                         Height="30"
                         Margin="0,0,4,0" />

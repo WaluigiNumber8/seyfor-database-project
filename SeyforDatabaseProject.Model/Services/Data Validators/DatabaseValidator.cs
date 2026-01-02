@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.Model.Data.Guests;
+using SeyforDatabaseProject.Model.Data.Reservations;
 using SeyforDatabaseProject.Model.DatabaseConnection;
 
 namespace SeyforDatabaseProject.Model.Services
@@ -50,6 +51,12 @@ namespace SeyforDatabaseProject.Model.Services
                         .Where(r => r.PhoneNumber.Length <= 0)
                         .FirstOrDefaultAsync();
                     return invalidGuest?.ConvertToItem() as T;
+                
+                case ReservationItem:
+                    ReservationDTO? invalidReservation = await db.Reservations
+                        .Where(r => r.PriceTotal < 0)
+                        .FirstOrDefaultAsync();
+                    return invalidReservation?.ConvertToItem() as T;
             }
 
             throw new NotSupportedException($"Type {typeof(T).Name} is not supported by DatabaseValidator.");

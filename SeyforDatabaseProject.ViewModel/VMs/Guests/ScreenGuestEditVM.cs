@@ -3,7 +3,7 @@ using SeyforDatabaseProject.ViewModel.Core;
 
 namespace SeyforDatabaseProject.ViewModel.Guests
 {
-    public class ScreenGuestEditingVM : ScreenEditingVMBase<GuestItem, GuestItemVM>
+    public class ScreenGuestEditVM : ScreenEditingVMBase<GuestItem, GuestItemVM>
     {
         #region Properties
 
@@ -57,7 +57,7 @@ namespace SeyforDatabaseProject.ViewModel.Guests
         
         #endregion
         
-        public ScreenGuestEditingVM(HotelStore hotelStore, Action navigateToListing) : base(hotelStore.Guests, navigateToListing) { }
+        public ScreenGuestEditVM(HotelStore hotelStore, Action navigateToListing) : base(hotelStore.Guests, navigateToListing) { }
 
         protected override string ItemTypeName { get => "Guest"; }
         protected override Func<int, GuestItem> CreateItemFromFields { get => id => new GuestItem(id, Name, Surname, Email, PhoneNumber); }

@@ -6,6 +6,7 @@ using SeyforDatabaseProject.ViewModel;
 using SeyforDatabaseProject.ViewModel.Equipment;
 using SeyforDatabaseProject.ViewModel.Guests;
 using SeyforDatabaseProject.ViewModel.Navigation;
+using SeyforDatabaseProject.ViewModel.Reservations;
 using SeyforDatabaseProject.ViewModel.Rooms;
 
 namespace SeyforDatabaseProject.Views.HostBuilder
@@ -37,6 +38,7 @@ namespace SeyforDatabaseProject.Views.HostBuilder
                 PrepareEquipment(services);
                 PrepareRooms(services);
                 PrepareGuests(services);
+                PrepareReservations(services);
             });
             
             return hostBuilder;
@@ -100,6 +102,26 @@ namespace SeyforDatabaseProject.Views.HostBuilder
                 };
             });
             services.AddSingleton<NavigationService<ScreenGuestOperationsVM>>();
+        }
+        
+        private static void PrepareReservations(IServiceCollection services)
+        {
+            services.AddSingleton<ScreenReservationOperationsVM>(s =>
+            {
+                ScreenReservationOperationsVM vm = new(s.GetRequiredService<HotelStore>());
+                vm.Construct();
+                return vm;
+            });
+            services.AddSingleton<Func<ScreenReservationOperationsVM>>(s =>
+            {
+                return () =>
+                {
+                    ScreenReservationOperationsVM operations = s.GetRequiredService<ScreenReservationOperationsVM>();
+                    operations.NavigateToListing();
+                    return operations;
+                };
+            });
+            services.AddSingleton<NavigationService<ScreenReservationOperationsVM>>();
         }
     }
 }

@@ -3,7 +3,7 @@ using SeyforDatabaseProject.ViewModel.Core;
 
 namespace SeyforDatabaseProject.ViewModel.Guests
 {
-    public class ScreenGuestOperationsVM : ScreenItemOperationsBase<GuestItem, GuestItemVM, ScreenGuestListingVM, ScreenGuestEditingVM>
+    public class ScreenGuestOperationsVM : ScreenItemOperationsBase<GuestItem, GuestItemVM, ScreenGuestListingVM, ScreenGuestEditVM>
     {
         private readonly HotelStore _hotelStore;
 
@@ -17,9 +17,9 @@ namespace SeyforDatabaseProject.ViewModel.Guests
             get => () => new ScreenGuestListingVM(_hotelStore, EditingVM, NavigateToEditing);
         }
 
-        protected override Func<ScreenGuestEditingVM> CreateEditingScreen
+        protected override Func<ScreenGuestEditVM> CreateEditingScreen
         {
-            get => () => new ScreenGuestEditingVM(_hotelStore, NavigateToListing);
+            get => () => new ScreenGuestEditVM(_hotelStore, NavigateToListing);
         }
     }
 }

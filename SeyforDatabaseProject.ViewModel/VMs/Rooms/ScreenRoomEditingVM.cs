@@ -1,6 +1,5 @@
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.ViewModel.Core;
-using SeyforDatabaseProject.ViewModel.Navigation;
 
 namespace SeyforDatabaseProject.ViewModel.Rooms
 {

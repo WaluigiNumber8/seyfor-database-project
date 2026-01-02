@@ -1,5 +1,6 @@
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.Model.Data.Guests;
+using SeyforDatabaseProject.Model.Data.Reservations;
 using SeyforDatabaseProject.Model.DatabaseConnection;
 
 namespace SeyforDatabaseProject.Model.Services
@@ -42,6 +43,16 @@ namespace SeyforDatabaseProject.Model.Services
                     }
 
                     db.Guests.Update(existingGuestDTO.UpdateFrom(guestItem));
+                    break;
+                
+                case ReservationItem reservationItem:
+                    ReservationDTO? existingReservationDTO = await db.Reservations.FindAsync(item.ID);
+                    if (existingReservationDTO is null)
+                    {
+                        throw new InvalidOperationException($"Guest with ID {item.ID} not found.");
+                    }
+
+                    db.Reservations.Update(existingReservationDTO.UpdateFrom(reservationItem));
                     break;
             }
 

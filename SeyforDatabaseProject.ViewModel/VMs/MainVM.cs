@@ -3,6 +3,7 @@ using SeyforDatabaseProject.ViewModel.Core;
 using SeyforDatabaseProject.ViewModel.Equipment;
 using SeyforDatabaseProject.ViewModel.Guests;
 using SeyforDatabaseProject.ViewModel.Navigation;
+using SeyforDatabaseProject.ViewModel.Reservations;
 using SeyforDatabaseProject.ViewModel.Rooms;
 
 namespace SeyforDatabaseProject.ViewModel
@@ -17,6 +18,7 @@ namespace SeyforDatabaseProject.ViewModel
         public ICommand NavigateEquipmentCommand { get; }
         public ICommand NavigateRoomsCommand { get; }
         public ICommand NavigateGuestsCommand { get; }
+        public ICommand NavigateReservationsCommand { get; }
 
         #endregion
         
@@ -24,7 +26,7 @@ namespace SeyforDatabaseProject.ViewModel
         
         public ViewModelBase CurrentVM { get => _navigationStore.CurrentVM; }
 
-        public MainVM(NavigationStore navigationStore, NavigationService<ScreenEquipmentOperationsVM> navigateToEquipment, NavigationService<ScreenRoomOperationsVM> navigateToRooms, NavigationService<ScreenGuestOperationsVM> navigateToGuests)
+        public MainVM(NavigationStore navigationStore, NavigationService<ScreenEquipmentOperationsVM> navigateToEquipment, NavigationService<ScreenRoomOperationsVM> navigateToRooms, NavigationService<ScreenGuestOperationsVM> navigateToGuests, NavigationService<ScreenReservationOperationsVM> navigateToReservations)
         {
             _navigationStore = navigationStore;
             _navigationStore.OnViewModelChanged += WhenChangeViewModel;
@@ -32,6 +34,7 @@ namespace SeyforDatabaseProject.ViewModel
             NavigateEquipmentCommand = new NavigateCommand(navigateToEquipment);
             NavigateRoomsCommand = new NavigateCommand(navigateToRooms);
             NavigateGuestsCommand = new NavigateCommand(navigateToGuests);
+            NavigateReservationsCommand = new NavigateCommand(navigateToReservations);
         }
 
         private void WhenChangeViewModel() => OnPropertyChanged(nameof(CurrentVM));
