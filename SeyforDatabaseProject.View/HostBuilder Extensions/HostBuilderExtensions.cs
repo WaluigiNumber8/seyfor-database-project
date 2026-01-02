@@ -33,11 +33,11 @@ namespace SeyforDatabaseProject.Views.HostBuilder
             hostBuilder.ConfigureServices(services =>
             {
                 services.AddSingleton<ScreenEquipmentOperationsVM>();
-                services.AddSingleton<Func<ScreenEquipmentOperationsVM>>(ImplementationFactory);
+                services.AddSingleton<Func<ScreenEquipmentOperationsVM>>(CreateEquipmentOperations);
                 services.AddSingleton<NavigationService<ScreenEquipmentOperationsVM>>();
                 
                 services.AddSingleton<ScreenRoomOperationsVM>();
-                services.AddSingleton<Func<ScreenRoomOperationsVM>>(s => s.GetRequiredService<ScreenRoomOperationsVM>);
+                services.AddSingleton<Func<ScreenRoomOperationsVM>>(CreateRoomOperations);
                 services.AddSingleton<NavigationService<ScreenRoomOperationsVM>>();
 
             });
@@ -45,11 +45,21 @@ namespace SeyforDatabaseProject.Views.HostBuilder
             return hostBuilder;
         }
 
-        private static Func<ScreenEquipmentOperationsVM> ImplementationFactory(IServiceProvider s)
+        private static Func<ScreenRoomOperationsVM> CreateRoomOperations(IServiceProvider s)
         {
             return () =>
             {
                 
+                ScreenRoomOperationsVM operations = s.GetRequiredService<ScreenRoomOperationsVM>();
+                operations.NavigateToListing();
+                return operations;
+            };
+        }
+
+        private static Func<ScreenEquipmentOperationsVM> CreateEquipmentOperations(IServiceProvider s)
+        {
+            return () =>
+            {
                 ScreenEquipmentOperationsVM operations = s.GetRequiredService<ScreenEquipmentOperationsVM>();
                 operations.NavigateToListing();
                 return operations;
