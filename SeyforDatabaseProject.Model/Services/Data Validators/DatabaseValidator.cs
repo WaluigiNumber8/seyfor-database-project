@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SeyforDatabaseProject.Model.Data;
+using SeyforDatabaseProject.Model.Data.Guests;
 using SeyforDatabaseProject.Model.DatabaseConnection;
 
 namespace SeyforDatabaseProject.Model.Services
@@ -26,7 +27,7 @@ namespace SeyforDatabaseProject.Model.Services
             await using DatabaseContext db = _contextFactory.CreateDbContext();
             switch (item)
             {
-                case EquipmentItem equipment:
+                case EquipmentItem:
                     EquipmentDTO? invalidEquipment = await db.Equipment
                         .Where(e => e.Title.Length <= 0)
                         .Where(e => e.Description.Length <= 0)
@@ -34,12 +35,21 @@ namespace SeyforDatabaseProject.Model.Services
 
                     return invalidEquipment?.ConvertToItem() as T;
 
-                case RoomItem room:
+                case RoomItem:
                     RoomDTO? invalidRoom = await db.Rooms
                         .Where(r => r.RoomNumber <= 0)
                         .Where(r => r.Capacity <= 0)
                         .FirstOrDefaultAsync();
                     return invalidRoom?.ConvertToItem() as T;
+                
+                case GuestItem:
+                    GuestDTO? invalidGuest = await db.Guests
+                        .Where(r => r.Name.Length <= 0)
+                        .Where(r => r.Surname.Length <= 0)
+                        .Where(r => r.Email.Length <= 0)
+                        .Where(r => r.PhoneNumber.Length <= 0)
+                        .FirstOrDefaultAsync();
+                    return invalidGuest?.ConvertToItem() as T;
             }
 
             throw new NotSupportedException($"Type {typeof(T).Name} is not supported by DatabaseValidator.");

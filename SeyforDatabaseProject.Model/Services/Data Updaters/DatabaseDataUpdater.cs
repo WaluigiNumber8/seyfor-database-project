@@ -1,4 +1,5 @@
 using SeyforDatabaseProject.Model.Data;
+using SeyforDatabaseProject.Model.Data.Guests;
 using SeyforDatabaseProject.Model.DatabaseConnection;
 
 namespace SeyforDatabaseProject.Model.Services
@@ -31,6 +32,16 @@ namespace SeyforDatabaseProject.Model.Services
                     }
 
                     db.Rooms.Update(existingRoomDTO.UpdateFrom(roomItem));
+                    break;
+                
+                case GuestItem guestItem:
+                    GuestDTO? existingGuestDTO = await db.Guests.FindAsync(item.ID);
+                    if (existingGuestDTO is null)
+                    {
+                        throw new InvalidOperationException($"Guest with ID {item.ID} not found.");
+                    }
+
+                    db.Guests.Update(existingGuestDTO.UpdateFrom(guestItem));
                     break;
             }
 

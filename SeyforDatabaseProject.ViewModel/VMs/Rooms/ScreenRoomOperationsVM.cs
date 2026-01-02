@@ -5,7 +5,7 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
 {
     public class ScreenRoomOperationsVM : ScreenItemOperationsBase<RoomItem, RoomItemVM, ScreenRoomListingVM, ScreenRoomEditingVM>
     {
-        private HotelStore _hotelStore;
+        private readonly HotelStore _hotelStore;
 
         public ScreenRoomOperationsVM(HotelStore hotelStore)
         {

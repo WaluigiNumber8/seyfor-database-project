@@ -21,12 +21,8 @@ namespace SeyforDatabaseProject.Model.Data
         /// Updates the equipment item with new data. HAS to have the same ID.
         /// </summary>
         /// <param name="item"></param>
-        public override void Update(EquipmentItem item)
+        protected override void UpdateFields(EquipmentItem item)
         {
-            if (item.ID != ID)
-            {
-                throw new DataConflictException($"{item} cannot update {this} because IDs do not match.");
-            }
             Title = item.Title;
             Description = item.Description;
         }

@@ -1,4 +1,5 @@
 using SeyforDatabaseProject.Model.Data;
+using SeyforDatabaseProject.Model.Data.Guests;
 using SeyforDatabaseProject.Model.DatabaseConnection;
 
 namespace SeyforDatabaseProject.Model.Services
@@ -8,9 +9,7 @@ namespace SeyforDatabaseProject.Model.Services
     /// </summary>
     public class DatabaseDataRemover : DatabaseServiceBase, IServiceDataRemover
     {
-        public DatabaseDataRemover(DatabaseContextFactory contextFactory) : base(contextFactory)
-        {
-        }
+        public DatabaseDataRemover(DatabaseContextFactory contextFactory) : base(contextFactory) { }
 
         public async Task RemoveAsync<T>(T item) where T : DatabaseItemBase<T>
         {
@@ -22,6 +21,9 @@ namespace SeyforDatabaseProject.Model.Services
                     break;
                 case RoomItem room:
                     db.Rooms.Remove(room.ConvertToDTO());
+                    break;
+                case GuestItem guest:
+                    db.Guests.Remove(guest.ConvertToDTO());
                     break;
             }
 

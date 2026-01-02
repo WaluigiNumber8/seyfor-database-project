@@ -1,4 +1,5 @@
 using SeyforDatabaseProject.Model.Data;
+using SeyforDatabaseProject.Model.Data.Guests;
 using SeyforDatabaseProject.Model.DatabaseConnection;
 
 namespace SeyforDatabaseProject.Model.Services
@@ -20,19 +21,19 @@ namespace SeyforDatabaseProject.Model.Services
             );
         }
 
-        public static EquipmentDTO ConvertToDTO(this EquipmentItem equipment)
+        public static EquipmentDTO ConvertToDTO(this EquipmentItem item)
         {
             EquipmentDTO dto = new();
-            dto.ID = equipment.ID;
-            dto.Title = equipment.Title;
-            dto.Description = equipment.Description;
+            dto.ID = item.ID;
+            dto.Title = item.Title;
+            dto.Description = item.Description;
             return dto;
         }
 
-        public static EquipmentDTO UpdateFrom(this EquipmentDTO dto, EquipmentItem equipment)
+        public static EquipmentDTO UpdateFrom(this EquipmentDTO dto, EquipmentItem item)
         {
-            dto.Title = equipment.Title;
-            dto.Description = equipment.Description;
+            dto.Title = item.Title;
+            dto.Description = item.Description;
             return dto;
         }
 
@@ -52,25 +53,61 @@ namespace SeyforDatabaseProject.Model.Services
             );
         }
         
-        public static RoomDTO ConvertToDTO(this RoomItem room)
+        public static RoomDTO ConvertToDTO(this RoomItem item)
         {
             RoomDTO dto = new();
-            dto.ID = room.ID;
-            dto.RoomNumber = room.RoomNumber;
-            dto.RoomType = (int) room.RoomType;
-            dto.Capacity = room.Capacity;
-            dto.PricePerNight = room.PricePerNight.ToString();
-            dto.AvailabilityStatus = (int) room.AvailabilityStatus;
+            dto.ID = item.ID;
+            dto.RoomNumber = item.RoomNumber;
+            dto.RoomType = (int) item.RoomType;
+            dto.Capacity = item.Capacity;
+            dto.PricePerNight = item.PricePerNight.ToString();
+            dto.AvailabilityStatus = (int) item.AvailabilityStatus;
             return dto;
         }
         
-        public static RoomDTO UpdateFrom(this RoomDTO dto, RoomItem room)
+        public static RoomDTO UpdateFrom(this RoomDTO dto, RoomItem item)
         {
-            dto.RoomNumber = room.RoomNumber;
-            dto.RoomType = (int) room.RoomType;
-            dto.Capacity = room.Capacity;
-            dto.PricePerNight = room.PricePerNight.ToString();
-            dto.AvailabilityStatus = (int) room.AvailabilityStatus;
+            dto.RoomNumber = item.RoomNumber;
+            dto.RoomType = (int) item.RoomType;
+            dto.Capacity = item.Capacity;
+            dto.PricePerNight = item.PricePerNight.ToString();
+            dto.AvailabilityStatus = (int) item.AvailabilityStatus;
+            return dto;
+        }
+
+        #endregion
+
+        #region Guest
+
+        public static GuestItem ConvertToItem(this GuestDTO dto)
+        {
+            return new GuestItem
+            (
+                dto.ID,
+                dto.Name,
+                dto.Surname,
+                dto.Email,
+                dto.PhoneNumber
+            );
+        }
+
+        public static GuestDTO ConvertToDTO(this GuestItem item)
+        {
+            GuestDTO dto = new();
+            dto.ID = item.ID;
+            dto.Name = item.Name;
+            dto.Surname = item.Surname;
+            dto.Email = item.Email;
+            dto.PhoneNumber = item.PhoneNumber;
+            return dto;
+        }
+
+        public static GuestDTO UpdateFrom(this GuestDTO dto, GuestItem item)
+        {
+            dto.Name = item.Name;
+            dto.Surname = item.Surname;
+            dto.Email = item.Email;
+            dto.PhoneNumber = item.PhoneNumber;
             return dto;
         }
 

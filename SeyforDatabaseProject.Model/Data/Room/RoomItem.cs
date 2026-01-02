@@ -24,13 +24,8 @@ namespace SeyforDatabaseProject.Model.Data
             AvailabilityStatus = availabilityStatus;
         }
 
-        public override void Update(RoomItem item)
+        protected override void UpdateFields(RoomItem item)
         {
-            if (item.ID != ID)
-            {
-                throw new DataConflictException($"{item} cannot update {this} because IDs do not match.");
-            }
-
             RoomNumber = item.RoomNumber;
             RoomType = item.RoomType;
             Capacity = item.Capacity;

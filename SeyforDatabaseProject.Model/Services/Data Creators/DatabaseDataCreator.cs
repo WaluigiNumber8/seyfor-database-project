@@ -1,4 +1,5 @@
 using SeyforDatabaseProject.Model.Data;
+using SeyforDatabaseProject.Model.Data.Guests;
 using SeyforDatabaseProject.Model.DatabaseConnection;
 
 namespace SeyforDatabaseProject.Model.Services
@@ -10,13 +11,6 @@ namespace SeyforDatabaseProject.Model.Services
     {
         public DatabaseDataCreator(DatabaseContextFactory contextFactory) : base(contextFactory) { }
 
-        public async Task CreateAsync(EquipmentItem newEquipment)
-        {
-            await using DatabaseContext db = _contextFactory.CreateDbContext();
-            db.Equipment.Add(newEquipment.ConvertToDTO());
-            await db.SaveChangesAsync();
-        }
-
         public async Task CreateAsync<T>(T item) where T : DatabaseItemBase<T>
         {
             await using DatabaseContext db = _contextFactory.CreateDbContext();
@@ -27,6 +21,9 @@ namespace SeyforDatabaseProject.Model.Services
                     break;
                 case RoomItem room:
                     db.Rooms.Add(room.ConvertToDTO());
+                    break;
+                case GuestItem guest:
+                    db.Guests.Add(guest.ConvertToDTO());
                     break;
             }
             

@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using SeyforDatabaseProject.ViewModel.Core;
 using SeyforDatabaseProject.ViewModel.Equipment;
+using SeyforDatabaseProject.ViewModel.Guests;
 using SeyforDatabaseProject.ViewModel.Navigation;
 using SeyforDatabaseProject.ViewModel.Rooms;
 
@@ -15,6 +16,7 @@ namespace SeyforDatabaseProject.ViewModel
 
         public ICommand NavigateEquipmentCommand { get; }
         public ICommand NavigateRoomsCommand { get; }
+        public ICommand NavigateGuestsCommand { get; }
 
         #endregion
         
@@ -22,13 +24,14 @@ namespace SeyforDatabaseProject.ViewModel
         
         public ViewModelBase CurrentVM { get => _navigationStore.CurrentVM; }
 
-        public MainVM(NavigationStore navigationStore, NavigationService<ScreenEquipmentOperationsVM> navigateToEquipment, NavigationService<ScreenRoomOperationsVM> navigateToRooms)
+        public MainVM(NavigationStore navigationStore, NavigationService<ScreenEquipmentOperationsVM> navigateToEquipment, NavigationService<ScreenRoomOperationsVM> navigateToRooms, NavigationService<ScreenGuestOperationsVM> navigateToGuests)
         {
             _navigationStore = navigationStore;
             _navigationStore.OnViewModelChanged += WhenChangeViewModel;
 
             NavigateEquipmentCommand = new NavigateCommand(navigateToEquipment);
             NavigateRoomsCommand = new NavigateCommand(navigateToRooms);
+            NavigateGuestsCommand = new NavigateCommand(navigateToGuests);
         }
 
         private void WhenChangeViewModel() => OnPropertyChanged(nameof(CurrentVM));
