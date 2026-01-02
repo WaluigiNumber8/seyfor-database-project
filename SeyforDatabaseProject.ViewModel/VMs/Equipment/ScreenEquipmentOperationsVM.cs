@@ -14,7 +14,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         
         protected override Func<ScreenEquipmentListingVM> CreateListingScreen
         {
-            get => () => new ScreenEquipmentListingVM(_hotelStore, CreateEditingScreen.Invoke(), NavigateToEditing);
+            get => () => new ScreenEquipmentListingVM(_hotelStore, EditingVM, NavigateToEditing);
         }
         
         protected override Func<ScreenEquipmentEditingVM> CreateEditingScreen

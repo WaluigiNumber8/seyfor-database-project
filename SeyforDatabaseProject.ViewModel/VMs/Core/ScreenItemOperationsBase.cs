@@ -28,6 +28,7 @@ namespace SeyforDatabaseProject.ViewModel.Core
 
         public void NavigateToListing()
         {
+            EditingVM = CreateEditingScreen.Invoke();
             ListingVM = CreateListingScreen.Invoke();
             ListingVM.RefreshEntriesCommand.Execute(null);
             CurrentOperationVM = ListingVM;
@@ -36,7 +37,6 @@ namespace SeyforDatabaseProject.ViewModel.Core
 
         public void NavigateToEditing()
         {
-            EditingVM = CreateEditingScreen.Invoke();
             CurrentOperationVM = EditingVM;
             OnPropertyChanged(nameof(CurrentOperationVM));
         }
