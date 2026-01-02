@@ -14,7 +14,7 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
         
         protected override Func<ScreenRoomListingVM> CreateListingScreen
         {
-            get => () => new ScreenRoomListingVM(_hotelStore, CreateEditingScreen.Invoke(), NavigateToEditing);
+            get => () => new ScreenRoomListingVM(_hotelStore, EditingVM, NavigateToEditing);
         }
         
         protected override Func<ScreenRoomEditingVM> CreateEditingScreen

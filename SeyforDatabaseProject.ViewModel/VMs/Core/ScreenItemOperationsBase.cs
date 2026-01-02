@@ -36,13 +36,11 @@ namespace SeyforDatabaseProject.ViewModel.Core
         {
             ListingVM.RefreshEntriesCommand.Execute(null);
             CurrentOperationVM = ListingVM;
-            OnPropertyChanged(nameof(CurrentOperationVM));
         }
 
         public void NavigateToEditing()
         {
             CurrentOperationVM = EditingVM;
-            OnPropertyChanged(nameof(CurrentOperationVM));
         }
 
         protected abstract Func<TListingScreen> CreateListingScreen { get; }

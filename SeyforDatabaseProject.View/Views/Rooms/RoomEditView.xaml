@@ -83,6 +83,6 @@
                     Command="{Binding CancelCommand}"
                     Width="100"
                     Height="30" />
-            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

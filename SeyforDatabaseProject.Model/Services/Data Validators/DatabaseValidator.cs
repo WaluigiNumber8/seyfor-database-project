@@ -38,7 +38,6 @@ namespace SeyforDatabaseProject.Model.Services
                     RoomDTO? invalidRoom = await db.Rooms
                         .Where(r => r.RoomNumber <= 0)
                         .Where(r => r.Capacity <= 0)
-                        .Where(r => Convert.ToDecimal(r.PricePerNight) <= 0)
                         .FirstOrDefaultAsync();
                     return invalidRoom?.ConvertToItem() as T;
             }
