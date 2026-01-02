@@ -18,7 +18,7 @@
                 <equipment:EquipmentListView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type equipmentVMs:ScreenEquipmentEditingVM}">
-                <equipment:EquipmentListView />
+                <equipment:EquipmentEditView />
             </DataTemplate>
             
             <DataTemplate DataType="{x:Type roomVMs:ScreenRoomOperationsVM}">
@@ -45,12 +45,12 @@
                 Orientation="Horizontal"
                 HorizontalAlignment="Stretch">
                 <Button Content="Equipment"
-                        Command="{Binding ShowEquipmentListingCommand}"
+                        Command="{Binding NavigateEquipmentCommand}"
                         Width="100"
                         Height="30"
                         Margin="0,0,4,0" />
                 <Button Content="Rooms"
-                        Command="{Binding ShowRoomListingCommand}"
+                        Command="{Binding NavigateRoomsCommand}"
                         Width="100"
                         Height="30"
                         Margin="0,0,4,0" />

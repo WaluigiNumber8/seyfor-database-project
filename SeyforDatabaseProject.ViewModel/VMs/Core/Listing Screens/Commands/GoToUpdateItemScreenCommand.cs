@@ -18,9 +18,9 @@ namespace SeyforDatabaseProject.ViewModel.Core
 
         public override void Execute(object? parameter)
         {
+            _navigateToEdit.Invoke();
             TItemVM? selectedEquipment = parameter as TItemVM;
             _targetVM.LoadForEdit(selectedEquipment);
-            _navigateToEdit.Invoke();
         }
     }
 }
