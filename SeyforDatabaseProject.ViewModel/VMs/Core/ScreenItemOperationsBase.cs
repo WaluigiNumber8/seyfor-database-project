@@ -25,26 +25,23 @@ namespace SeyforDatabaseProject.ViewModel.Core
                 OnPropertyChanged();
             }
         }
-        
-        /// <summary>
-        /// Constructs the base property.
-        /// </summary>
-        protected void Construct(TListingScreen listingVM, TEditingScreen editingVM)
+
+        public void NavigateToListing()
         {
-            ListingVM = listingVM;
-            EditingVM = editingVM;
-            NavigateToListing();
-        }
-        
-        protected void NavigateToListing()
-        {
-            CurrentOperationVM = ListingVM;
+            ListingVM = CreateListingScreen.Invoke();
             ListingVM.RefreshEntriesCommand.Execute(null);
+            CurrentOperationVM = ListingVM;
+            OnPropertyChanged(nameof(CurrentOperationVM));
         }
 
-        protected void NavigateToEditing()
+        public void NavigateToEditing()
         {
+            EditingVM = CreateEditingScreen.Invoke();
             CurrentOperationVM = EditingVM;
+            OnPropertyChanged(nameof(CurrentOperationVM));
         }
+
+        protected abstract Func<TListingScreen> CreateListingScreen { get; }
+        protected abstract Func<TEditingScreen> CreateEditingScreen { get; }
     }
 }

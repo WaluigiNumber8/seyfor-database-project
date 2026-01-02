@@ -5,11 +5,21 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
 {
     public class ScreenRoomOperationsVM : ScreenItemOperationsBase<RoomItem, RoomItemVM, ScreenRoomListingVM, ScreenRoomEditingVM>
     {
-        public ScreenRoomOperationsVM(HotelStore store)
+        private HotelStore _hotelStore;
+
+        public ScreenRoomOperationsVM(HotelStore hotelStore)
         {
-            ScreenRoomEditingVM editing = new(store, NavigateToListing);
-            ScreenRoomListingVM listing = new(store, editing, NavigateToEditing);
-            Construct(listing, editing);
+            _hotelStore = hotelStore;
+        }
+        
+        protected override Func<ScreenRoomListingVM> CreateListingScreen
+        {
+            get => () => new ScreenRoomListingVM(_hotelStore, CreateEditingScreen.Invoke(), NavigateToEditing);
+        }
+        
+        protected override Func<ScreenRoomEditingVM> CreateEditingScreen
+        {
+            get => () => new ScreenRoomEditingVM(_hotelStore, NavigateToListing);
         }
     }
 }
