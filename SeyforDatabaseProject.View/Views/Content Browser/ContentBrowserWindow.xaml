@@ -20,7 +20,8 @@
                FontSize="18"
                FontWeight="Bold" />
         <Separator Grid.Row="2" />
-        <ListView Grid.Row="3"
+        <ListView x:Name="ItemsListView"
+                  Grid.Row="3"
                   ItemsSource="{Binding PickableItems}">
             <ListView.View>
                 <GridView>
@@ -47,13 +48,13 @@
                     Margin="0,8,0,0">
             <Button Content="Select"
                     Command="{Binding SelectCommand}"
+                    CommandParameter="{Binding SelectedItem, ElementName=ItemsListView}"
                     Width="100"
                     Height="30"
                     Margin="0,0,4,0"
                     HorizontalAlignment="Center" />
             <Button Content="Cancel"
                     Command="{Binding CancelCommand}"
-                    CommandParameter="{Binding SelectedItem, ElementName=EquipmentItemsListView}"
                     Width="100"
                     Height="30"
                     Margin="0,0,4,0" />

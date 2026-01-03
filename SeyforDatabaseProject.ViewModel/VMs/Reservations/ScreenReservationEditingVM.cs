@@ -100,6 +100,10 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
             PriceTotal = item.PriceTotal;
         }
 
-        private void WhenGuestSelected(GuestItem guest) => _currentGuest = guest;
+        private void WhenGuestSelected(GuestItem guest)
+        {
+            Console.WriteLine($"Selected guest: {guest}");
+            _currentGuest = guest;
+        }
     }
 }

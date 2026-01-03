@@ -15,5 +15,7 @@ namespace SeyforDatabaseProject.ViewModel.ContentBrowser
             ID = id;
             TextIdentifier = textIdentifier;
         }
+
+        public override string ToString() => $"{ID} - {TextIdentifier}";
     }
 }

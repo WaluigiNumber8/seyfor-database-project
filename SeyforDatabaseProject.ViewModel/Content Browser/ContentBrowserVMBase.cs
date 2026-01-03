@@ -25,7 +25,7 @@ namespace SeyforDatabaseProject.ViewModel.ContentBrowser
 
         #region Commands
 
-        public ICommand SelectAssetCommand { get; }
+        public ICommand SelectCommand { get; }
         public ICommand CancelCommand { get; }
         public ICommand RefreshEntriesCommand { get; }
 
@@ -37,6 +37,8 @@ namespace SeyforDatabaseProject.ViewModel.ContentBrowser
         public ContentBrowserVMBase(DatabaseItemList<TAssetType> list)
         {
             PickableItems = new ObservableCollection<ContentBrowserItemVM>();
+
+            SelectCommand = new SelectAssetSingleCommand<TAssetType>(this, list);
             RefreshEntriesCommand = new RefreshEntriesCommand<TAssetType>(this, list);
         }
 
