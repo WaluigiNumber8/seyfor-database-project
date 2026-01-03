@@ -27,7 +27,7 @@ namespace SeyforDatabaseProject.Views.HostBuilder
                 services.AddSingleton<IServiceDataUpdater, DatabaseDataUpdater>();
                 services.AddSingleton<IServiceDataRemover, DatabaseDataRemover>();
                 services.AddSingleton<IServiceDataValidator, DatabaseValidator>();
-                services.AddSingleton<IServiceContentBrowser, ServiceContentBrowser>();
+                services.AddSingleton<IServiceContentBrowser, ServiceContentBrowserWindow>();
                 services.AddTransient<HotelBook>();
             });
             

@@ -34,11 +34,12 @@ namespace SeyforDatabaseProject.ViewModel.ContentBrowser
         public Action<TAssetType> WhenConfirm { get; set; }
         protected abstract string GetAssetTextIdentifier(TAssetType item);
 
-        public ContentBrowserVMBase(DatabaseItemList<TAssetType> list)
+        public ContentBrowserVMBase(DatabaseItemList<TAssetType> list, IServiceContentBrowser browserService)
         {
             PickableItems = new ObservableCollection<ContentBrowserItemVM>();
 
-            SelectCommand = new SelectAssetSingleCommand<TAssetType>(this, list);
+            SelectCommand = new SelectAssetSingleCommand<TAssetType>(this, list, browserService);
+            CancelCommand = new CloseContentBrowserCommand(browserService);
             RefreshEntriesCommand = new RefreshEntriesCommand<TAssetType>(this, list);
         }
 

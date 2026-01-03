@@ -21,13 +21,10 @@ namespace SeyforDatabaseProject.ViewModel.ContentBrowser
 
         public override void Execute(object? parameter)
         {
-            //Open asset picker window
-            ContentBrowserVMBase<GuestItem> browser = new ContentBrowserGuestVM(_hotelStore);
+            ContentBrowserVMBase<GuestItem> browser = new ContentBrowserGuestVM(_hotelStore, _contentBrowserService);
             browser.RefreshEntriesCommand.Execute(null);
             browser.WhenConfirm = _selectAssetAction;
             _contentBrowserService.Open(browser);
-
-            //Call method when window closed.
         }
     }
 }
