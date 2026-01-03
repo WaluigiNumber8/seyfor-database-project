@@ -16,12 +16,7 @@ namespace SeyforDatabaseProject.ViewModel.ContentBrowser
             _items = items;
             _browserService = browserService;
         }
-
-        public override bool CanExecute(object? parameter)
-        {
-            return parameter != null && base.CanExecute(parameter);
-        }
-
+        
         public override void Execute(object? parameter)
         {
             if (parameter is not IList items)
