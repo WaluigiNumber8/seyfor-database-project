@@ -1,12 +1,7 @@
 ﻿<Application x:Class="SeyforDatabaseProject.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:SeyforDatabaseProject"
-             xmlns:contentBrowser="clr-namespace:SeyforDatabaseProject.ViewModel.ContentBrowser;assembly=SeyforDatabaseProject.ViewModel"
-             xmlns:contentBrowser1="clr-namespace:SeyforDatabaseProject.Views.ContentBrowser">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
-        <DataTemplate DataType="{x:Type contentBrowser:ContentBrowserGuestVM}">
-            <contentBrowser1:ContentBrowserView />
-        </DataTemplate>
+        
     </Application.Resources>
 </Application>

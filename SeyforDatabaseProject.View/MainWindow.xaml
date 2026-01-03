@@ -11,8 +11,6 @@
         xmlns:guests="clr-namespace:SeyforDatabaseProject.Views.Guests"
         xmlns:reservationVMs="clr-namespace:SeyforDatabaseProject.ViewModel.Reservations;assembly=SeyforDatabaseProject.ViewModel"
         xmlns:reservations="clr-namespace:SeyforDatabaseProject.Views.Reservations"
-        xmlns:contentBrowser="clr-namespace:SeyforDatabaseProject.ViewModel.ContentBrowser;assembly=SeyforDatabaseProject.ViewModel"
-        xmlns:contentBrowsers="clr-namespace:SeyforDatabaseProject.Views.ContentBrowser"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
@@ -59,10 +57,6 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type reservationVMs:ScreenReservationEditingVM}">
                 <reservations:ReservationsEditView />
-            </DataTemplate>
-            
-            <DataTemplate DataType="{x:Type contentBrowser:ContentBrowserGuestVM}">
-                <contentBrowsers:ContentBrowserView />
             </DataTemplate>
             
         </Grid.Resources>
