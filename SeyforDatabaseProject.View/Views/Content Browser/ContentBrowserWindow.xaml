@@ -46,7 +46,7 @@
                     Margin="0,8,0,0">
             <Button Content="Select"
                     Command="{Binding SelectCommand}"
-                    CommandParameter="{Binding SelectedItem, ElementName=ItemsListView}"
+                    CommandParameter="{Binding SelectedItems, ElementName=ItemsListView}"
                     Width="100"
                     Height="30"
                     Margin="0,0,4,0"

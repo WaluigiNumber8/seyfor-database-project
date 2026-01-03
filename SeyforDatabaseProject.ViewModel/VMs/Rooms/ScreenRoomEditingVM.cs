@@ -109,15 +109,14 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
             AvailabilityStatus = Enum.Parse<RoomAvailabilityStatus>(item.AvailabilityStatus);
         }
 
-        private void WhenEquipmentSelected(EquipmentItem items)
+        private void WhenEquipmentSelected(IList<EquipmentItem> items)
         {
-            CurrentEquipmentText = items.Title;
-            // StringBuilder sb = new();
-            // foreach (EquipmentItem item in items)
-            // {
-            //     sb.Append($"{item.Title}, ");
-            // }
-            // CurrentEquipmentText = sb.ToString();
+            StringBuilder sb = new();
+            foreach (EquipmentItem item in items)
+            {
+                sb.Append($"{item.Title}, ");
+            }
+            CurrentEquipmentText = sb.ToString();
         }
     }
 }

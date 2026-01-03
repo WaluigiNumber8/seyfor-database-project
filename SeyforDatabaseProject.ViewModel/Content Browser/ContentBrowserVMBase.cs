@@ -9,7 +9,7 @@ namespace SeyforDatabaseProject.ViewModel.ContentBrowser
     /// <summary>
     /// VM for the content browser window.
     /// </summary>
-    public abstract class ContentBrowserVMBase<TAssetType> : ViewModelBase, IViewModelWithList<TAssetType> where TAssetType : DatabaseItemBase<TAssetType>
+    public abstract class ContentBrowserVMBase<TItemType> : ViewModelBase, IViewModelWithList<TItemType> where TItemType : DatabaseItemBase<TItemType>
     {
         #region Properties
 
@@ -42,25 +42,25 @@ namespace SeyforDatabaseProject.ViewModel.ContentBrowser
 
         #endregion
 
-        public Action<TAssetType> WhenConfirm { get; set; }
-        protected abstract string GetAssetTextIdentifier(TAssetType item);
+        public Action<IList<TItemType>> WhenConfirm { get; set; }
+        protected abstract string GetAssetTextIdentifier(TItemType item);
         protected abstract string AssetTypeInString { get; }
 
-        public ContentBrowserVMBase(DatabaseItemList<TAssetType> list, IServiceContentBrowser browserService)
+        public ContentBrowserVMBase(DatabaseItemList<TItemType> list, IServiceContentBrowser browserService)
         {
             PickableItems = new ObservableCollection<ContentBrowserItemVM>();
 
-            SelectCommand = new SelectAssetSingleCommand<TAssetType>(this, list, browserService);
+            SelectCommand = new SelectAssetsCommand<TItemType>(this, list, browserService);
             CancelCommand = new CloseContentBrowserCommand(browserService);
-            RefreshEntriesCommand = new RefreshEntriesCommand<TAssetType>(this, list);
+            RefreshEntriesCommand = new RefreshEntriesCommand<TItemType>(this, list);
 
             HeaderText = $"Pick {AssetTypeInString}";
         }
 
-        public void UpdateEntries(IEnumerable<TAssetType> items)
+        public void UpdateEntries(IEnumerable<TItemType> items)
         {
             PickableItems.Clear();
-            foreach (TAssetType item in items)
+            foreach (TItemType item in items)
             {
                 PickableItems.Add(new ContentBrowserItemVM(item.ID, GetAssetTextIdentifier(item)));
             }

@@ -133,15 +133,17 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
             PriceTotal = item.PriceTotal;
         }
 
-        private void WhenGuestSelected(GuestItem guest)
+        private void WhenGuestSelected(IList<GuestItem> guestItems)
         {
+            GuestItem guest = guestItems[0];
             Console.WriteLine($"Selected guest: {guest}");
             _currentGuest = guest;
             CurrentGuestText = guest.FullName;
         }
         
-        private void WhenRoomSelected(RoomItem room)
+        private void WhenRoomSelected(IList<RoomItem> roomItems)
         {
+            RoomItem room = roomItems[0];
             Console.WriteLine($"Selected room: {room}");
             _currentRoom = room;
             CurrentRoomText = room.RoomNumber.ToString();

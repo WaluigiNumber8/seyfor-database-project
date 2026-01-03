@@ -5,11 +5,11 @@ namespace SeyforDatabaseProject.ViewModel.ContentBrowser
 {
     public class OpenContentBrowserCommand<TItemType> : CommandBase where TItemType : DatabaseItemBase<TItemType>
     {
-        private readonly Action<TItemType> _selectAssetAction;
+        private readonly Action<IList<TItemType>> _selectAssetAction;
         private readonly Func<ContentBrowserVMBase<TItemType>> _createBrowserVM;
         private readonly IServiceContentBrowser _contentBrowserService;
 
-        public OpenContentBrowserCommand(Action<TItemType> selectAssetAction, Func<ContentBrowserVMBase<TItemType>> createBrowserVm, IServiceContentBrowser contentBrowserService)
+        public OpenContentBrowserCommand(Action<IList<TItemType>> selectAssetAction, Func<ContentBrowserVMBase<TItemType>> createBrowserVm, IServiceContentBrowser contentBrowserService)
         {
             _selectAssetAction = selectAssetAction;
             _contentBrowserService = contentBrowserService;
