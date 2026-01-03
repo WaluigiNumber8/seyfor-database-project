@@ -10,6 +10,18 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
     {
         #region Properties
 
+        private string _currentGuestText;
+
+        public string CurrentGuestText
+        {
+            get => _currentGuestText;
+            set
+            {
+                _currentGuestText = value;
+                OnPropertyChanged();
+            }
+        }
+        
         private DateTime _dateStart;
 
         public DateTime DateStart
@@ -104,6 +116,7 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
         {
             Console.WriteLine($"Selected guest: {guest}");
             _currentGuest = guest;
+            CurrentGuestText = guest.FullName;
         }
     }
 }

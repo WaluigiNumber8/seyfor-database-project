@@ -27,6 +27,8 @@ namespace SeyforDatabaseProject.Model.Data.Guests
             PhoneNumber = item.PhoneNumber;
         }
 
+        public string FullName {get => $"{Name} {Surname}";}
+        
         public override string ToString() => $"{ID} - {Name} {Surname}";
     }
 }

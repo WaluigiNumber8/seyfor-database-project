@@ -32,7 +32,7 @@
                 <!-- Guest Picker -->
                 <StackPanel Orientation="Horizontal">
                     <Label Content="Guest:" />
-                    <Label Content="Guest here"/>
+                    <Label Content="{Binding CurrentGuestText, FallbackValue=Guest Name Here}"/>
                     <Button Content="Select" 
                             Command="{Binding SelectGuestCommand}"
                             Padding="6,0,6,0"/>
