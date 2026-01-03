@@ -9,6 +9,9 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
 {
     public class ScreenReservationEditingVM : ScreenEditingVMBase<ReservationItem, ReservationItemVM>
     {
+        private const string EmptyGuestText = "No Guest selected";
+        private const string EmptyRoomText = "No Room selected";
+        
         #region Properties
 
         private string _currentGuestText;
@@ -114,6 +117,8 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
 
         public override void ClearFields()
         {
+            CurrentGuestText = EmptyGuestText;
+            CurrentRoomText = EmptyRoomText;
             DateStart = DateTime.Now;
             DateEnd = DateTime.Now;
             State = ReservationStatus.New;

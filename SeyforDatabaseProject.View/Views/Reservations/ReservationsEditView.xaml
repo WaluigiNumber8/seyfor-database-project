@@ -43,7 +43,7 @@
                             Command="{Binding SelectGuestCommand}"
                             Padding="6,0,6,0" />
                 </Grid>
-                <Label Content="Guest" />
+                <Label Content="Room" />
                 <!-- Room Picker -->
                 <Grid Margin="0,0,0,8">
                     <Grid.ColumnDefinitions>
