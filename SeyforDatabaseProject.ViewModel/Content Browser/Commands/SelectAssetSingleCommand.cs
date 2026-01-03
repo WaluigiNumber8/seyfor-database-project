@@ -24,7 +24,6 @@ namespace SeyforDatabaseProject.ViewModel.ContentBrowser
                 throw new InvalidOperationException("No data was selected.");
             }
 
-            Console.WriteLine($"Item: {item}");
             foreach (TAssetType i in _items.Items)
             {
                 if (i.ID != item.ID) continue;

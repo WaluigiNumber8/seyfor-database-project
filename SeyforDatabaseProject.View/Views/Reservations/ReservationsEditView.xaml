@@ -29,8 +29,8 @@
         <ScrollViewer Grid.Row="3">
             <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Stretch">
-                <Label Content="Guest" />
                 <!-- Guest Picker -->
+                <Label Content="Guest" />
                 <Grid Margin="0,0,0,8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -43,8 +43,8 @@
                             Command="{Binding SelectGuestCommand}"
                             Padding="6,0,6,0" />
                 </Grid>
-                <Label Content="Room" />
                 <!-- Room Picker -->
+                <Label Content="Room" />
                 <Grid Margin="0,0,0,8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />

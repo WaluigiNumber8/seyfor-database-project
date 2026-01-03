@@ -1,4 +1,7 @@
+using System.Text;
+using System.Windows.Input;
 using SeyforDatabaseProject.Model.Data;
+using SeyforDatabaseProject.ViewModel.ContentBrowser;
 using SeyforDatabaseProject.ViewModel.Core;
 
 namespace SeyforDatabaseProject.ViewModel.Rooms
@@ -64,10 +67,25 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
                 OnPropertyChanged();
             }
         }
+
+        private string _currentEquipmentText;
+
+        public string CurrentEquipmentText
+        {
+            get => _currentEquipmentText;
+            set
+            {
+                _currentEquipmentText = value;
+                OnPropertyChanged();
+            }
+        }
         #endregion
         
-        public ScreenRoomEditingVM(HotelStore hotelStore, Action navigateToListing) : base(hotelStore.Rooms, navigateToListing)
+        public ICommand SelectEquipmentCommand { get; }
+        
+        public ScreenRoomEditingVM(HotelStore hotelStore, Action navigateToListing, IServiceContentBrowser browserService) : base(hotelStore.Rooms, navigateToListing)
         {
+            SelectEquipmentCommand = new OpenContentBrowserCommand<EquipmentItem>(WhenEquipmentSelected, () => new ContentBrowserEquipmentVM(hotelStore.Equipment, browserService), browserService);
         }
 
         protected override Func<int, RoomItem> CreateItemFromFields { get => id => new RoomItem(id, RoomNumber, RoomType, Capacity, PricePerNight, AvailabilityStatus); }
@@ -89,6 +107,17 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
             Capacity = item.Capacity;
             PricePerNight = decimal.Parse(item.PricePerNight);
             AvailabilityStatus = Enum.Parse<RoomAvailabilityStatus>(item.AvailabilityStatus);
+        }
+
+        private void WhenEquipmentSelected(EquipmentItem items)
+        {
+            CurrentEquipmentText = items.Title;
+            // StringBuilder sb = new();
+            // foreach (EquipmentItem item in items)
+            // {
+            //     sb.Append($"{item.Title}, ");
+            // }
+            // CurrentEquipmentText = sb.ToString();
         }
     }
 }

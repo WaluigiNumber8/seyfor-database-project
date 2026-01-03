@@ -71,7 +71,7 @@ namespace SeyforDatabaseProject.Views.HostBuilder
         {
             services.AddSingleton<ScreenRoomOperationsVM>(s =>
             {
-                ScreenRoomOperationsVM vm = new(s.GetRequiredService<HotelStore>());
+                ScreenRoomOperationsVM vm = new(s.GetRequiredService<HotelStore>(), s.GetRequiredService<IServiceContentBrowser>());
                 vm.Construct();
                 return vm;
             });
