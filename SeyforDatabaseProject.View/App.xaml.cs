@@ -5,8 +5,8 @@ using Microsoft.Extensions.Hosting;
 using SeyforDatabaseProject.Model;
 using SeyforDatabaseProject.Model.DatabaseConnection;
 using SeyforDatabaseProject.ViewModel;
-using SeyforDatabaseProject.ViewModel.Equipment;
 using SeyforDatabaseProject.ViewModel.Navigation;
+using SeyforDatabaseProject.ViewModel.Reservations;
 using SeyforDatabaseProject.Views.HostBuilder;
 
 namespace SeyforDatabaseProject
@@ -29,7 +29,6 @@ namespace SeyforDatabaseProject
                     services.AddSingleton<HotelStore>();
                     services.AddSingleton<NavigationStore>();
 
-
                     services.AddSingleton<MainVM>();
                     services.AddSingleton(s =>
                     {
@@ -48,7 +47,7 @@ namespace SeyforDatabaseProject
         protected override void OnStartup(StartupEventArgs e)
         {
             _host.Start();
-            _host.Services.GetRequiredService<NavigationService<ScreenEquipmentOperationsVM>>().Navigate();
+            _host.Services.GetRequiredService<NavigationService<ScreenReservationOperationsVM>>().Navigate();
             _host.Services.GetRequiredService<MainWindow>().Show();
 
             base.OnStartup(e);

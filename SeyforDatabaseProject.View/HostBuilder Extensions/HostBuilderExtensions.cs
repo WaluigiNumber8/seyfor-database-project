@@ -3,11 +3,13 @@ using Microsoft.Extensions.Hosting;
 using SeyforDatabaseProject.Model.Departments;
 using SeyforDatabaseProject.Model.Services;
 using SeyforDatabaseProject.ViewModel;
+using SeyforDatabaseProject.ViewModel.ContentBrowser;
 using SeyforDatabaseProject.ViewModel.Equipment;
 using SeyforDatabaseProject.ViewModel.Guests;
 using SeyforDatabaseProject.ViewModel.Navigation;
 using SeyforDatabaseProject.ViewModel.Reservations;
 using SeyforDatabaseProject.ViewModel.Rooms;
+using SeyforDatabaseProject.Windows;
 
 namespace SeyforDatabaseProject.Views.HostBuilder
 {
@@ -25,6 +27,7 @@ namespace SeyforDatabaseProject.Views.HostBuilder
                 services.AddSingleton<IServiceDataUpdater, DatabaseDataUpdater>();
                 services.AddSingleton<IServiceDataRemover, DatabaseDataRemover>();
                 services.AddSingleton<IServiceDataValidator, DatabaseValidator>();
+                services.AddSingleton<IServiceContentBrowser, ServiceContentBrowser>();
                 services.AddTransient<HotelBook>();
             });
             
@@ -108,7 +111,7 @@ namespace SeyforDatabaseProject.Views.HostBuilder
         {
             services.AddSingleton<ScreenReservationOperationsVM>(s =>
             {
-                ScreenReservationOperationsVM vm = new(s.GetRequiredService<HotelStore>());
+                ScreenReservationOperationsVM vm = new(s.GetRequiredService<HotelStore>(), s.GetRequiredService<IServiceContentBrowser>());
                 vm.Construct();
                 return vm;
             });

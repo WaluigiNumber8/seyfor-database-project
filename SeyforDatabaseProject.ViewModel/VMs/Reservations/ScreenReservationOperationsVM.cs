@@ -1,14 +1,17 @@
 using SeyforDatabaseProject.Model.Data.Reservations;
+using SeyforDatabaseProject.ViewModel.ContentBrowser;
 using SeyforDatabaseProject.ViewModel.Core;
 
 namespace SeyforDatabaseProject.ViewModel.Reservations
 {
     public class ScreenReservationOperationsVM : ScreenItemOperationsBase<ReservationItem, ReservationItemVM, ScreenReservationListingVM, ScreenReservationEditingVM>
     {
-        private HotelStore _hotelStore;
+        private readonly HotelStore _hotelStore;
+        private readonly IServiceContentBrowser _browserService;
 
-        public ScreenReservationOperationsVM(HotelStore hotelStore)
+        public ScreenReservationOperationsVM(HotelStore hotelStore, IServiceContentBrowser browserService)
         {
+            _browserService = browserService;
             _hotelStore = hotelStore;
         }
 
@@ -19,7 +22,7 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
 
         protected override Func<ScreenReservationEditingVM> CreateEditingScreen
         {
-            get => () => new ScreenReservationEditingVM(_hotelStore, NavigateToListing);
+            get => () => new ScreenReservationEditingVM(_hotelStore, NavigateToListing, _browserService);
         }
     }
 }

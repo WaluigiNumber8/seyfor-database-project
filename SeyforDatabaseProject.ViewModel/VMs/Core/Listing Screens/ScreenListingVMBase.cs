@@ -1,11 +1,12 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using SeyforDatabaseProject.Model.Data;
+using SeyforDatabaseProject.ViewModel.ContentBrowser;
 using SeyforDatabaseProject.ViewModel.Equipment;
 
 namespace SeyforDatabaseProject.ViewModel.Core
 {
-    public abstract class ScreenListingVMBase<TItem, TItemVM> : ViewModelBase
+    public abstract class ScreenListingVMBase<TItem, TItemVM> : ViewModelBase, IViewModelWithList<TItem>
         where TItem : DatabaseItemBase<TItem>
         where TItemVM : DatabaseItemVMBase<TItem>
     {
@@ -13,7 +14,7 @@ namespace SeyforDatabaseProject.ViewModel.Core
         {
             AddEntryCommand = new GoToAddItemScreenCommand<TItem, TItemVM>(editVM, navigateToEdit);
             EditEntryCommand = new GoToUpdateItemScreenCommand<TItem, TItemVM>(editVM, navigateToEdit);
-            RefreshEntriesCommand = new RefreshEntriesCommand<TItem, TItemVM>(this, list);
+            RefreshEntriesCommand = new RefreshEntriesCommand<TItem>(this, list);
         }
 
         public ICommand AddEntryCommand { get; }
@@ -22,7 +23,6 @@ namespace SeyforDatabaseProject.ViewModel.Core
 
         public void UpdateEntries(IEnumerable<TItem> allItems)
         {
-            Console.WriteLine($"Updating {typeof(TItem)} entries...");
             Items.Clear();
             foreach (TItem item in allItems)
             {

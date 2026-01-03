@@ -121,6 +121,7 @@ namespace SeyforDatabaseProject.Model.Services
             return new ReservationItem
             (
                 dto.ID,
+                dto.Guest.ConvertToItem(),
                 Convert.ToDateTime(dto.DateStart),
                 Convert.ToDateTime(dto.DateEnd),
                 (ReservationStatus) dto.State,

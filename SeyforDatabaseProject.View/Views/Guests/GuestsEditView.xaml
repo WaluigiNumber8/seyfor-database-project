@@ -29,7 +29,7 @@
                         VerticalAlignment="Stretch">
 
                 <Label Content="Name" />
-                <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                <TextBox Text="{Binding PickableItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          Width="200"
                          Height="30"
                          Margin="0,0,0,8"

@@ -1,4 +1,7 @@
+using System.Windows.Input;
+using SeyforDatabaseProject.Model.Data.Guests;
 using SeyforDatabaseProject.Model.Data.Reservations;
+using SeyforDatabaseProject.ViewModel.ContentBrowser;
 using SeyforDatabaseProject.ViewModel.Core;
 
 namespace SeyforDatabaseProject.ViewModel.Reservations
@@ -55,12 +58,20 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
             }
         }
 
-        //TODO: Add guest and room
+        #endregion
+
+        #region Commands
+
+        public ICommand SelectGuestCommand { get; }
 
         #endregion
 
-        public ScreenReservationEditingVM(HotelStore hotelStore, Action navigateToListing) : base(hotelStore.Reservations, navigateToListing)
+        private GuestItem _currentGuest;
+
+
+        public ScreenReservationEditingVM(HotelStore hotelStore, Action navigateToListing, IServiceContentBrowser browserService) : base(hotelStore.Reservations, navigateToListing)
         {
+            SelectGuestCommand = new OpenContentBrowserForGuestsCommand(hotelStore, WhenGuestSelected, browserService);
         }
 
         protected override string ItemTypeName
@@ -70,7 +81,7 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
 
         protected override Func<int, ReservationItem> CreateItemFromFields
         {
-            get => id => new ReservationItem(id, DateStart, DateEnd, State, Convert.ToDecimal(PriceTotal));
+            get => id => new ReservationItem(id, _currentGuest, DateStart, DateEnd, State, Convert.ToDecimal(PriceTotal));
         }
 
         public override void ClearFields()
@@ -88,5 +99,7 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
             State = Enum.Parse<ReservationStatus>(item.State);
             PriceTotal = item.PriceTotal;
         }
+
+        private void WhenGuestSelected(GuestItem guest) => _currentGuest = guest;
     }
 }

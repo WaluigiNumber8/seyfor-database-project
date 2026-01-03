@@ -1,20 +1,19 @@
 using SeyforDatabaseProject.Model.Data;
+using SeyforDatabaseProject.ViewModel.ContentBrowser;
 using SeyforDatabaseProject.ViewModel.Core;
-using SeyforDatabaseProject.ViewModel.Rooms;
 
 namespace SeyforDatabaseProject.ViewModel.Equipment
 {
     /// <summary>
     /// Refreshes the equipment entries in the ViewModel.
     /// </summary>
-    public class RefreshEntriesCommand<TItem, TItemVM> : AsyncCommandBase 
-        where TItem : DatabaseItemBase<TItem> 
-        where TItemVM : DatabaseItemVMBase<TItem>
+    public class RefreshEntriesCommand<TItem> : AsyncCommandBase 
+        where TItem : DatabaseItemBase<TItem>
     {
-        private readonly ScreenListingVMBase<TItem, TItemVM> _vm;
+        private readonly IViewModelWithList<TItem> _vm;
         private readonly DatabaseItemList<TItem> _list;
 
-        public RefreshEntriesCommand(ScreenListingVMBase<TItem, TItemVM> vm, DatabaseItemList<TItem> list)
+        public RefreshEntriesCommand(IViewModelWithList<TItem> vm, DatabaseItemList<TItem> list)
         {
             _vm = vm;
             _list = list;

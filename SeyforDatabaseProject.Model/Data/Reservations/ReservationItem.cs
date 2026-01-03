@@ -14,10 +14,10 @@ namespace SeyforDatabaseProject.Model.Data.Reservations
         public ReservationStatus State { get; private set; }
         public decimal PriceTotal { get; private set; }
 
-        public ReservationItem(int id, DateTime dateStart, DateTime dateEnd, ReservationStatus state, decimal priceTotal)
+        public ReservationItem(int id, GuestItem guest, DateTime dateStart, DateTime dateEnd, ReservationStatus state, decimal priceTotal)
         {
             ID = id;
-            // Guest = guest;
+            Guest = guest;
             // Room = room;
             DateStart = dateStart;
             DateEnd = dateEnd;
