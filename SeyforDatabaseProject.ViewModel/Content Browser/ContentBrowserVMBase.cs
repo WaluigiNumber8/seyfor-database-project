@@ -13,6 +13,17 @@ namespace SeyforDatabaseProject.ViewModel.ContentBrowser
     {
         #region Properties
 
+        private string _headerText;
+        public string HeaderText
+        {
+            get => _headerText;
+            set
+            {
+                _headerText = value;
+                OnPropertyChanged();
+            }
+        }
+        
         private ObservableCollection<ContentBrowserItemVM> _pickableItems;
 
         public ObservableCollection<ContentBrowserItemVM> PickableItems
@@ -33,6 +44,7 @@ namespace SeyforDatabaseProject.ViewModel.ContentBrowser
 
         public Action<TAssetType> WhenConfirm { get; set; }
         protected abstract string GetAssetTextIdentifier(TAssetType item);
+        protected abstract string AssetTypeInString { get; }
 
         public ContentBrowserVMBase(DatabaseItemList<TAssetType> list, IServiceContentBrowser browserService)
         {
@@ -41,6 +53,8 @@ namespace SeyforDatabaseProject.ViewModel.ContentBrowser
             SelectCommand = new SelectAssetSingleCommand<TAssetType>(this, list, browserService);
             CancelCommand = new CloseContentBrowserCommand(browserService);
             RefreshEntriesCommand = new RefreshEntriesCommand<TAssetType>(this, list);
+
+            HeaderText = $"Pick {AssetTypeInString}";
         }
 
         public void UpdateEntries(IEnumerable<TAssetType> items)

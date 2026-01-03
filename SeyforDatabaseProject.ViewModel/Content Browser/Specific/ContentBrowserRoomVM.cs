@@ -9,5 +9,7 @@ namespace SeyforDatabaseProject.ViewModel.ContentBrowser
         }
 
         protected override string GetAssetTextIdentifier(RoomItem item) => $"{item.RoomNumber} - {item.RoomType}";
+        
+        protected override string AssetTypeInString { get => "Room"; }
     }
 }

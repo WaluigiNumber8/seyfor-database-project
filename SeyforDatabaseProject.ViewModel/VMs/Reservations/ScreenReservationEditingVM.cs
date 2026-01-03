@@ -142,7 +142,7 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
         
         private void WhenRoomSelected(RoomItem room)
         {
-            Console.WriteLine($"Selected guest: {room}");
+            Console.WriteLine($"Selected room: {room}");
             _currentRoom = room;
             CurrentRoomText = room.RoomNumber.ToString();
         }

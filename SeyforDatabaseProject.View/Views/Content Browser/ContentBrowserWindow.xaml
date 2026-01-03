@@ -9,19 +9,17 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="8" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="8" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="8" />
         </Grid.RowDefinitions>
         <Label Grid.Row="1"
-               Content="Pick Guest"
+               Content="{Binding HeaderText}"
                HorizontalAlignment="Center"
                FontSize="18"
                FontWeight="Bold" />
-        <Separator Grid.Row="2" />
         <ListView x:Name="ItemsListView"
-                  Grid.Row="3"
+                  Grid.Row="2"
                   ItemsSource="{Binding PickableItems}">
             <ListView.View>
                 <GridView>
@@ -42,7 +40,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <StackPanel Grid.Row="4"
+        <StackPanel Grid.Row="3"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center"
                     Margin="0,8,0,0">
