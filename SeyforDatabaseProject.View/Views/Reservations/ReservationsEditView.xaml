@@ -29,14 +29,34 @@
         <ScrollViewer Grid.Row="3">
             <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Stretch">
+                <Label Content="Guest" />
                 <!-- Guest Picker -->
-                <StackPanel Orientation="Horizontal">
-                    <Label Content="Guest:" />
-                    <Label Content="{Binding CurrentGuestText, FallbackValue=Guest Name Here}"/>
-                    <Button Content="Select" 
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                           Content="{Binding CurrentGuestText, FallbackValue=Guest Name Here}" />
+                    <Button Grid.Column="1"
+                            Content="Select"
                             Command="{Binding SelectGuestCommand}"
-                            Padding="6,0,6,0"/>
-                </StackPanel>
+                            Padding="6,0,6,0" />
+                </Grid>
+                <Label Content="Guest" />
+                <!-- Room Picker -->
+                <Grid Margin="0,0,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                           Content="{Binding CurrentRoomText, FallbackValue=Room number Here}" />
+                    <Button Grid.Column="1"
+                            Content="Select"
+                            Command="{Binding SelectRoomCommand}"
+                            Padding="6,0,6,0" />
+                </Grid>
                 <Label Content="Start Date" />
                 <DatePicker SelectedDate="{Binding DateStart, UpdateSourceTrigger=PropertyChanged}"
                             Margin="0,0,0,8" />

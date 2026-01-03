@@ -4,7 +4,7 @@ namespace SeyforDatabaseProject.ViewModel.ContentBrowser
 {
     public class ContentBrowserGuestVM : ContentBrowserVMBase<GuestItem>
     {
-        public ContentBrowserGuestVM(HotelStore hotelStore, IServiceContentBrowser browserService) : base(hotelStore.Guests, browserService)
+        public ContentBrowserGuestVM(DatabaseItemList<GuestItem> list, IServiceContentBrowser browserService) : base(list, browserService)
         {
         }
 

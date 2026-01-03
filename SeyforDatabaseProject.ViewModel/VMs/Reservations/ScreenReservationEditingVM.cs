@@ -1,4 +1,5 @@
 using System.Windows.Input;
+using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.Model.Data.Guests;
 using SeyforDatabaseProject.Model.Data.Reservations;
 using SeyforDatabaseProject.ViewModel.ContentBrowser;
@@ -18,6 +19,18 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
             set
             {
                 _currentGuestText = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _currentRoomText;
+
+        public string CurrentRoomText
+        {
+            get => _currentRoomText;
+            set
+            {
+                _currentRoomText = value;
                 OnPropertyChanged();
             }
         }
@@ -75,15 +88,18 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
         #region Commands
 
         public ICommand SelectGuestCommand { get; }
+        public ICommand SelectRoomCommand { get; }
 
         #endregion
 
         private GuestItem _currentGuest;
+        private RoomItem _currentRoom;
 
 
         public ScreenReservationEditingVM(HotelStore hotelStore, Action navigateToListing, IServiceContentBrowser browserService) : base(hotelStore.Reservations, navigateToListing)
         {
-            SelectGuestCommand = new OpenContentBrowserForGuestsCommand(hotelStore, WhenGuestSelected, browserService);
+            SelectGuestCommand = new OpenContentBrowserCommand<GuestItem>(WhenGuestSelected, () => new ContentBrowserGuestVM(hotelStore.Guests, browserService), browserService);
+            SelectRoomCommand = new OpenContentBrowserCommand<RoomItem>(WhenRoomSelected, () => new ContentBrowserRoomVM(hotelStore.Rooms, browserService), browserService);
         }
 
         protected override string ItemTypeName
@@ -117,6 +133,13 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
             Console.WriteLine($"Selected guest: {guest}");
             _currentGuest = guest;
             CurrentGuestText = guest.FullName;
+        }
+        
+        private void WhenRoomSelected(RoomItem room)
+        {
+            Console.WriteLine($"Selected guest: {room}");
+            _currentRoom = room;
+            CurrentRoomText = room.RoomNumber.ToString();
         }
     }
 }
