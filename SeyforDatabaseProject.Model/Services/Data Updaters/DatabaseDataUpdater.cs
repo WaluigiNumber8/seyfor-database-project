@@ -31,8 +31,8 @@ namespace SeyforDatabaseProject.Model.Services
                     {
                         throw new InvalidOperationException($"Room with ID {item.ID} not found.");
                     }
-
-                    db.Rooms.Update(existingRoomDTO.UpdateFrom(roomItem));
+                    List<EquipmentDTO> equipmentDTOs = await ServiceUtils.GetEquipmentDTOsForRoom(db, roomItem);
+                    db.Rooms.Update(existingRoomDTO.UpdateFrom(roomItem, equipmentDTOs));
                     break;
                 
                 case GuestItem guestItem:
@@ -51,8 +51,7 @@ namespace SeyforDatabaseProject.Model.Services
                     {
                         throw new InvalidOperationException($"Guest with ID {item.ID} not found.");
                     }
-                    GuestDTO? guestDTO = await db.Guests.FindAsync(reservationItem.Guest.ID);
-                    RoomDTO? roomDTO = await db.Rooms.FindAsync(reservationItem.Room.ID);
+                    (GuestDTO guestDTO, RoomDTO roomDTO) = await ServiceUtils.GetGuestAndRoomForReservation(db, reservationItem);
                     db.Reservations.Update(existingReservationDTO.UpdateFrom(reservationItem, guestDTO, roomDTO));
                     break;
             }

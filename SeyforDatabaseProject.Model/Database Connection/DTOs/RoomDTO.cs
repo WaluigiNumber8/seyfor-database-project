@@ -12,6 +12,6 @@ namespace SeyforDatabaseProject.Model.DatabaseConnection
         public string PricePerNight { get; set; }
         public int AvailabilityStatus { get; set; }
 
-        public List<EquipmentDTO> Equipment { get; } = [];
+        public ICollection<EquipmentDTO> Equipment { get; set; } = [];
     }
 }

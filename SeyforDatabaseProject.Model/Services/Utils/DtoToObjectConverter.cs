@@ -50,11 +50,12 @@ namespace SeyforDatabaseProject.Model.Services
                 (RoomType) dto.RoomType,
                 dto.Capacity,
                 Convert.ToDecimal(dto.PricePerNight),
-                (RoomAvailabilityStatus) dto.AvailabilityStatus
+                (RoomAvailabilityStatus) dto.AvailabilityStatus,
+                dto.Equipment.Select(eDTO => eDTO.ConvertToItem()).ToList()
             );
         }
 
-        public static RoomDTO ConvertToDTO(this RoomItem item)
+        public static RoomDTO ConvertToDTO(this RoomItem item, List<EquipmentDTO> equipmentDTOs)
         {
             RoomDTO dto = new();
             dto.ID = item.ID;
@@ -63,16 +64,18 @@ namespace SeyforDatabaseProject.Model.Services
             dto.Capacity = item.Capacity;
             dto.PricePerNight = item.PricePerNight.ToString();
             dto.AvailabilityStatus = (int) item.AvailabilityStatus;
+            dto.Equipment = equipmentDTOs;
             return dto;
         }
 
-        public static RoomDTO UpdateFrom(this RoomDTO dto, RoomItem item)
+        public static RoomDTO UpdateFrom(this RoomDTO dto, RoomItem item, List<EquipmentDTO> equipmentDTOs)
         {
             dto.RoomNumber = item.RoomNumber;
             dto.RoomType = (int) item.RoomType;
             dto.Capacity = item.Capacity;
             dto.PricePerNight = item.PricePerNight.ToString();
             dto.AvailabilityStatus = (int) item.AvailabilityStatus;
+            dto.Equipment = equipmentDTOs;
             return dto;
         }
 

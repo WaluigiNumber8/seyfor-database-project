@@ -1,3 +1,5 @@
+using System.Data;
+using Microsoft.EntityFrameworkCore;
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.Model.Data.Guests;
 using SeyforDatabaseProject.Model.Data.Reservations;
@@ -10,7 +12,9 @@ namespace SeyforDatabaseProject.Model.Services
     /// </summary>
     public class DatabaseDataCreator : DatabaseServiceBase, IServiceDataCreator
     {
-        public DatabaseDataCreator(DatabaseContextFactory contextFactory) : base(contextFactory) { }
+        public DatabaseDataCreator(DatabaseContextFactory contextFactory) : base(contextFactory)
+        {
+        }
 
         public async Task CreateAsync<T>(T item) where T : DatabaseItemBase<T>
         {
@@ -20,21 +24,26 @@ namespace SeyforDatabaseProject.Model.Services
                 case EquipmentItem equipment:
                     db.Equipment.Add(equipment.ConvertToDTO());
                     break;
+
                 case RoomItem room:
-                    db.Rooms.Add(room.ConvertToDTO());
+                    List<EquipmentDTO> equipmentDTOs = await ServiceUtils.GetEquipmentDTOsForRoom(db, room);
+                    db.Rooms.Add(room.ConvertToDTO(equipmentDTOs));
                     break;
+
                 case GuestItem guest:
                     db.Guests.Add(guest.ConvertToDTO());
                     break;
+
                 case ReservationItem reservation:
-                    GuestDTO? guestDTO = await db.Guests.FindAsync(reservation.Guest.ID);
-                    RoomDTO? roomDTO = await db.Rooms.FindAsync(reservation.Room.ID);
+                    (GuestDTO guestDTO, RoomDTO roomDTO) = await ServiceUtils.GetGuestAndRoomForReservation(db, reservation);
                     ReservationDTO dato = reservation.ConvertToDTO(guestDTO, roomDTO);
                     db.Reservations.Add(dato);
                     break;
             }
-            
+
             await db.SaveChangesAsync();
         }
+
+        
     }
 }

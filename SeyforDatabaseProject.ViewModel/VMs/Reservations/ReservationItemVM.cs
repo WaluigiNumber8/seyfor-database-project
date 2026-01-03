@@ -5,7 +5,7 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
 {
     public class ReservationItemVM : DatabaseItemVMBase<ReservationItem>
     {
-        public string Guest { get => $"{_item.Guest.Name} {_item.Guest.Surname}"; }
+        public string Guest { get => _item.Guest.FullName; }
         public string Room { get => _item.Room.RoomNumber.ToString(); }
         public string DateStart { get => _item.DateStart.ToString(); }
         public string DateEnd { get => _item.DateEnd.ToString(); }

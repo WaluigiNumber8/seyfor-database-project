@@ -11,6 +11,8 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
     /// </summary>
     public class ScreenRoomEditingVM : ScreenEditingVMBase<RoomItem, RoomItemVM>
     {
+        private const string NoEquipmentText = "No Equipment selected";
+        
         #region Properties
 
         private int _roomNumber;
@@ -83,12 +85,14 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
         
         public ICommand SelectEquipmentCommand { get; }
         
+        private List<EquipmentItem> _currentEquipment;
+        
         public ScreenRoomEditingVM(HotelStore hotelStore, Action navigateToListing, IServiceContentBrowser browserService) : base(hotelStore.Rooms, navigateToListing)
         {
             SelectEquipmentCommand = new OpenContentBrowserCommand<EquipmentItem>(WhenEquipmentSelected, () => new ContentBrowserEquipmentVM(hotelStore.Equipment, browserService), browserService);
         }
 
-        protected override Func<int, RoomItem> CreateItemFromFields { get => id => new RoomItem(id, RoomNumber, RoomType, Capacity, PricePerNight, AvailabilityStatus); }
+        protected override Func<int, RoomItem> CreateItemFromFields { get => id => new RoomItem(id, RoomNumber, RoomType, Capacity, PricePerNight, AvailabilityStatus, _currentEquipment); }
         protected override string ItemTypeName { get => "Room"; }
         
         public override void ClearFields()
@@ -98,6 +102,7 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
             Capacity = 1;
             PricePerNight = 0.0m;
             AvailabilityStatus = RoomAvailabilityStatus.Available;
+            CurrentEquipmentText = NoEquipmentText;
         }
 
         protected override void SetPropertiesFromItem(RoomItemVM item)
@@ -107,10 +112,12 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
             Capacity = item.Capacity;
             PricePerNight = decimal.Parse(item.PricePerNight);
             AvailabilityStatus = Enum.Parse<RoomAvailabilityStatus>(item.AvailabilityStatus);
+            CurrentEquipmentText = item.Equipment;
         }
 
         private void WhenEquipmentSelected(IList<EquipmentItem> items)
         {
+            _currentEquipment = items.ToList();
             StringBuilder sb = new();
             foreach (EquipmentItem item in items)
             {

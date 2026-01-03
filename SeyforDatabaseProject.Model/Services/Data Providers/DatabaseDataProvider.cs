@@ -25,7 +25,7 @@ namespace SeyforDatabaseProject.Model.Services
             
             if (typeof(T) == typeof(RoomItem))
             {
-                await db.Equipment.SingleAsync();
+                await db.Equipment.ToListAsync();
                 IEnumerable<RoomDTO> dtos = await db.Rooms.ToListAsync();
                 return dtos.Select(r => r.ConvertToItem() as T)!;
             }
@@ -39,8 +39,8 @@ namespace SeyforDatabaseProject.Model.Services
             if (typeof(T) == typeof(ReservationItem))
             {
                 //Preload required tables to avoid errors
-                await db.Guests.SingleAsync();
-                await db.Rooms.SingleAsync();
+                await db.Guests.ToListAsync();
+                await db.Rooms.ToListAsync();
                 IEnumerable<ReservationDTO> dtos = await db.Reservations.ToListAsync();
                 return dtos.Select(r => r.ConvertToItem() as T)!;
             }

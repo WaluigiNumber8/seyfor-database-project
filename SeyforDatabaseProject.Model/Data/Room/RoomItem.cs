@@ -12,9 +12,9 @@ namespace SeyforDatabaseProject.Model.Data
         public int Capacity { get; private set; }
         public decimal PricePerNight { get; private set; }
         public RoomAvailabilityStatus AvailabilityStatus { get; private set; }
-        public List<EquipmentItem> Equipment { get; } = new();
+        public List<EquipmentItem> Equipment { get; private set; }
 
-        public RoomItem(int id, int roomNumber, RoomType roomType, int capacity, decimal pricePerNight, RoomAvailabilityStatus availabilityStatus)
+        public RoomItem(int id, int roomNumber, RoomType roomType, int capacity, decimal pricePerNight, RoomAvailabilityStatus availabilityStatus, List<EquipmentItem> equipment)
         {
             ID = id;
             RoomNumber = roomNumber;
@@ -22,6 +22,7 @@ namespace SeyforDatabaseProject.Model.Data
             Capacity = capacity;
             PricePerNight = pricePerNight;
             AvailabilityStatus = availabilityStatus;
+            Equipment = equipment;
         }
 
         protected override void UpdateFields(RoomItem item)
@@ -31,6 +32,7 @@ namespace SeyforDatabaseProject.Model.Data
             Capacity = item.Capacity;
             PricePerNight = item.PricePerNight;
             AvailabilityStatus = item.AvailabilityStatus;
+            Equipment = item.Equipment;
         }
 
         public override string ToString() => $"{ID} - Room {RoomNumber} ({RoomType})";

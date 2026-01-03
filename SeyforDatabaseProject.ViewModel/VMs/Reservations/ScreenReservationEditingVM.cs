@@ -127,6 +127,8 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
 
         protected override void SetPropertiesFromItem(ReservationItemVM item)
         {
+            CurrentGuestText = item.Guest;
+            CurrentRoomText = item.Room;
             DateStart = Convert.ToDateTime(item.DateStart);
             DateEnd = Convert.ToDateTime(item.DateEnd);
             State = Enum.Parse<ReservationStatus>(item.State);

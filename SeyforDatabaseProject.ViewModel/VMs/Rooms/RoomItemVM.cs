@@ -1,3 +1,4 @@
+using System.Text;
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.ViewModel.Core;
 using SeyforDatabaseProject.ViewModel.Equipment;
@@ -14,7 +15,6 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
         public string Equipment {get => string.Join(", ", _item.Equipment); }
         
         public RoomItemVM(RoomItem item) : base(item) { }
-
 
         public override string ToString() => _item.ToString();
     }

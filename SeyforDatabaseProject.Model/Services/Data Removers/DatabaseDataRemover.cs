@@ -23,14 +23,14 @@ namespace SeyforDatabaseProject.Model.Services
                     db.Equipment.Remove(equipment.ConvertToDTO());
                     break;
                 case RoomItem room:
-                    db.Rooms.Remove(room.ConvertToDTO());
+                    List<EquipmentDTO> equipmentDTOs = await ServiceUtils.GetEquipmentDTOsForRoom(db, room);
+                    db.Rooms.Remove(room.ConvertToDTO(equipmentDTOs));
                     break;
                 case GuestItem guest:
                     db.Guests.Remove(guest.ConvertToDTO());
                     break;
                 case ReservationItem reservation:
-                    GuestDTO? guestDTO = await db.Guests.FindAsync(reservation.Guest.ID);
-                    RoomDTO? roomDTO = await db.Rooms.FindAsync(reservation.Room.ID);
+                    (GuestDTO guestDTO, RoomDTO roomDTO) = await ServiceUtils.GetGuestAndRoomForReservation(db, reservation);
                     db.Reservations.Remove(reservation.ConvertToDTO(guestDTO, roomDTO));
                     break;
             }

@@ -1,6 +1,4 @@
-﻿using SeyforDatabaseProject.Model.Services;
-
-namespace SeyforDatabaseProject.Model.Data
+﻿namespace SeyforDatabaseProject.Model.Data
 {
     /// <summary>
     /// Represents an equipment item in the database.
@@ -9,7 +7,7 @@ namespace SeyforDatabaseProject.Model.Data
     {
         public string Title { get; private set; }
         public string Description { get; private set; }
-
+        
         public EquipmentItem(int id, string title, string description)
         {
             ID = id;
