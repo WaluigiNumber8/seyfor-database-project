@@ -51,8 +51,9 @@ namespace SeyforDatabaseProject.Model.Services
                     {
                         throw new InvalidOperationException($"Guest with ID {item.ID} not found.");
                     }
-
-                    db.Reservations.Update(existingReservationDTO.UpdateFrom(reservationItem));
+                    GuestDTO? guestDTO = await db.Guests.FindAsync(reservationItem.Guest.ID);
+                    RoomDTO? roomDTO = await db.Rooms.FindAsync(reservationItem.Room.ID);
+                    db.Reservations.Update(existingReservationDTO.UpdateFrom(reservationItem, guestDTO, roomDTO));
                     break;
             }
 

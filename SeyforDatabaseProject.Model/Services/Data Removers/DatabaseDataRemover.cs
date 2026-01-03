@@ -10,7 +10,9 @@ namespace SeyforDatabaseProject.Model.Services
     /// </summary>
     public class DatabaseDataRemover : DatabaseServiceBase, IServiceDataRemover
     {
-        public DatabaseDataRemover(DatabaseContextFactory contextFactory) : base(contextFactory) { }
+        public DatabaseDataRemover(DatabaseContextFactory contextFactory) : base(contextFactory)
+        {
+        }
 
         public async Task RemoveAsync<T>(T item) where T : DatabaseItemBase<T>
         {
@@ -27,7 +29,9 @@ namespace SeyforDatabaseProject.Model.Services
                     db.Guests.Remove(guest.ConvertToDTO());
                     break;
                 case ReservationItem reservation:
-                    db.Reservations.Remove(reservation.ConvertToDTO());
+                    GuestDTO? guestDTO = await db.Guests.FindAsync(reservation.Guest.ID);
+                    RoomDTO? roomDTO = await db.Rooms.FindAsync(reservation.Room.ID);
+                    db.Reservations.Remove(reservation.ConvertToDTO(guestDTO, roomDTO));
                     break;
             }
 

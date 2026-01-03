@@ -7,9 +7,8 @@ namespace SeyforDatabaseProject.ViewModel.Core
     /// <summary>
     /// Command for adding new equipment to database.
     /// </summary>
-    public class SaveNewItemCommand<TItem, TItemVM> : AsyncCommandBase 
-        where TItem : DatabaseItemBase<TItem> 
-        where TItemVM : DatabaseItemVMBase<TItem>
+    public class SaveNewItemCommand<TItem> : AsyncCommandBase 
+        where TItem : DatabaseItemBase<TItem>
     {
         private readonly Func<int, TItem> _createItemFromFields;
         private readonly DatabaseItemList<TItem> _itemList;
@@ -27,7 +26,7 @@ namespace SeyforDatabaseProject.ViewModel.Core
             try
             {
                 TItem item = _createItemFromFields(_itemList.Count + 1);
-                Console.WriteLine("Try add new equipment");
+                Console.WriteLine($"Try add new {typeof(TItem)}");
                 await _itemList.AddNew(item);
 
                 _navigateToListing.Invoke();

@@ -122,6 +122,7 @@ namespace SeyforDatabaseProject.Model.Services
             (
                 dto.ID,
                 dto.Guest.ConvertToItem(),
+                dto.Room.ConvertToItem(),
                 Convert.ToDateTime(dto.DateStart),
                 Convert.ToDateTime(dto.DateEnd),
                 (ReservationStatus) dto.State,
@@ -129,10 +130,14 @@ namespace SeyforDatabaseProject.Model.Services
             );
         }
 
-        public static ReservationDTO ConvertToDTO(this ReservationItem item)
+        public static ReservationDTO ConvertToDTO(this ReservationItem item, GuestDTO guestDTO, RoomDTO roomDTO)
         {
             ReservationDTO dto = new();
             dto.ID = item.ID;
+            dto.Guest = guestDTO;
+            dto.GuestID = item.Guest.ID;
+            dto.Room = roomDTO;
+            dto.RoomID = item.Room.ID;
             dto.DateStart = item.DateStart.ToString();
             dto.DateEnd = item.DateEnd.ToString();
             dto.State = (int) item.State;
@@ -140,8 +145,12 @@ namespace SeyforDatabaseProject.Model.Services
             return dto;
         }
 
-        public static ReservationDTO UpdateFrom(this ReservationDTO dto, ReservationItem item)
+        public static ReservationDTO UpdateFrom(this ReservationDTO dto, ReservationItem item, GuestDTO guestDTO, RoomDTO roomDTO)
         {
+            dto.Guest = guestDTO;
+            dto.GuestID = item.Guest.ID;
+            dto.Room = roomDTO;
+            dto.RoomID = item.Room.ID;
             dto.DateStart = item.DateStart.ToString();
             dto.DateEnd = item.DateEnd.ToString();
             dto.State = (int) item.State;

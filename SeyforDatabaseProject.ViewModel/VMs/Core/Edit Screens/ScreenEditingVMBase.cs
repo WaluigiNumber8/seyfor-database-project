@@ -61,7 +61,7 @@ namespace SeyforDatabaseProject.ViewModel.Core
 
         public ScreenEditingVMBase(DatabaseItemList<TItem> itemList, Action navigateToListing)
         {
-            _saveNewItemCommand = new SaveNewItemCommand<TItem, TItemVM>(CreateItemFromFields, itemList, navigateToListing);
+            _saveNewItemCommand = new SaveNewItemCommand<TItem>(CreateItemFromFields, itemList, navigateToListing);
             _saveUpdateItemCommand = new SaveUpdateItemCommand<TItem, TItemVM>(CreateItemFromFields, this, itemList, navigateToListing);
             SaveCommand = _saveNewItemCommand;
             CancelCommand = new CancelChangesCommand(navigateToListing);

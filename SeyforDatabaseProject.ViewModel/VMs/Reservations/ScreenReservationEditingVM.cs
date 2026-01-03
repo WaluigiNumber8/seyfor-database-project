@@ -112,7 +112,7 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
 
         protected override Func<int, ReservationItem> CreateItemFromFields
         {
-            get => id => new ReservationItem(id, _currentGuest, DateStart, DateEnd, State, Convert.ToDecimal(PriceTotal));
+            get => id => new ReservationItem(id, _currentGuest, _currentRoom, DateStart, DateEnd, State, Convert.ToDecimal(PriceTotal));
         }
 
         public override void ClearFields()

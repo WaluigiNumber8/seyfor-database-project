@@ -27,7 +27,10 @@ namespace SeyforDatabaseProject.Model.Services
                     db.Guests.Add(guest.ConvertToDTO());
                     break;
                 case ReservationItem reservation:
-                    db.Reservations.Add(reservation.ConvertToDTO());
+                    GuestDTO? guestDTO = await db.Guests.FindAsync(reservation.Guest.ID);
+                    RoomDTO? roomDTO = await db.Rooms.FindAsync(reservation.Room.ID);
+                    ReservationDTO dato = reservation.ConvertToDTO(guestDTO, roomDTO);
+                    db.Reservations.Add(dato);
                     break;
             }
             
