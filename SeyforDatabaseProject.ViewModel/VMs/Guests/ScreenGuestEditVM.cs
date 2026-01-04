@@ -93,11 +93,11 @@ namespace SeyforDatabaseProject.ViewModel.Guests
 
         protected override void AddValidationRules(IList<ValidationRule> validationRules)
         {
-            validationRules.Add(new ValidationRule(nameof(Name), "Name cannot be empty", () => string.IsNullOrEmpty(Name)));
-            validationRules.Add(new ValidationRule(nameof(Surname), "Surname cannot be empty", () => string.IsNullOrEmpty(Surname)));
+            validationRules.Add(new ValidationRule(nameof(Name), "Name cannot be empty.", () => string.IsNullOrEmpty(Name)));
+            validationRules.Add(new ValidationRule(nameof(Surname), "Surname cannot be empty.", () => string.IsNullOrEmpty(Surname)));
             const string emailPattern = @"^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$";
-            validationRules.Add(new ValidationRule(nameof(Email), "Email is not in a valid format", () => string.IsNullOrWhiteSpace(Email) || !Regex.IsMatch(Email, emailPattern)));
-            validationRules.Add(new ValidationRule(nameof(PhoneNumber), "Phone number must have exactly 9 numbers", () => PhoneNumber.Length != 9));
+            validationRules.Add(new ValidationRule(nameof(Email), "Email is not in a valid format.", () => string.IsNullOrWhiteSpace(Email) || !Regex.IsMatch(Email, emailPattern)));
+            validationRules.Add(new ValidationRule(nameof(PhoneNumber), "Phone number must have exactly 9 numbers.", () => PhoneNumber.Length != 9));
         }
     }
 }
