@@ -24,6 +24,7 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
             {
                 _currentGuestText = value;
                 OnPropertyChanged();
+                Validate(nameof(CurrentGuestText));
             }
         }
 
@@ -36,6 +37,7 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
             {
                 _currentRoomText = value;
                 OnPropertyChanged();
+                Validate(nameof(CurrentRoomText));
             }
         }
         
@@ -48,6 +50,7 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
             {
                 _dateStart = value;
                 OnPropertyChanged();
+                Validate(nameof(DateStart));
             }
         }
 
@@ -60,6 +63,7 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
             {
                 _dateEnd = value;
                 OnPropertyChanged();
+                Validate(nameof(DateEnd));
             }
         }
 
@@ -72,6 +76,7 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
             {
                 _state = value;
                 OnPropertyChanged();
+                Validate(nameof(State));
             }
         }
 
@@ -106,10 +111,7 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
             SelectRoomCommand = new OpenContentBrowserCommand<RoomItem>(WhenRoomSelected, () => new ContentBrowserRoomVM(hotelStore.Rooms, browserService), browserService);
         }
 
-        protected override string ItemTypeName
-        {
-            get => "Reservation";
-        }
+        protected override string ItemTypeName { get => "Reservation"; }
 
         protected override Func<int, ReservationItem> CreateItemFromFields
         {
@@ -120,8 +122,8 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
         {
             CurrentGuestText = EmptyGuestText;
             CurrentRoomText = EmptyRoomText;
-            DateStart = DateTime.Now;
-            DateEnd = DateTime.Now;
+            DateStart = DateTime.Today;
+            DateEnd = DateTime.Today;
             State = ReservationStatus.New;
             PriceTotal = "0";
         }
@@ -138,6 +140,11 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
 
         protected override void AddValidationRules(IList<ValidationRule> validationRules)
         {
+            validationRules.Add(new ValidationRule(nameof(DateStart), "Start Date cannot be in the past", () => DateStart < DateTime.Today));
+            validationRules.Add(new ValidationRule(nameof(DateStart), "Start Date must be before end date", () => DateStart >= DateEnd));
+            validationRules.Add(new ValidationRule(nameof(DateEnd), "End Date cannot be in the past", () => DateEnd < DateTime.Today));
+            validationRules.Add(new ValidationRule(nameof(DateEnd), "End Date cannot be today", () => DateEnd == DateTime.Today));
+            validationRules.Add(new ValidationRule(nameof(DateEnd), "End Date must be after start date", () => DateEnd <= DateStart));
         }
 
         private void WhenGuestSelected(IList<GuestItem> guestItems)
