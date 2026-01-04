@@ -48,6 +48,7 @@
                          HorizontalAlignment="Center" />
                 <Label Content="Phone Number" />
                 <TextBox Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         PreviewTextInput="PhoneNumberTextBox_PreviewTextInput"
                          Width="200"
                          Height="30"
                          Margin="0,0,0,8"

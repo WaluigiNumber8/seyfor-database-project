@@ -16,6 +16,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
             {
                 _title = value;
                 OnPropertyChanged();
+                Validate(nameof(Title));
             }
         }
 
@@ -28,6 +29,7 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
             {
                 _description = value;
                 OnPropertyChanged();
+                Validate(nameof(Description));
             }
         }
 
@@ -59,6 +61,8 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
 
         protected override void AddValidationRules(IList<ValidationRule> validationRules)
         {
+            validationRules.Add(new ValidationRule(nameof(Title), "Title must not be empty.", () => string.IsNullOrEmpty(Title)));
+            validationRules.Add(new ValidationRule(nameof(Description), "Description must not be empty.", () => string.IsNullOrEmpty(Description)));
         }
     }
 }

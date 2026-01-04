@@ -24,6 +24,7 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
             {
                 _roomNumber = value;
                 OnPropertyChanged();
+                Validate(nameof(RoomNumber));
             }
         }
 
@@ -35,6 +36,7 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
             {
                 _roomType = value;
                 OnPropertyChanged();
+                Validate(nameof(RoomType));
             }
         }
 
@@ -46,6 +48,7 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
             {
                 _capacity = value;
                 OnPropertyChanged();
+                Validate(nameof(Capacity));
             }
         }
 
@@ -57,6 +60,7 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
             {
                 _pricePerNight = value;
                 OnPropertyChanged();
+                Validate(nameof(PricePerNight));
             }
         }
 
@@ -68,6 +72,7 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
             {
                 _availabilityStatus = value;
                 OnPropertyChanged();
+                Validate(nameof(AvailabilityStatus));
             }
         }
 
@@ -80,6 +85,7 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
             {
                 _currentEquipmentText = value;
                 OnPropertyChanged();
+                Validate(nameof(CurrentEquipmentText));
             }
         }
         #endregion
@@ -121,6 +127,9 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
 
         protected override void AddValidationRules(IList<ValidationRule> validationRules)
         {
+            validationRules.Add(new ValidationRule(nameof(RoomNumber), "Room Number must be above 0.", () => RoomNumber > 0));
+            validationRules.Add(new ValidationRule(nameof(Capacity), "Capacity must be above 0.", () => Capacity > 0));
+            validationRules.Add(new ValidationRule(nameof(PricePerNight), "Price must be above 0.", () => PricePerNight > 0));
         }
 
         private void WhenEquipmentSelected(IList<EquipmentItem> items)

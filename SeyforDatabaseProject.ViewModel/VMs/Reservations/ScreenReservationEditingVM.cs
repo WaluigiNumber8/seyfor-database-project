@@ -170,15 +170,15 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
 
         protected override void AddValidationRules(IList<ValidationRule> validationRules)
         {
-            validationRules.Add(new ValidationRule(nameof(CurrentGuestText), "Guest must be selected", () => _currentGuest == null));
-            validationRules.Add(new ValidationRule(nameof(CurrentRoomText), "Room must be selected", () => _currentRoom == null));
-            validationRules.Add(new ValidationRule(nameof(CurrentRoomText), "Room is currently out of service", () => _currentRoom?.AvailabilityStatus == RoomAvailabilityStatus.OutOfService));
-            validationRules.Add(new ValidationRule(nameof(DateStart), "Start Date cannot be in the past", () => DateStart < DateTime.Today));
+            validationRules.Add(new ValidationRule(nameof(CurrentGuestText), "Guest must be selected.", () => _currentGuest == null));
+            validationRules.Add(new ValidationRule(nameof(CurrentRoomText), "Room must be selected.", () => _currentRoom == null));
+            validationRules.Add(new ValidationRule(nameof(CurrentRoomText), "Room is currently out of service.", () => _currentRoom?.AvailabilityStatus == RoomAvailabilityStatus.OutOfService));
+            validationRules.Add(new ValidationRule(nameof(DateStart), "Start Date cannot be in the past.", () => DateStart < DateTime.Today));
             validationRules.Add(new ValidationRule(nameof(DateStart), "Start Date is conflicting with another reservation.", IsReservationForThisRoomThisTimeRangeTaken));
-            validationRules.Add(new ValidationRule(nameof(DateStart), "Start Date must be before end date", () => DateStart >= DateEnd));
-            validationRules.Add(new ValidationRule(nameof(DateEnd), "End Date cannot be in the past", () => DateEnd < DateTime.Today));
-            validationRules.Add(new ValidationRule(nameof(DateEnd), "End Date cannot be today", () => DateEnd == DateTime.Today));
-            validationRules.Add(new ValidationRule(nameof(DateEnd), "End Date must be after start date", () => DateEnd <= DateStart));
+            validationRules.Add(new ValidationRule(nameof(DateStart), "Start Date must be before end date.", () => DateStart >= DateEnd));
+            validationRules.Add(new ValidationRule(nameof(DateEnd), "End Date cannot be in the past.", () => DateEnd < DateTime.Today));
+            validationRules.Add(new ValidationRule(nameof(DateEnd), "End Date cannot be today.", () => DateEnd == DateTime.Today));
+            validationRules.Add(new ValidationRule(nameof(DateEnd), "End Date must be after start date.", () => DateEnd <= DateStart));
         }
 
         private bool IsReservationForThisRoomThisTimeRangeTaken()
