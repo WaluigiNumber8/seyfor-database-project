@@ -54,9 +54,9 @@ In my opinion the most important systems are:
 
 ## Needed Improvements
 
-I had more time, there are plenty more things I would add.
+If I had more time, there are plenty more things I would add/fix.
 
-- Add system to cancel reservations when room is put on maintenance.
+- Changing room data doesnt reflect in reservations.
 - Add Unit Testing.
 - Refactor a lot of View layer code.
 - Improve UI Design (screen real estate is poorly utilized. Lack of info from UI.)
