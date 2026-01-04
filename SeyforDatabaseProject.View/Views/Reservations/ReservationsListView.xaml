@@ -40,13 +40,6 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="ID">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Padding="0,0,20,0" Text="{Binding ID}" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
                     <GridViewColumn Header="Start Date">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
