@@ -10,16 +10,33 @@ namespace SeyforDatabaseProject.ViewModel.Core
         where TItem : DatabaseItemBase<TItem>
         where TItemVM : DatabaseItemVMBase<TItem>
     {
-        public ScreenListingVMBase(DatabaseItemList<TItem> list, ScreenEditingVMBase<TItem, TItemVM> editVM, Action navigateToEdit)
+        #region Properties
+
+        private ObservableCollection<TItemVM> _items;
+
+        public ObservableCollection<TItemVM> Items
         {
-            AddEntryCommand = new GoToAddItemScreenCommand<TItem, TItemVM>(editVM, navigateToEdit);
-            EditEntryCommand = new GoToUpdateItemScreenCommand<TItem, TItemVM>(editVM, navigateToEdit);
-            RefreshEntriesCommand = new RefreshEntriesCommand<TItem>(this, list);
+            get { return _items; }
+            set { _items = value; }
         }
+
+        #endregion
+
+        #region Commands
 
         public ICommand AddEntryCommand { get; }
         public ICommand EditEntryCommand { get; }
         public ICommand RefreshEntriesCommand { get; }
+
+        #endregion
+
+        public ScreenListingVMBase(DatabaseItemList<TItem> list, ScreenEditingVMBase<TItem, TItemVM> editVM, Action navigateToEdit)
+        {
+            Items = new ObservableCollection<TItemVM>();
+            AddEntryCommand = new GoToAddItemScreenCommand<TItem, TItemVM>(editVM, navigateToEdit);
+            EditEntryCommand = new GoToUpdateItemScreenCommand<TItem, TItemVM>(editVM, navigateToEdit);
+            RefreshEntriesCommand = new RefreshEntriesCommand<TItem>(this, list);
+        }
 
         public void UpdateEntries(IEnumerable<TItem> allItems)
         {
@@ -30,7 +47,6 @@ namespace SeyforDatabaseProject.ViewModel.Core
             }
         }
 
-        protected abstract ObservableCollection<TItemVM> Items { get; }
         protected abstract Func<TItem, TItemVM> CreateNewItemVM { get; }
     }
 }
