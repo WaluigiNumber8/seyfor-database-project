@@ -93,6 +93,9 @@ namespace SeyforDatabaseProject.ViewModel.Guests
         protected override void AddValidationRules(IList<ValidationRule> validationRules)
         {
             validationRules.Add(new ValidationRule(nameof(Name), "Name cannot be empty", () => string.IsNullOrEmpty(Name)));
+            validationRules.Add(new ValidationRule(nameof(Surname), "Surname cannot be empty", () => string.IsNullOrEmpty(Surname)));
+            validationRules.Add(new ValidationRule(nameof(Email), "Email doesn't contain @", () => !Email.Contains('@')));
+            validationRules.Add(new ValidationRule(nameof(PhoneNumber), "Phone number must have exactly 9 numbers", () => PhoneNumber.Length != 9));
         }
     }
 }
