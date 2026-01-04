@@ -94,6 +94,7 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
         
         private readonly HotelStore _hotelStore;
         private List<EquipmentItem> _currentEquipment;
+        private int? _currentID;
 
         public ScreenRoomEditingVM(HotelStore hotelStore, Action navigateToListing, IServiceContentBrowser browserService) : base(hotelStore.Rooms, navigateToListing)
         {
@@ -113,10 +114,12 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
             AvailabilityStatus = RoomAvailabilityStatus.Available;
             CurrentEquipmentText = NoEquipmentText;
             _currentEquipment = new List<EquipmentItem>();
+            _currentID = null;
         }
 
         protected override void SetPropertiesFromItem(RoomItemVM item)
         {
+            _currentID = item.ID;
             RoomNumber = item.RoomNumber;
             RoomType = Enum.Parse<RoomType>(item.RoomType);
             Capacity = item.Capacity;
@@ -130,7 +133,7 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
         protected override void AddValidationRules(IList<ValidationRule> validationRules)
         {
             validationRules.Add(new ValidationRule(nameof(RoomNumber), "Room Number must be above 0.", () => RoomNumber <= 0));
-            validationRules.Add(new ValidationRule(nameof(RoomNumber), "There is already a room with this number.", () => _hotelStore.Rooms.Items.FirstOrDefault(r => r.RoomNumber == RoomNumber) != null));
+            validationRules.Add(new ValidationRule(nameof(RoomNumber), "There is already a room with this number.", () => _hotelStore.Rooms.Items.FirstOrDefault(r => r.ID != _currentID && r.RoomNumber == RoomNumber) != null));
             validationRules.Add(new ValidationRule(nameof(Capacity), "Capacity must be above 0.", () => Capacity <= 0));
             validationRules.Add(new ValidationRule(nameof(PricePerNight), "Price must be above 0.", () => PricePerNight <= 0));
         }
