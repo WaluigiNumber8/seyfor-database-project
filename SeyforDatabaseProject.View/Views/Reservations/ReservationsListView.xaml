@@ -90,6 +90,7 @@
             <Button Content="Edit Reservation"
                     Command="{Binding EditEntryCommand}"
                     CommandParameter="{Binding SelectedItem, ElementName=ReservationItemsListView}"
+                    IsEnabled="{Binding SelectedItems.Count, ElementName=ReservationItemsListView}"
                     Width="100"
                     Height="30"
                     Margin="0,0,4,0" />
