@@ -25,7 +25,8 @@ namespace SeyforDatabaseProject.ViewModel.Core
         {
             try
             {
-                TItem item = _createItemFromFields(_itemList.Count + 1);
+                int highest = _itemList.Items.Max(i => i.ID);
+                TItem item = _createItemFromFields(highest + 1);
                 Console.WriteLine($"Try add new {typeof(TItem)}");
                 await _itemList.AddNew(item);
 
