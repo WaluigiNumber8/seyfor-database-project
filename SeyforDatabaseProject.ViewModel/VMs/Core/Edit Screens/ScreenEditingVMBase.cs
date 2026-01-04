@@ -1,10 +1,17 @@
+using System.Collections;
+using System.ComponentModel;
 using System.Windows.Input;
 using SeyforDatabaseProject.Model.Data;
+using SeyforDatabaseProject.ViewModel.Validation;
 
 namespace SeyforDatabaseProject.ViewModel.Core
 {
-    public abstract class ScreenEditingVMBase<TItem, TItemVM> : ViewModelBase where TItem : DatabaseItemBase<TItem> where TItemVM : DatabaseItemVMBase<TItem>
+    public abstract class ScreenEditingVMBase<TItem, TItemVM> : ViewModelBase, INotifyDataErrorInfo
+        where TItem : DatabaseItemBase<TItem>
+        where TItemVM : DatabaseItemVMBase<TItem>
     {
+        public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
+
         #region Properties
 
         private string _headerText;
@@ -31,6 +38,18 @@ namespace SeyforDatabaseProject.ViewModel.Core
             }
         }
 
+        private bool _isSaveButtonEnabled;
+
+        public bool IsSaveButtonEnabled
+        {
+            get => _isSaveButtonEnabled;
+            set
+            {
+                _isSaveButtonEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
         private bool _showRemoveButton;
 
         public bool ShowRemoveButton
@@ -48,12 +67,14 @@ namespace SeyforDatabaseProject.ViewModel.Core
         public ICommand SaveCommand { get; private set; }
         public ICommand CancelCommand { get; }
         public ICommand RemoveCommand { get; }
+        
         private readonly ICommand _saveUpdateItemCommand;
         private readonly ICommand _saveNewItemCommand;
 
+        protected readonly VMValidationHandler _errors;
         public TItemVM? CurrentItem { get; private set; }
         protected abstract string ItemTypeName { get; }
-        
+
         /// <summary>
         /// Creates a TItem from the current fields in the ViewModel. Takes the ID as an argument.
         /// </summary>
@@ -66,6 +87,15 @@ namespace SeyforDatabaseProject.ViewModel.Core
             SaveCommand = _saveNewItemCommand;
             CancelCommand = new CancelChangesCommand(navigateToListing);
             RemoveCommand = new RemoveItemCommand<TItem, TItemVM>(this, itemList, navigateToListing);
+            
+            _errors = new VMValidationHandler();
+            _errors.ErrorsChanged += WhenErrorsChange;
+        }
+
+        public override void Dispose()
+        {
+            _errors.ErrorsChanged -= WhenErrorsChange;
+            base.Dispose();
         }
 
         public void LoadForEdit(TItemVM? item)
@@ -97,8 +127,23 @@ namespace SeyforDatabaseProject.ViewModel.Core
             ShowRemoveButton = false;
         }
 
+
         public abstract void ClearFields();
 
         protected abstract void SetPropertiesFromItem(TItemVM item);
+
+
+        public bool HasErrors
+        {
+            get => _errors.HasErrors;
+        }
+
+        public IEnumerable GetErrors(string? propertyName) => _errors.GetErrors(propertyName);
+
+        private void WhenErrorsChange(object? sender, DataErrorsChangedEventArgs e)
+        {
+            ErrorsChanged?.Invoke(sender, e);
+            IsSaveButtonEnabled = !_errors.HasErrors;
+        }
     }
 }

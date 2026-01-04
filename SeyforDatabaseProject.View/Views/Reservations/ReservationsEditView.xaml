@@ -92,6 +92,7 @@
                     Margin="0,0,64,0" />
             <Button Content="{Binding SaveButtonText, FallbackValue=Save}"
                     Command="{Binding SaveCommand}"
+                    IsEnabled="{Binding IsSaveButtonEnabled}"
                     Width="100"
                     Height="30"
                     Margin="0,0,8,0" />

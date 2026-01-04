@@ -1,15 +1,10 @@
-using System.Collections;
-using System.ComponentModel;
 using SeyforDatabaseProject.Model.Data.Guests;
 using SeyforDatabaseProject.ViewModel.Core;
-using SeyforDatabaseProject.ViewModel.Validation;
 
 namespace SeyforDatabaseProject.ViewModel.Guests
 {
-    public class ScreenGuestEditVM : ScreenEditingVMBase<GuestItem, GuestItemVM>, INotifyDataErrorInfo
+    public class ScreenGuestEditVM : ScreenEditingVMBase<GuestItem, GuestItemVM>
     {
-        private readonly VMValidationHandler _errors;
-        
         #region Properties
 
         private string _name;
@@ -67,11 +62,7 @@ namespace SeyforDatabaseProject.ViewModel.Guests
         
         #endregion
 
-        public ScreenGuestEditVM(HotelStore hotelStore, Action navigateToListing) : base(hotelStore.Guests, navigateToListing)
-        {
-            _errors = new VMValidationHandler();
-            _errors.ErrorsChanged += WhenErrorsChange;
-        }
+        public ScreenGuestEditVM(HotelStore hotelStore, Action navigateToListing) : base(hotelStore.Guests, navigateToListing) { }
 
         protected override string ItemTypeName { get => "Guest"; }
         protected override Func<int, GuestItem> CreateItemFromFields { get => id => new GuestItem(id, Name, Surname, Email, PhoneNumber); }
@@ -89,15 +80,6 @@ namespace SeyforDatabaseProject.ViewModel.Guests
             Surname = item.Surname;
             Email = item.Email;
             PhoneNumber = item.PhoneNumber;
-        }
-
-        public IEnumerable GetErrors(string? propertyName) => _errors.GetErrors(propertyName);
-
-        public bool HasErrors { get => _errors.HasErrors; }
-        public event EventHandler<DataErrorsChangedEventArgs>? ErrorsChanged;
-        private void WhenErrorsChange(object? sender, DataErrorsChangedEventArgs e)
-        {
-            ErrorsChanged?.Invoke(sender, e);
         }
     }
 }
