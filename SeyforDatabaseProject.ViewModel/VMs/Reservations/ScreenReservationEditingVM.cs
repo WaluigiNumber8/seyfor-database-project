@@ -54,6 +54,7 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
                 Validate(nameof(DateStart));
                 Validate(nameof(DateEnd));
                 OnPropertyChanged();
+                RecalculatePrice();
             }
         }
 
@@ -68,6 +69,7 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
                 Validate(nameof(DateEnd));
                 Validate(nameof(DateStart));
                 OnPropertyChanged();
+                RecalculatePrice();
             }
         }
 
@@ -138,7 +140,7 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
 
         protected override Func<int, ReservationItem> CreateItemFromFields
         {
-            get => id => new ReservationItem(id, _currentGuest!, _currentRoom!, DateStart, DateEnd, State, Convert.ToDecimal(PriceTotal));
+            get => id => new ReservationItem(id, _currentGuest!, _currentRoom!, DateStart, DateEnd, State);
         }
 
         public override void ClearFields()
@@ -220,6 +222,19 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
             Console.WriteLine($"Selected room: {room}");
             _currentRoom = room;
             CurrentRoomText = room.RoomNumber.ToString();
+            RecalculatePrice();
+        }
+        
+        private void RecalculatePrice()
+        {
+            if (_currentRoom == null)
+            {
+                PriceTotal = "--";
+                return;
+            }
+
+            decimal price = ReservationCalculations.CalculatePrice(DateStart, DateEnd, _currentRoom);
+            PriceTotal = $"{price} Kč";
         }
     }
 }

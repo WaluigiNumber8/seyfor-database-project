@@ -14,7 +14,7 @@ namespace SeyforDatabaseProject.Model.Data.Reservations
         public ReservationStatus State { get; private set; }
         public decimal PriceTotal { get; private set; }
 
-        public ReservationItem(int id, GuestItem guest, RoomItem room, DateTime dateStart, DateTime dateEnd, ReservationStatus state, decimal priceTotal)
+        public ReservationItem(int id, GuestItem guest, RoomItem room, DateTime dateStart, DateTime dateEnd, ReservationStatus state)
         {
             ID = id;
             Guest = guest;
@@ -22,7 +22,7 @@ namespace SeyforDatabaseProject.Model.Data.Reservations
             DateStart = dateStart;
             DateEnd = dateEnd;
             State = state;
-            PriceTotal = priceTotal;
+            PriceTotal = ReservationCalculations.CalculatePrice(DateStart, DateEnd, Room);
         }
 
         protected override void UpdateFields(ReservationItem item)
@@ -32,7 +32,7 @@ namespace SeyforDatabaseProject.Model.Data.Reservations
             DateStart = item.DateStart;
             DateEnd = item.DateEnd;
             State = item.State;
-            PriceTotal = item.PriceTotal;
+            PriceTotal = ReservationCalculations.CalculatePrice(DateStart, DateEnd, Room);
         }
 
         public override string ToString() => $"|{DateStart} - {DateEnd}| -- {Room} - {Guest}";

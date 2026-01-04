@@ -128,8 +128,7 @@ namespace SeyforDatabaseProject.Model.Services
                 dto.Room.ConvertToItem(),
                 Convert.ToDateTime(dto.DateStart),
                 Convert.ToDateTime(dto.DateEnd),
-                (ReservationStatus) dto.State,
-                dto.PriceTotal
+                (ReservationStatus) dto.State
             );
         }
 
