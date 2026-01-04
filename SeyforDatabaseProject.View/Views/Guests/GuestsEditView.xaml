@@ -32,26 +32,26 @@
                 <TextBox Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          Width="200"
                          Height="30"
-                         Margin="0,0,0,8"
+                         Margin="0,0,0,16"
                          HorizontalAlignment="Center" />
                 <Label Content="Surname" />
                 <TextBox Text="{Binding Surname, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          Width="200"
                          Height="30"
-                         Margin="0,0,0,8"
+                         Margin="0,0,0,16"
                          HorizontalAlignment="Center" />
                 <Label Content="Email" />
                 <TextBox Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          Width="200"
                          Height="30"
-                         Margin="0,0,0,8"
+                         Margin="0,0,0,16"
                          HorizontalAlignment="Center" />
                 <Label Content="Phone Number" />
                 <TextBox Text="{Binding PhoneNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          PreviewTextInput="PhoneNumberTextBox_PreviewTextInput"
                          Width="200"
                          Height="30"
-                         Margin="0,0,0,8"
+                         Margin="0,0,0,16"
                          HorizontalAlignment="Center" />
 
 

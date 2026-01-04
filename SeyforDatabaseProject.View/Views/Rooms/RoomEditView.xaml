@@ -34,19 +34,19 @@
                          PreviewTextInput="RoomNumberTextBox_PreviewTextInput"
                          Width="200"
                          Height="30"
-                         Margin="0,0,0,8"
+                         Margin="0,0,0,16"
                          HorizontalAlignment="Center" />
                 <Label Content="Type" />
                 <ComboBox
                     ItemsSource="{Binding Source={markupExtensions:EnumBindingSource {x:Type roomData:RoomType}}}"
                     SelectedItem="{Binding RoomType}"
-                    Margin="0,0,0,8" />
+                    Margin="0,0,0,16" />
                 <Label Content="Capacity" />
                 <TextBox Text="{Binding Capacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          PreviewTextInput="CapacityTextBox_PreviewTextInput"
                          Width="200"
                          Height="30"
-                         Margin="0,0,0,8"
+                         Margin="0,0,0,16"
                          HorizontalAlignment="Center" />
                 <Label Content="Price (per Night)" />
                 <TextBox Text="{Binding PricePerNight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -62,7 +62,7 @@
                     Margin="0,0,0,16" />
                 <!-- Equipment Browser -->
                 <Label Content="Equipment" />
-                <Grid Margin="0,0,0,8">
+                <Grid Margin="0,0,0,16">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
