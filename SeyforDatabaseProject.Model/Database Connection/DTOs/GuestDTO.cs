@@ -8,7 +8,7 @@ namespace SeyforDatabaseProject.Model.DatabaseConnection
     /// </summary>
     public class GuestDTO
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SeyforDatabaseProject.Model.DatabaseConnection
 {
@@ -7,7 +8,7 @@ namespace SeyforDatabaseProject.Model.DatabaseConnection
     /// </summary>
     public class EquipmentDTO
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
         public string Title { get; set; }

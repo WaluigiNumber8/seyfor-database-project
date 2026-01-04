@@ -8,7 +8,7 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
         public int RoomNumber { get => _item.RoomNumber; }
         public string RoomType { get => _item.RoomType.ToString(); }
         public int Capacity { get => _item.Capacity; }
-        public string PricePerNight { get => _item.PricePerNight.ToString(); }
+        public string PricePerNight { get => $"{_item.PricePerNight} Kč"; }
         public string AvailabilityStatus { get => _item.AvailabilityStatus.ToString(); }
         public string EquipmentText {get => string.Join(", ", _item.Equipment); }
         public List<EquipmentItem> Equipment {get => _item.Equipment;}

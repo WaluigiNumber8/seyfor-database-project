@@ -25,7 +25,6 @@ namespace SeyforDatabaseProject.Model.Services
         public static EquipmentDTO ConvertToDTO(this EquipmentItem item)
         {
             EquipmentDTO dto = new();
-            dto.ID = item.ID;
             dto.Title = item.Title;
             dto.Description = item.Description;
             return dto;
@@ -58,7 +57,6 @@ namespace SeyforDatabaseProject.Model.Services
         public static RoomDTO ConvertToDTO(this RoomItem item, List<EquipmentDTO> equipmentDTOs)
         {
             RoomDTO dto = new();
-            dto.ID = item.ID;
             dto.RoomNumber = item.RoomNumber;
             dto.RoomType = (int) item.RoomType;
             dto.Capacity = item.Capacity;
@@ -98,7 +96,6 @@ namespace SeyforDatabaseProject.Model.Services
         public static GuestDTO ConvertToDTO(this GuestItem item)
         {
             GuestDTO dto = new();
-            dto.ID = item.ID;
             dto.Name = item.Name;
             dto.Surname = item.Surname;
             dto.Email = item.Email;
@@ -135,7 +132,6 @@ namespace SeyforDatabaseProject.Model.Services
         public static ReservationDTO ConvertToDTO(this ReservationItem item, GuestDTO guestDTO, RoomDTO roomDTO)
         {
             ReservationDTO dto = new();
-            dto.ID = item.ID;
             dto.Guest = guestDTO;
             dto.GuestID = item.Guest.ID;
             dto.Room = roomDTO;

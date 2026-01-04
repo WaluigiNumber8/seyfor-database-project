@@ -1,10 +1,11 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SeyforDatabaseProject.Model.DatabaseConnection
 {
     public class ReservationDTO
     {
-        [Key]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         public string DateStart { get; set; }
         public string DateEnd { get; set; }
