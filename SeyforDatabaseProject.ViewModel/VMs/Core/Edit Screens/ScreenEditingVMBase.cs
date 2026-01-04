@@ -70,9 +70,8 @@ namespace SeyforDatabaseProject.ViewModel.Core
 
         private readonly ICommand _saveUpdateItemCommand;
         private readonly ICommand _saveNewItemCommand;
-
-        protected readonly VMValidationHandler _errors;
-        private readonly IDictionary<string, IList<ValidationRule>> _validationRules;
+        
+        private readonly ValidationBook _validationBook;
 
         public TItemVM? CurrentItem { get; private set; }
         protected abstract string ItemTypeName { get; }
@@ -89,16 +88,17 @@ namespace SeyforDatabaseProject.ViewModel.Core
             SaveCommand = _saveNewItemCommand;
             CancelCommand = new CancelChangesCommand(navigateToListing);
             RemoveCommand = new RemoveItemCommand<TItem, TItemVM>(this, itemList, navigateToListing);
-
-            _errors = new VMValidationHandler();
-            _errors.ErrorsChanged += WhenErrorsChange;
-            _validationRules = new Dictionary<string, IList<ValidationRule>>();
-            ConstructValidationRules();
+            
+            _validationBook = new ValidationBook();
+            _validationBook.Errors.ErrorsChanged += WhenErrorsChange;
+            IList<ValidationRule> validationRules = new List<ValidationRule>();
+            AddValidationRules(validationRules);
+            _validationBook.ConstructValidationRules(validationRules);
         }
 
         public override void Dispose()
         {
-            _errors.ErrorsChanged -= WhenErrorsChange;
+            _validationBook.Errors.ErrorsChanged -= WhenErrorsChange;
             base.Dispose();
         }
 
@@ -141,46 +141,20 @@ namespace SeyforDatabaseProject.ViewModel.Core
         /// <param name="validationRules">The list validation rules that will get checked.</param>
         protected abstract void AddValidationRules(IList<ValidationRule> validationRules);
         
-        private void ConstructValidationRules()
-        {
-            IList<ValidationRule> rules = new List<ValidationRule>();
-            AddValidationRules(rules);
-            foreach (ValidationRule rule in rules)
-            {
-                if (!_validationRules.ContainsKey(rule.PropertyName))
-                {
-                    _validationRules.Add(rule.PropertyName, new List<ValidationRule>());
-                }
-                _validationRules[rule.PropertyName].Add(rule);
-            }
-        }
         
-        protected void CheckValidations(string propertyName)
-        {
-            _errors.ClearErrors(propertyName);
-            if (!_validationRules.TryGetValue(propertyName, out IList<ValidationRule>? rules)) return;
-            if (rules.Count == 0) return;
-            foreach (ValidationRule rule in rules)
-            {
-                bool passed = !rule.IsWrong();
-                if (!passed) _errors.AddError(propertyName, rule.Message);
-            }
-            
-        }
         
         #region Errors
 
-        public bool HasErrors
-        {
-            get => _errors.HasErrors;
-        }
+        protected void Validate(string propertyName) => _validationBook.Validate(propertyName);
+        
+        public bool HasErrors { get => _validationBook.Errors.HasErrors; }
 
-        public IEnumerable GetErrors(string? propertyName) => _errors.GetErrors(propertyName);
+        public IEnumerable GetErrors(string? propertyName) => _validationBook.Errors.GetErrors(propertyName);
 
         private void WhenErrorsChange(object? sender, DataErrorsChangedEventArgs e)
         {
             ErrorsChanged?.Invoke(sender, e);
-            IsSaveButtonEnabled = !_errors.HasErrors;
+            IsSaveButtonEnabled = !_validationBook.Errors.HasErrors;
         }
 
         #endregion

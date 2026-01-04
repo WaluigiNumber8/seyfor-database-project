@@ -1,4 +1,3 @@
-using System.Collections.Concurrent;
 using SeyforDatabaseProject.Model.Data.Guests;
 using SeyforDatabaseProject.ViewModel.Core;
 using SeyforDatabaseProject.ViewModel.Validation;
@@ -18,7 +17,7 @@ namespace SeyforDatabaseProject.ViewModel.Guests
             {
                 _name = value;
                 OnPropertyChanged();
-                CheckValidations(nameof(Name));
+                Validate(nameof(Name));
             }
         }
 
@@ -31,6 +30,7 @@ namespace SeyforDatabaseProject.ViewModel.Guests
             {
                 _surname = value;
                 OnPropertyChanged();
+                Validate(nameof(Surname));
             }
         }
 
@@ -43,6 +43,7 @@ namespace SeyforDatabaseProject.ViewModel.Guests
             {
                 _email = value;
                 OnPropertyChanged();
+                Validate(nameof(Email));
             }
         }
 
@@ -55,6 +56,7 @@ namespace SeyforDatabaseProject.ViewModel.Guests
             {
                 _phoneNumber = value;
                 OnPropertyChanged();
+                Validate(nameof(PhoneNumber));
             }
         }
 
