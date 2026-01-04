@@ -58,6 +58,7 @@ If I had more time, there are plenty more things I would add/fix.
 
 - Changing room data doesnt reflect in reservations.
 - Add Unit Testing.
+- Add Logging.
 - Refactor a lot of View layer code.
 - Improve UI Design (screen real estate is poorly utilized. Lack of info from UI.)
 - Refactor Database service code (uses switch cases which bloat methods).
