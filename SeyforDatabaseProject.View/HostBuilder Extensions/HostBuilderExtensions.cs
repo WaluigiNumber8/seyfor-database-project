@@ -55,6 +55,7 @@ namespace SeyforDatabaseProject.Views.HostBuilder
                 vm.Construct();
                 return vm;
             });
+            //Create Equipment Operations screen when navigated to.
             services.AddSingleton<Func<ScreenEquipmentOperationsVM>>(s =>
             {
                 return () =>
@@ -75,6 +76,7 @@ namespace SeyforDatabaseProject.Views.HostBuilder
                 vm.Construct();
                 return vm;
             });
+            //Create Rooms Operations screen when navigated to.
             services.AddSingleton<Func<ScreenRoomOperationsVM>>(s =>
             {
                 return () =>
@@ -95,6 +97,7 @@ namespace SeyforDatabaseProject.Views.HostBuilder
                 vm.Construct();
                 return vm;
             });
+            //Create Guests Operations screen when navigated to.
             services.AddSingleton<Func<ScreenGuestOperationsVM>>(s =>
             {
                 return () =>
@@ -115,6 +118,7 @@ namespace SeyforDatabaseProject.Views.HostBuilder
                 vm.Construct();
                 return vm;
             });
+            //Create Equipment Reservations screen when navigated to.
             services.AddSingleton<Func<ScreenReservationOperationsVM>>(s =>
             {
                 return () =>
