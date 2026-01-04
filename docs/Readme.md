@@ -56,7 +56,8 @@ In my opinion the most important systems are:
 
 If I had more time, there are plenty more things I would add/fix.
 
-- Changing room data doesnt reflect in reservations.
+- Changing of room data doesnt reflect in reservations.
+- It is not possible to clear equipment from a room.
 - Add Unit Testing.
 - Add Logging.
 - Refactor a lot of View layer code.
