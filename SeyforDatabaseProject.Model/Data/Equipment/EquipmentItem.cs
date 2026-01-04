@@ -25,6 +25,6 @@
             Description = item.Description;
         }
 
-        public override string ToString() => $"{ID} - {Title}";
+        public override string ToString() => Title;
     }
 }
