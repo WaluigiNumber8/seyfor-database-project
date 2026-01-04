@@ -9,8 +9,8 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
     {
         public string GuestText { get => _item.Guest.FullName; }
         public string RoomText { get => _item.Room.RoomNumber.ToString(); }
-        public string DateStart { get => _item.DateStart.ToString(); }
-        public string DateEnd { get => _item.DateEnd.ToString(); }
+        public string DateStart { get => _item.DateStart.ToShortDateString(); }
+        public string DateEnd { get => _item.DateEnd.ToShortDateString(); }
         public string State { get => _item.State.ToString(); }
         public string PriceTotal { get => _item.PriceTotal.ToString(); }
         public GuestItem Guest { get => _item.Guest; }
