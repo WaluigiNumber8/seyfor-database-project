@@ -127,9 +127,9 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
 
         protected override void AddValidationRules(IList<ValidationRule> validationRules)
         {
-            validationRules.Add(new ValidationRule(nameof(RoomNumber), "Room Number must be above 0.", () => RoomNumber > 0));
-            validationRules.Add(new ValidationRule(nameof(Capacity), "Capacity must be above 0.", () => Capacity > 0));
-            validationRules.Add(new ValidationRule(nameof(PricePerNight), "Price must be above 0.", () => PricePerNight > 0));
+            validationRules.Add(new ValidationRule(nameof(RoomNumber), "Room Number must be above 0.", () => RoomNumber <= 0));
+            validationRules.Add(new ValidationRule(nameof(Capacity), "Capacity must be above 0.", () => Capacity <= 0));
+            validationRules.Add(new ValidationRule(nameof(PricePerNight), "Price must be above 0.", () => PricePerNight <= 0));
         }
 
         private void WhenEquipmentSelected(IList<EquipmentItem> items)
