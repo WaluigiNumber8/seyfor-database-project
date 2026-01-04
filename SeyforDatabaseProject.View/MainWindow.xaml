@@ -12,7 +12,7 @@
         xmlns:reservationVMs="clr-namespace:SeyforDatabaseProject.ViewModel.Reservations;assembly=SeyforDatabaseProject.ViewModel"
         xmlns:reservations="clr-namespace:SeyforDatabaseProject.Views.Reservations"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
+        Title="Seyfor Hotel Database" Height="600" Width="800">
     <Grid>
         <Grid.Resources>
             <!-- Equipment -->
