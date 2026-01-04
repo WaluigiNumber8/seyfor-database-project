@@ -3,6 +3,7 @@ using System.Windows.Input;
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.ViewModel.ContentBrowser;
 using SeyforDatabaseProject.ViewModel.Core;
+using SeyforDatabaseProject.ViewModel.Validation;
 
 namespace SeyforDatabaseProject.ViewModel.Rooms
 {
@@ -113,6 +114,10 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
             PricePerNight = decimal.Parse(item.PricePerNight);
             AvailabilityStatus = Enum.Parse<RoomAvailabilityStatus>(item.AvailabilityStatus);
             CurrentEquipmentText = item.Equipment;
+        }
+
+        protected override void AddValidationRules(IList<ValidationRule> validationRules)
+        {
         }
 
         private void WhenEquipmentSelected(IList<EquipmentItem> items)

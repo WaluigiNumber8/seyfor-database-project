@@ -1,5 +1,7 @@
+using System.Collections.Concurrent;
 using SeyforDatabaseProject.Model.Data.Guests;
 using SeyforDatabaseProject.ViewModel.Core;
+using SeyforDatabaseProject.ViewModel.Validation;
 
 namespace SeyforDatabaseProject.ViewModel.Guests
 {
@@ -14,13 +16,9 @@ namespace SeyforDatabaseProject.ViewModel.Guests
             get => _name;
             set
             {
-                _errors.ClearErrors(nameof(Name));
                 _name = value;
                 OnPropertyChanged();
-                if (_name.Length <= 0)
-                {
-                    _errors.AddError(nameof(Name), "Name cannot be empty.");
-                }
+                CheckValidations(nameof(Name));
             }
         }
 
@@ -59,13 +57,21 @@ namespace SeyforDatabaseProject.ViewModel.Guests
                 OnPropertyChanged();
             }
         }
-        
+
         #endregion
 
         public ScreenGuestEditVM(HotelStore hotelStore, Action navigateToListing) : base(hotelStore.Guests, navigateToListing) { }
 
-        protected override string ItemTypeName { get => "Guest"; }
-        protected override Func<int, GuestItem> CreateItemFromFields { get => id => new GuestItem(id, Name, Surname, Email, PhoneNumber); }
+        protected override string ItemTypeName
+        {
+            get => "Guest";
+        }
+
+        protected override Func<int, GuestItem> CreateItemFromFields
+        {
+            get => id => new GuestItem(id, Name, Surname, Email, PhoneNumber);
+        }
+
         public override void ClearFields()
         {
             Name = string.Empty;
@@ -80,6 +86,11 @@ namespace SeyforDatabaseProject.ViewModel.Guests
             Surname = item.Surname;
             Email = item.Email;
             PhoneNumber = item.PhoneNumber;
+        }
+
+        protected override void AddValidationRules(IList<ValidationRule> validationRules)
+        {
+            validationRules.Add(new ValidationRule(nameof(Name), "Name cannot be empty", () => string.IsNullOrEmpty(Name)));
         }
     }
 }

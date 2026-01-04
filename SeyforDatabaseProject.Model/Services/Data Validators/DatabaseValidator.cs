@@ -12,17 +12,6 @@ namespace SeyforDatabaseProject.Model.Services
         {
         }
 
-        public async Task<EquipmentItem?> ValidateEquipmentAsync(EquipmentItem equipment)
-        {
-            await using DatabaseContext db = _contextFactory.CreateDbContext();
-            EquipmentDTO? invalidEquipment = await db.Equipment
-                .Where(e => e.Title.Length <= 0)
-                .Where(e => e.Description.Length <= 0)
-                .FirstOrDefaultAsync();
-
-            return invalidEquipment?.ConvertToItem();
-        }
-
         public async Task<T?> ValidateAsync<T>(T item) where T : DatabaseItemBase<T>
         {
             await using DatabaseContext db = _contextFactory.CreateDbContext();

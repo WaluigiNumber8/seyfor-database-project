@@ -67,11 +67,13 @@ namespace SeyforDatabaseProject.ViewModel.Core
         public ICommand SaveCommand { get; private set; }
         public ICommand CancelCommand { get; }
         public ICommand RemoveCommand { get; }
-        
+
         private readonly ICommand _saveUpdateItemCommand;
         private readonly ICommand _saveNewItemCommand;
 
         protected readonly VMValidationHandler _errors;
+        private readonly IDictionary<string, IList<ValidationRule>> _validationRules;
+
         public TItemVM? CurrentItem { get; private set; }
         protected abstract string ItemTypeName { get; }
 
@@ -87,9 +89,11 @@ namespace SeyforDatabaseProject.ViewModel.Core
             SaveCommand = _saveNewItemCommand;
             CancelCommand = new CancelChangesCommand(navigateToListing);
             RemoveCommand = new RemoveItemCommand<TItem, TItemVM>(this, itemList, navigateToListing);
-            
+
             _errors = new VMValidationHandler();
             _errors.ErrorsChanged += WhenErrorsChange;
+            _validationRules = new Dictionary<string, IList<ValidationRule>>();
+            ConstructValidationRules();
         }
 
         public override void Dispose()
@@ -127,11 +131,44 @@ namespace SeyforDatabaseProject.ViewModel.Core
             ShowRemoveButton = false;
         }
 
-
         public abstract void ClearFields();
 
         protected abstract void SetPropertiesFromItem(TItemVM item);
 
+        /// <summary>
+        /// Add property validation rules to the list. Make sure to call <b>CheckValidations()</b> in the property setters.
+        /// </summary>
+        /// <param name="validationRules">The list validation rules that will get checked.</param>
+        protected abstract void AddValidationRules(IList<ValidationRule> validationRules);
+        
+        private void ConstructValidationRules()
+        {
+            IList<ValidationRule> rules = new List<ValidationRule>();
+            AddValidationRules(rules);
+            foreach (ValidationRule rule in rules)
+            {
+                if (!_validationRules.ContainsKey(rule.PropertyName))
+                {
+                    _validationRules.Add(rule.PropertyName, new List<ValidationRule>());
+                }
+                _validationRules[rule.PropertyName].Add(rule);
+            }
+        }
+        
+        protected void CheckValidations(string propertyName)
+        {
+            _errors.ClearErrors(propertyName);
+            if (!_validationRules.TryGetValue(propertyName, out IList<ValidationRule>? rules)) return;
+            if (rules.Count == 0) return;
+            foreach (ValidationRule rule in rules)
+            {
+                bool passed = !rule.IsWrong();
+                if (!passed) _errors.AddError(propertyName, rule.Message);
+            }
+            
+        }
+        
+        #region Errors
 
         public bool HasErrors
         {
@@ -145,5 +182,7 @@ namespace SeyforDatabaseProject.ViewModel.Core
             ErrorsChanged?.Invoke(sender, e);
             IsSaveButtonEnabled = !_errors.HasErrors;
         }
+
+        #endregion
     }
 }

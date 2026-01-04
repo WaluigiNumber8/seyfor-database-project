@@ -1,6 +1,6 @@
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.ViewModel.Core;
-using SeyforDatabaseProject.ViewModel.Navigation;
+using SeyforDatabaseProject.ViewModel.Validation;
 
 namespace SeyforDatabaseProject.ViewModel.Equipment
 {
@@ -55,6 +55,10 @@ namespace SeyforDatabaseProject.ViewModel.Equipment
         {
             Title = item.Title;
             Description = item.Description;
+        }
+
+        protected override void AddValidationRules(IList<ValidationRule> validationRules)
+        {
         }
     }
 }

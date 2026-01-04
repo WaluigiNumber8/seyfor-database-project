@@ -4,6 +4,7 @@ using SeyforDatabaseProject.Model.Data.Guests;
 using SeyforDatabaseProject.Model.Data.Reservations;
 using SeyforDatabaseProject.ViewModel.ContentBrowser;
 using SeyforDatabaseProject.ViewModel.Core;
+using SeyforDatabaseProject.ViewModel.Validation;
 
 namespace SeyforDatabaseProject.ViewModel.Reservations
 {
@@ -133,6 +134,10 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
             DateEnd = Convert.ToDateTime(item.DateEnd);
             State = Enum.Parse<ReservationStatus>(item.State);
             PriceTotal = item.PriceTotal;
+        }
+
+        protected override void AddValidationRules(IList<ValidationRule> validationRules)
+        {
         }
 
         private void WhenGuestSelected(IList<GuestItem> guestItems)
