@@ -23,8 +23,8 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
             set
             {
                 _currentGuestText = value;
-                OnPropertyChanged();
                 Validate(nameof(CurrentGuestText));
+                OnPropertyChanged();
             }
         }
 
@@ -36,8 +36,8 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
             set
             {
                 _currentRoomText = value;
-                OnPropertyChanged();
                 Validate(nameof(CurrentRoomText));
+                OnPropertyChanged();
             }
         }
         
@@ -49,8 +49,9 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
             set
             {
                 _dateStart = value;
-                OnPropertyChanged();
                 Validate(nameof(DateStart));
+                Validate(nameof(DateEnd));
+                OnPropertyChanged();
             }
         }
 
@@ -62,8 +63,9 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
             set
             {
                 _dateEnd = value;
-                OnPropertyChanged();
                 Validate(nameof(DateEnd));
+                Validate(nameof(DateStart));
+                OnPropertyChanged();
             }
         }
 
@@ -75,8 +77,8 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
             set
             {
                 _state = value;
-                OnPropertyChanged();
                 Validate(nameof(State));
+                OnPropertyChanged();
             }
         }
 
@@ -101,8 +103,8 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
 
         #endregion
 
-        private GuestItem _currentGuest;
-        private RoomItem _currentRoom;
+        private GuestItem? _currentGuest;
+        private RoomItem? _currentRoom;
 
 
         public ScreenReservationEditingVM(HotelStore hotelStore, Action navigateToListing, IServiceContentBrowser browserService) : base(hotelStore.Reservations, navigateToListing)
@@ -115,13 +117,15 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
 
         protected override Func<int, ReservationItem> CreateItemFromFields
         {
-            get => id => new ReservationItem(id, _currentGuest, _currentRoom, DateStart, DateEnd, State, Convert.ToDecimal(PriceTotal));
+            get => id => new ReservationItem(id, _currentGuest!, _currentRoom!, DateStart, DateEnd, State, Convert.ToDecimal(PriceTotal));
         }
 
         public override void ClearFields()
         {
             CurrentGuestText = EmptyGuestText;
+            _currentGuest = null;
             CurrentRoomText = EmptyRoomText;
+            _currentRoom = null;
             DateStart = DateTime.Today;
             DateEnd = DateTime.Today;
             State = ReservationStatus.New;
@@ -140,13 +144,15 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
 
         protected override void AddValidationRules(IList<ValidationRule> validationRules)
         {
+            validationRules.Add(new ValidationRule(nameof(CurrentGuestText), "Guest must be selected", () => _currentGuest == null));
+            validationRules.Add(new ValidationRule(nameof(CurrentRoomText), "Room must be selected", () => _currentRoom == null));
             validationRules.Add(new ValidationRule(nameof(DateStart), "Start Date cannot be in the past", () => DateStart < DateTime.Today));
             validationRules.Add(new ValidationRule(nameof(DateStart), "Start Date must be before end date", () => DateStart >= DateEnd));
             validationRules.Add(new ValidationRule(nameof(DateEnd), "End Date cannot be in the past", () => DateEnd < DateTime.Today));
             validationRules.Add(new ValidationRule(nameof(DateEnd), "End Date cannot be today", () => DateEnd == DateTime.Today));
             validationRules.Add(new ValidationRule(nameof(DateEnd), "End Date must be after start date", () => DateEnd <= DateStart));
         }
-
+        
         private void WhenGuestSelected(IList<GuestItem> guestItems)
         {
             GuestItem guest = guestItems[0];

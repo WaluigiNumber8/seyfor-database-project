@@ -145,8 +145,12 @@ namespace SeyforDatabaseProject.ViewModel.Core
         
         #region Errors
 
-        protected void Validate(string propertyName) => _validationBook.Validate(propertyName);
-        
+        protected void Validate(string propertyName)
+        {
+            _validationBook.Validate(propertyName);
+            OnPropertyChanged(propertyName);
+        }
+
         public bool HasErrors { get => _validationBook.Errors.HasErrors; }
 
         public IEnumerable GetErrors(string? propertyName) => _validationBook.Errors.GetErrors(propertyName);

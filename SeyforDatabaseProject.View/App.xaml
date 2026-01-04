@@ -24,6 +24,25 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
+                    <Style TargetType="Label">
+                        <Setter Property="Validation.ErrorTemplate">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <StackPanel>
+                                        <AdornedElementPlaceholder/>
+                                        <ItemsControl ItemsSource="{Binding}">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Foreground="Red"
+                                                               Text="{Binding ErrorContent}"/>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate> 
+                                        </ItemsControl>
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
                     <Style TargetType="DatePicker">
                         <Setter Property="Validation.ErrorTemplate">
                             <Setter.Value>
