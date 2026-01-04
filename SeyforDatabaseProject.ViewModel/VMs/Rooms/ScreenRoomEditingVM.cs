@@ -104,6 +104,7 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
             PricePerNight = 0.0m;
             AvailabilityStatus = RoomAvailabilityStatus.Available;
             CurrentEquipmentText = NoEquipmentText;
+            _currentEquipment = new List<EquipmentItem>();
         }
 
         protected override void SetPropertiesFromItem(RoomItemVM item)
@@ -113,7 +114,9 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
             Capacity = item.Capacity;
             PricePerNight = decimal.Parse(item.PricePerNight);
             AvailabilityStatus = Enum.Parse<RoomAvailabilityStatus>(item.AvailabilityStatus);
-            CurrentEquipmentText = item.Equipment;
+            _currentEquipment = item.Equipment;
+            CurrentEquipmentText = item.EquipmentText;
+
         }
 
         protected override void AddValidationRules(IList<ValidationRule> validationRules)

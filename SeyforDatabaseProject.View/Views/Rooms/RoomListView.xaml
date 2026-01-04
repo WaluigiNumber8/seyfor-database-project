@@ -69,7 +69,7 @@
                     <GridViewColumn Header="Equipment">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Padding="0,0,20,0" Text="{Binding Equipment}" />
+                                <TextBlock Padding="0,0,20,0" Text="{Binding EquipmentText}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

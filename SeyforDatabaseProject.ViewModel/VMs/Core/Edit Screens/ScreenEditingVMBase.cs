@@ -38,7 +38,7 @@ namespace SeyforDatabaseProject.ViewModel.Core
             }
         }
 
-        private bool _isSaveButtonEnabled;
+        private bool _isSaveButtonEnabled = true;
 
         public bool IsSaveButtonEnabled
         {

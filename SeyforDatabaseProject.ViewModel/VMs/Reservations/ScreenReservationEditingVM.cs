@@ -172,6 +172,7 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
         {
             validationRules.Add(new ValidationRule(nameof(CurrentGuestText), "Guest must be selected", () => _currentGuest == null));
             validationRules.Add(new ValidationRule(nameof(CurrentRoomText), "Room must be selected", () => _currentRoom == null));
+            validationRules.Add(new ValidationRule(nameof(CurrentRoomText), "Room is currently out of service", () => _currentRoom?.AvailabilityStatus == RoomAvailabilityStatus.OutOfService));
             validationRules.Add(new ValidationRule(nameof(DateStart), "Start Date cannot be in the past", () => DateStart < DateTime.Today));
             validationRules.Add(new ValidationRule(nameof(DateStart), "Start Date is conflicting with another reservation.", IsReservationForThisRoomThisTimeRangeTaken));
             validationRules.Add(new ValidationRule(nameof(DateStart), "Start Date must be before end date", () => DateStart >= DateEnd));

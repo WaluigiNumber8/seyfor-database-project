@@ -6,7 +6,6 @@ namespace SeyforDatabaseProject.Model.Data
     public enum RoomAvailabilityStatus
     {
         Available = 0,
-        Reserved = 1,
-        OutOfService = 2
+        OutOfService = 1
     }
 }
