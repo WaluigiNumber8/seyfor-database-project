@@ -1,3 +1,4 @@
+using System.Text;
 using System.Windows.Input;
 using SeyforDatabaseProject.Model.Data;
 using SeyforDatabaseProject.Model.Data.Guests;
@@ -106,7 +107,7 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
                 OnPropertyChanged();
             }
         }
-        
+
         #endregion
 
         #region Commands
@@ -116,9 +117,11 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
 
         #endregion
 
+        private readonly HotelStore _hotelStore;
+
+        private int? _currentID;
         private GuestItem? _currentGuest;
         private RoomItem? _currentRoom;
-        private HotelStore _hotelStore;
 
 
         public ScreenReservationEditingVM(HotelStore hotelStore, Action navigateToListing, IServiceContentBrowser browserService) : base(hotelStore.Reservations, navigateToListing)
@@ -140,10 +143,11 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
 
         public override void ClearFields()
         {
-            CurrentGuestText = EmptyGuestText;
+            _currentID = null;
             _currentGuest = null;
-            CurrentRoomText = EmptyRoomText;
+            CurrentGuestText = EmptyGuestText;
             _currentRoom = null;
+            CurrentRoomText = EmptyRoomText;
             DateStart = DateTime.Today;
             DateEnd = DateTime.Today;
             State = ReservationStatus.New;
@@ -153,8 +157,11 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
 
         protected override void SetPropertiesFromItem(ReservationItemVM item)
         {
-            CurrentGuestText = item.Guest;
-            CurrentRoomText = item.Room;
+            _currentID = item.ID;
+            _currentGuest = item.Guest;
+            CurrentGuestText = item.GuestText;
+            _currentRoom = item.Room;
+            CurrentRoomText = item.RoomText;
             DateStart = Convert.ToDateTime(item.DateStart);
             DateEnd = Convert.ToDateTime(item.DateEnd);
             State = Enum.Parse<ReservationStatus>(item.State);
@@ -176,12 +183,25 @@ namespace SeyforDatabaseProject.ViewModel.Reservations
         private bool IsReservationForThisRoomThisTimeRangeTaken()
         {
             if (_currentRoom == null) return false;
-            ReservationItem? conflictingReservation = _hotelStore.Reservations.Items.FirstOrDefault(r => _currentRoom!.ID == r.Room.ID &&
-                                                                                                         (r.DateStart.WithinRange(DateStart, DateEnd) ||
-                                                                                                         r.DateEnd.WithinRange(DateStart, DateEnd)));
-            
-            bool conflictFound = conflictingReservation != null;
-            ConflictText = (conflictFound) ? $"New reservation is conflicting with {conflictingReservation}." : string.Empty;
+            IList<ReservationItem> conflicts = _hotelStore.Reservations.Items.Where(r => (_currentID != r.ID) &&
+                                                                                         _currentRoom!.ID == r.Room.ID &&
+                                                                                         (r.DateStart.WithinRange(DateStart, DateEnd) ||
+                                                                                          r.DateEnd.WithinRange(DateStart, DateEnd))).ToList();
+            bool conflictFound = conflicts.Count > 0;
+
+            if (!conflictFound)
+            {
+                ConflictText = string.Empty;
+                return conflictFound;
+            }
+
+            StringBuilder sb = new();
+            foreach (ReservationItem conflict in conflicts)
+            {
+                sb.AppendLine($"Reservation is conflicting with {conflict}.");
+            }
+
+            ConflictText = sb.ToString();
             return conflictFound;
         }
 

@@ -80,8 +80,8 @@
                        FontSize="16" />
             </StackPanel>
         </ScrollViewer>
-        <Label Grid.Row="4"
-               Content="{Binding ConflictText, FallbackValue= This is a conflict.}"
+        <TextBlock Grid.Row="4"
+               Text="{Binding ConflictText, FallbackValue= This is a conflict.}"
                Foreground="Red"
                HorizontalAlignment="Center"/>
         <StackPanel Grid.Row="5"
