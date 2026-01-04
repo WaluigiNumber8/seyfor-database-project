@@ -92,10 +92,12 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
         
         public ICommand SelectEquipmentCommand { get; }
         
+        private readonly HotelStore _hotelStore;
         private List<EquipmentItem> _currentEquipment;
-        
+
         public ScreenRoomEditingVM(HotelStore hotelStore, Action navigateToListing, IServiceContentBrowser browserService) : base(hotelStore.Rooms, navigateToListing)
         {
+            _hotelStore = hotelStore;
             SelectEquipmentCommand = new OpenContentBrowserCommand<EquipmentItem>(WhenEquipmentSelected, () => new ContentBrowserEquipmentVM(hotelStore.Equipment, browserService), browserService);
         }
 
@@ -128,6 +130,7 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
         protected override void AddValidationRules(IList<ValidationRule> validationRules)
         {
             validationRules.Add(new ValidationRule(nameof(RoomNumber), "Room Number must be above 0.", () => RoomNumber <= 0));
+            validationRules.Add(new ValidationRule(nameof(RoomNumber), "There is already a room with this number.", () => _hotelStore.Rooms.Items.FirstOrDefault(r => r.RoomNumber == RoomNumber) != null));
             validationRules.Add(new ValidationRule(nameof(Capacity), "Capacity must be above 0.", () => Capacity <= 0));
             validationRules.Add(new ValidationRule(nameof(PricePerNight), "Price must be above 0.", () => PricePerNight <= 0));
         }
