@@ -4,15 +4,32 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Loaded="RoomListView_OnLoaded"
+             Unloaded="RoomListView_OnUnloaded">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Height="28"
+                    Margin="8,8,0,8">
+            <Label Content="Search"
+                   VerticalContentAlignment="Center"/>
+            <TextBox 
+                Name="FilterBox"
+                TextChanged="FilterBox_OnTextChanged"
+                Width="192" 
+                VerticalContentAlignment="Center"/>
+        </StackPanel>
+        
         <!-- Room List -->
-        <ListView Grid.Row="0"
+        <ListView Grid.Row="1"
                   x:Name="RoomItemsListView"
                   ItemsSource="{Binding Items}">
 
@@ -76,7 +93,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <StackPanel Grid.Row="1"
+        <StackPanel Grid.Row="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center"
                     Margin="0,8,0,8">
