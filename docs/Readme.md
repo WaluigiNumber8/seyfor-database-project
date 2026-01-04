@@ -1,6 +1,10 @@
-## About app
+## About App
 
 This is a very simple small hotel database program, able to store data about reservations, guests, rooms and equipment.
+
+![App Image](img/img_App.jpg)
+
+*Reservation view*
 
 ## How to launch
 
@@ -8,6 +12,12 @@ This is a very simple small hotel database program, able to store data about res
 2. Extract from ZIP.
 3. Launch _Seyfor Database Project.exe_.
 4. The app should open with an empty database.
+
+## How to get project for development
+
+1. Clone Github Repo.
+2. Open folder with *SeyforDatabaseProject.sln* in your IDE.
+3. No further configuration should be needed. Press Play to launch configuration (SeyforDatabaseProject.View).
 
 ## Architecture
 
