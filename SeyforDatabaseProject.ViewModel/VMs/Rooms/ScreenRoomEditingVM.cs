@@ -120,7 +120,7 @@ namespace SeyforDatabaseProject.ViewModel.Rooms
             RoomNumber = item.RoomNumber;
             RoomType = Enum.Parse<RoomType>(item.RoomType);
             Capacity = item.Capacity;
-            PricePerNight = decimal.Parse(item.PricePerNight);
+            PricePerNight = item.PricePerNight;
             AvailabilityStatus = Enum.Parse<RoomAvailabilityStatus>(item.AvailabilityStatus);
             _currentEquipment = item.Equipment;
             CurrentEquipmentText = item.EquipmentText;

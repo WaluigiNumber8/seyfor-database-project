@@ -71,7 +71,7 @@
                     <GridViewColumn Header="Price (per Night)">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Padding="0,0,20,0" Text="{Binding PricePerNight}" />
+                                <TextBlock Padding="0,0,20,0" Text="{Binding PricePerNightWithCurrency}" />
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
