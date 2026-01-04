@@ -22,21 +22,21 @@ namespace SeyforDatabaseProject.Model.Services
             switch (item)
             {
                 case EquipmentItem equipment:
-                    db.Equipment.Add(equipment.ConvertToDTO());
+                    db.Equipment.Add(equipment.ConvertToDTO(true));
                     break;
 
                 case RoomItem room:
                     List<EquipmentDTO> equipmentDTOs = await ServiceUtils.GetEquipmentDTOsForRoom(db, room);
-                    db.Rooms.Add(room.ConvertToDTO(equipmentDTOs));
+                    db.Rooms.Add(room.ConvertToDTO(equipmentDTOs, true));
                     break;
 
                 case GuestItem guest:
-                    db.Guests.Add(guest.ConvertToDTO());
+                    db.Guests.Add(guest.ConvertToDTO(true));
                     break;
 
                 case ReservationItem reservation:
                     (GuestDTO guestDTO, RoomDTO roomDTO) = await ServiceUtils.GetGuestAndRoomForReservation(db, reservation);
-                    ReservationDTO dato = reservation.ConvertToDTO(guestDTO, roomDTO);
+                    ReservationDTO dato = reservation.ConvertToDTO(guestDTO, roomDTO, true);
                     db.Reservations.Add(dato);
                     break;
             }

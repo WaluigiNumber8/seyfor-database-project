@@ -6,7 +6,7 @@ namespace SeyforDatabaseProject.Model.DatabaseConnection
     public class RoomDTO
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; init; }
+        public int ID { get; set; }
         public int RoomNumber { get; set; }
         public int RoomType { get; set; }
         public int Capacity { get; set; }
