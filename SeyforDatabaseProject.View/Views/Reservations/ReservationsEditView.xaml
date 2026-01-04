@@ -18,6 +18,7 @@
             <RowDefinition Height="8" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="8" />
         </Grid.RowDefinitions>
         <Label Grid.Row="1"
@@ -79,7 +80,11 @@
                        FontSize="16" />
             </StackPanel>
         </ScrollViewer>
-        <StackPanel Grid.Row="4"
+        <Label Grid.Row="4"
+               Content="{Binding ConflictText, FallbackValue= This is a conflict.}"
+               Foreground="Red"
+               HorizontalAlignment="Center"/>
+        <StackPanel Grid.Row="5"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center"
                     Margin="0,16,0,16">
